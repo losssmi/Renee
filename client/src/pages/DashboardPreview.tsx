@@ -96,9 +96,9 @@ export const DashboardPreview = (): JSX.Element => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-red-900">
+    <div className="min-h-screen bg-[#1E1E1E]">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-red-900/50 backdrop-blur-sm">
+      <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10">
         <div className="flex items-center space-x-8">
           <div className="text-white text-xl font-semibold">Renegade.</div>
           <nav className="flex space-x-6">
@@ -121,20 +121,20 @@ export const DashboardPreview = (): JSX.Element => {
           <div className="relative">
             <Input
               placeholder="Search..."
-              className="w-64 bg-red-800/30 border-red-700 text-white placeholder:text-red-300"
+              className="w-64 bg-white/10 border-white/20 text-white placeholder:text-white/60"
             />
           </div>
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-red-800/30"
+            className="text-white hover:bg-white/10"
           >
             🔔
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-red-800/30"
+            className="text-white hover:bg-white/10"
           >
             ⚙
           </Button>
@@ -148,13 +148,13 @@ export const DashboardPreview = (): JSX.Element => {
       </header>
 
       {/* Sub Navigation */}
-      <nav className="flex items-center px-6 py-3 bg-red-900/30 backdrop-blur-sm border-b border-red-700/30">
+      <nav className="flex items-center px-6 py-3 bg-black/10 backdrop-blur-sm border-b border-white/5">
         <div className="flex space-x-6">
           {subNavigationItems.map((item, index) => (
             <button
               key={index}
               className={`text-sm font-medium transition-colors ${
-                item.active ? "text-white" : "text-red-200 hover:text-white"
+                item.active ? "text-white" : "text-white/60 hover:text-white"
               }`}
             >
               {item.name}
@@ -171,36 +171,36 @@ export const DashboardPreview = (): JSX.Element => {
             <h1 className="text-2xl font-semibold text-white mb-1">
               Hello Antoine!
             </h1>
-            <p className="text-red-200 text-sm">
+            <p className="text-white/60 text-sm">
               Displaying the data from August 2025
             </p>
           </div>
 
           <div className="flex items-center space-x-3">
             <Tabs defaultValue="daily" className="w-auto">
-              <TabsList className="bg-red-800/30 border-red-700">
+              <TabsList className="bg-white/10 border-white/20">
                 <TabsTrigger
                   value="daily"
-                  className="text-red-200 data-[state=active]:text-white data-[state=active]:bg-red-700"
+                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
                 >
                   Daily
                 </TabsTrigger>
                 <TabsTrigger
                   value="weekly"
-                  className="text-red-200 data-[state=active]:text-white data-[state=active]:bg-red-700"
+                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
                 >
                   Weekly
                 </TabsTrigger>
                 <TabsTrigger
                   value="monthly"
-                  className="text-red-200 data-[state=active]:text-white data-[state=active]:bg-red-700"
+                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
                 >
                   Monthly
                 </TabsTrigger>
               </TabsList>
             </Tabs>
 
-            <Button className="bg-white text-red-900 hover:bg-red-50 h-auto px-4 py-2">
+            <Button className="bg-white text-black hover:bg-gray-100 h-auto px-4 py-2">
               Add Product Batch +
             </Button>
           </div>
@@ -211,17 +211,17 @@ export const DashboardPreview = (): JSX.Element => {
           {metricCards.map((card, index) => (
             <Card
               key={index}
-              className="bg-red-800/20 border-red-700/30 backdrop-blur-sm"
+              className="bg-white/5 border-white/10 backdrop-blur-sm"
             >
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-red-200 text-sm font-medium">
+                  <CardTitle className="text-white/60 text-sm font-medium">
                     {card.title}
                   </CardTitle>
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-red-300 hover:bg-red-700/30 h-auto p-1"
+                    className="text-white/60 hover:bg-white/10 h-auto p-1"
                   >
                     ⋯
                   </Button>
@@ -233,7 +233,7 @@ export const DashboardPreview = (): JSX.Element => {
                   <span className="text-2xl font-semibold text-white">
                     {card.value}
                   </span>
-                  <span className="text-red-300 text-sm">{card.subtitle}</span>
+                  <span className="text-white/60 text-sm">{card.subtitle}</span>
                 </div>
                 <div className="flex items-center space-x-2 text-xs">
                   <span
@@ -241,24 +241,24 @@ export const DashboardPreview = (): JSX.Element => {
                   >
                     {card.change}
                   </span>
-                  <span className="text-red-400">{card.changeText}</span>
+                  <span className="text-white/40">{card.changeText}</span>
                 </div>
               </CardContent>
             </Card>
           ))}
 
           {/* AI Recommendation Card */}
-          <Card className="bg-red-800/20 border-red-700/30 backdrop-blur-sm">
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-white font-semibold mb-1">8 actions</div>
-                  <div className="text-red-200 text-sm">
+                  <div className="text-white/60 text-sm">
                     Recommended with AI
                   </div>
-                  <div className="text-red-400 text-xs">Requires review</div>
+                  <div className="text-white/40 text-xs">Requires review</div>
                 </div>
-                <Button className="bg-red-600 hover:bg-red-700 text-white h-auto px-3 py-1 text-sm">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white h-auto px-3 py-1 text-sm">
                   See All Actions 🔥
                 </Button>
               </div>
