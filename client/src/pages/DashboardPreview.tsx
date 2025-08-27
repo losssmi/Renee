@@ -1,5 +1,5 @@
 import React from "react";
-import backgroundImage from "@assets/Vector 1 (1)_1756295321444.png";
+import backgroundImage from "@assets/background.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
