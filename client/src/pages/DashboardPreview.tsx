@@ -96,7 +96,7 @@ export const DashboardPreview = (): JSX.Element => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#1E1E1E]">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-red-900">
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10">
         <div className="flex items-center space-x-8">
