@@ -1,4 +1,5 @@
 import React from "react";
+import backgroundImage from "@assets/Vector 1 (1)_1756295321444.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -96,7 +97,10 @@ export const DashboardPreview = (): JSX.Element => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-900 via-red-800 to-red-900">
+    <div 
+      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10">
         <div className="flex items-center space-x-8">
