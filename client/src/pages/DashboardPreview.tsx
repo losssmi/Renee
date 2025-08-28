@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import backgroundImage from "@assets/background.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -17,25 +17,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Bell, Settings, Search, DollarSign, Package, TrendingDown, MoreHorizontal, BarChart3, ClipboardList, ChevronRight, Plus } from "lucide-react";
 
 export const DashboardPreview = (): JSX.Element => {
+  const [activeNav, setActiveNav] = useState("Accountability");
+  const [activeSubNav, setActiveSubNav] = useState("Dashboard");
+  const [activeTab, setActiveTab] = useState("daily");
+
   const navigationItems = [
-    { name: "Strategy", active: false },
-    { name: "Structure", active: false },
-    { name: "Accountability", active: true },
+    { name: "Strategy", active: activeNav === "Strategy" },
+    { name: "Structure", active: activeNav === "Structure" },
+    { name: "Accountability", active: activeNav === "Accountability" },
   ];
 
   const subNavigationItems = [
-    { name: "Dashboard", active: true },
-    { name: "Scorecard", active: false },
-    { name: "Forecast", active: false },
-    { name: "KPIs", active: false },
-    { name: "Meetings", active: false },
+    { name: "Dashboard", active: activeSubNav === "Dashboard" },
+    { name: "Scorecard", active: activeSubNav === "Scorecard" },
+    { name: "Forecast", active: activeSubNav === "Forecast" },
+    { name: "KPIs", active: activeSubNav === "KPIs" },
+    { name: "Meetings", active: activeSubNav === "Meetings" },
   ];
 
   const metricCards = [
     {
-      icon: "💰",
+      icon: <DollarSign className="w-6 h-6" />,
       title: "Total sales",
       value: "$ 1,284.00",
       subtitle: "of $ 5,000.00",
@@ -44,7 +49,7 @@ export const DashboardPreview = (): JSX.Element => {
       positive: true,
     },
     {
-      icon: "🏷",
+      icon: <Package className="w-6 h-6" />,
       title: "Total Products",
       value: "122",
       subtitle: "Items",
@@ -53,7 +58,7 @@ export const DashboardPreview = (): JSX.Element => {
       positive: false,
     },
     {
-      icon: "📊",
+      icon: <TrendingDown className="w-6 h-6" />,
       title: "% Latest Churn",
       value: "7.81",
       subtitle: "%",
@@ -109,11 +114,13 @@ export const DashboardPreview = (): JSX.Element => {
             {navigationItems.map((item, index) => (
               <button
                 key={index}
-                className={`text-sm font-medium transition-colors ${
+                onClick={() => setActiveNav(item.name)}
+                className={`text-sm font-medium transition-colors cursor-pointer ${
                   item.active
                     ? "text-white border-b-2 border-white pb-1"
-                    : "text-red-200 hover:text-white"
+                    : "text-white/60 hover:text-white"
                 }`}
+                data-testid={`nav-${item.name.toLowerCase()}`}
               >
                 {item.name}
               </button>
@@ -123,24 +130,30 @@ export const DashboardPreview = (): JSX.Element => {
 
         <div className="flex items-center space-x-4">
           <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
             <Input
               placeholder="Search..."
-              className="w-64 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="w-64 pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              data-testid="search-input"
             />
           </div>
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-white/10"
+            className="text-white hover:bg-white/10 transition-colors"
+            onClick={() => console.log('Notifications clicked')}
+            data-testid="button-notifications"
           >
-            🔔
+            <Bell className="w-4 h-4" />
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-white/10"
+            className="text-white hover:bg-white/10 transition-colors"
+            onClick={() => console.log('Settings clicked')}
+            data-testid="button-settings"
           >
-            ⚙
+            <Settings className="w-4 h-4" />
           </Button>
           <Avatar className="h-8 w-8">
             <AvatarImage src="" />
@@ -157,9 +170,11 @@ export const DashboardPreview = (): JSX.Element => {
           {subNavigationItems.map((item, index) => (
             <button
               key={index}
-              className={`text-sm font-medium transition-colors ${
+              onClick={() => setActiveSubNav(item.name)}
+              className={`text-sm font-medium transition-colors cursor-pointer ${
                 item.active ? "text-white" : "text-white/60 hover:text-white"
               }`}
+              data-testid={`subnav-${item.name.toLowerCase()}`}
             >
               {item.name}
             </button>
@@ -181,7 +196,7 @@ export const DashboardPreview = (): JSX.Element => {
           </div>
 
           <div className="flex items-center space-x-3">
-            <Tabs defaultValue="daily" className="w-auto">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
               <TabsList className="bg-white/10 border-white/20">
                 <TabsTrigger
                   value="daily"
@@ -204,8 +219,13 @@ export const DashboardPreview = (): JSX.Element => {
               </TabsList>
             </Tabs>
 
-            <Button className="bg-white text-black hover:bg-gray-100 h-auto px-4 py-2">
-              Add Product Batch +
+            <Button 
+              className="bg-white text-black hover:bg-gray-100 h-auto px-4 py-2 transition-colors"
+              onClick={() => console.log('Add Product Batch clicked')}
+              data-testid="button-add-product"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Product Batch
             </Button>
           </div>
         </div>
@@ -225,15 +245,17 @@ export const DashboardPreview = (): JSX.Element => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-white/60 hover:bg-white/10 h-auto p-1"
+                    className="text-white/60 hover:bg-white/10 h-auto p-1 transition-colors"
+                    onClick={() => console.log('Card menu clicked')}
+                    data-testid={`button-card-menu-${index}`}
                   >
-                    ⋯
+                    <MoreHorizontal className="w-4 h-4" />
                   </Button>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center space-x-2 mb-1">
-                  <span className="text-lg">{card.icon}</span>
+                  <div className="text-white/60">{card.icon}</div>
                   <span className="text-2xl font-semibold text-white">
                     {card.value}
                   </span>
@@ -262,8 +284,12 @@ export const DashboardPreview = (): JSX.Element => {
                   </div>
                   <div className="text-white/40 text-xs">Requires review</div>
                 </div>
-                <Button className="bg-orange-600 hover:bg-orange-700 text-white h-auto px-3 py-1 text-sm">
-                  See All Actions 🔥
+                <Button 
+                  className="bg-orange-600 hover:bg-orange-700 text-white h-auto px-3 py-1 text-sm transition-colors"
+                  onClick={() => console.log('See All Actions clicked')}
+                  data-testid="button-see-actions"
+                >
+                  See All Actions
                 </Button>
               </div>
             </CardContent>
@@ -288,8 +314,14 @@ export const DashboardPreview = (): JSX.Element => {
                       </SelectItem>
                     </SelectContent>
                   </Select>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                    📊
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 w-8 p-0 transition-colors hover:bg-gray-100"
+                    onClick={() => console.log('Analytics chart clicked')}
+                    data-testid="button-analytics-chart"
+                  >
+                    <BarChart3 className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
@@ -385,23 +417,23 @@ export const DashboardPreview = (): JSX.Element => {
               {/* Action Items */}
               <div className="space-y-2">
                 {actionItems.map((item, index) => (
-                  <div
+                  <button
                     key={index}
-                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded"
+                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded transition-colors cursor-pointer w-full"
+                    onClick={() => console.log(`Action item ${index + 1} clicked`)}
+                    data-testid={`action-item-${index}`}
                   >
                     <div className="flex items-center space-x-3">
                       <div className="w-6 h-6 bg-gray-200 rounded flex items-center justify-center text-xs">
-                        📋
+                        <ClipboardList className="w-3 h-3" />
                       </div>
                       <span className="text-sm text-gray-700">
                         <span className="font-semibold">{item.count}</span>{" "}
                         {item.text}
                       </span>
                     </div>
-                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                      →
-                    </Button>
-                  </div>
+                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                  </button>
                 ))}
               </div>
             </CardContent>
