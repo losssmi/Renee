@@ -442,7 +442,7 @@ export const DashboardPreview = (): JSX.Element => {
           {/* GCI Section */}
           <Card className="bg-white/95 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-gray-900">GCI</CardTitle>
+              <CardTitle className="text-gray-900">GCI Metrics </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {gciMetrics.map((metric, index) => (
