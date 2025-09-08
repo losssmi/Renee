@@ -596,60 +596,60 @@ export const DashboardPreview = (): JSX.Element => {
 // Vision Page Component
 const VisionPage = () => {
   return (
-    <Card className="bg-white/10 backdrop-blur-md border-white/20 max-w-6xl mx-auto">
+    <Card className="bg-[#FFFBEF]/10 backdrop-blur-md border-[#C7BDB4]/20 max-w-6xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-white text-2xl">Vision</CardTitle>
+        <CardTitle className="text-[#FFFBEF] text-2xl">Vision</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Vision
               </label>
               <Textarea
                 placeholder="Enter your vision statement..."
-                className="min-h-[100px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="min-h-[100px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-vision"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Mission
               </label>
               <Textarea
                 placeholder="Enter your mission statement..."
-                className="min-h-[100px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="min-h-[100px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-mission"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Core Focus
               </label>
               <Input
                 placeholder="Enter your core focus..."
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-core-focus"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 USP
               </label>
               <Input
                 placeholder="Enter your unique selling proposition..."
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-usp"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Values
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -657,7 +657,7 @@ const VisionPage = () => {
                   <Input
                     key={num}
                     placeholder={`Value ${num}`}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                    className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                     data-testid={`input-value-${num}`}
                   />
                 ))}
@@ -668,45 +668,45 @@ const VisionPage = () => {
           {/* Right Column - SWOT Analysis */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Strengths
               </label>
               <Textarea
                 placeholder="List your strengths..."
-                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-strengths"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Weaknesses
               </label>
               <Textarea
                 placeholder="List your weaknesses..."
-                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-weaknesses"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Opportunities
               </label>
               <Textarea
                 placeholder="List opportunities..."
-                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-opportunities"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
                 Threats
               </label>
               <Textarea
                 placeholder="List potential threats..."
-                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
                 data-testid="input-threats"
               />
             </div>
@@ -716,14 +716,14 @@ const VisionPage = () => {
         <div className="mt-8 flex justify-end space-x-4">
           <Button
             variant="outline"
-            className="border-white/30 text-white hover:bg-white/10"
+            className="border-[#C7BDB4]/30 text-[#FFFBEF] hover:bg-[#C7BDB4]/10"
             onClick={() => console.log("Reset clicked")}
             data-testid="button-reset"
           >
             Reset
           </Button>
           <Button
-            className="bg-white text-black hover:bg-gray-100"
+            className="bg-[#FFFBEF] text-[#1D0200] hover:bg-[#C7BDB4]"
             onClick={() => console.log("Save Vision clicked")}
             data-testid="button-save-vision"
           >
@@ -762,18 +762,18 @@ const GoalsPage = () => {
   return (
     <Card className="bg-white/10 backdrop-blur-md border-white/20 max-w-7xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-white text-2xl mb-6">Goals</CardTitle>
+        <CardTitle className="text-[#FFFBEF] text-2xl mb-6">Goals</CardTitle>
 
         {/* Tab Navigation */}
-        <div className="flex space-x-1 bg-white/10 rounded-lg p-1">
+        <div className="flex space-x-1 bg-[#FFFBEF]/10 rounded-lg p-1">
           {timeframes.map((timeframe) => (
             <button
               key={timeframe}
               onClick={() => setActiveTimeframe(timeframe)}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                 activeTimeframe === timeframe
-                  ? "bg-white/20 text-white"
-                  : "text-white/60 hover:text-white hover:bg-white/10"
+                  ? "bg-[#C7BDB4]/20 text-[#FFFBEF]"
+                  : "text-[#FFFBEF]/60 hover:text-[#FFFBEF] hover:bg-[#C7BDB4]/10"
               }`}
               data-testid={`tab-${timeframe.replace(" ", "-").toLowerCase()}`}
             >
@@ -790,7 +790,7 @@ const GoalsPage = () => {
             {goalCategories.map((category, index) => (
               <div
                 key={index}
-                className="p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors"
+                className="p-4 bg-[#FFFBEF]/5 rounded-lg border border-[#C7BDB4]/10 hover:bg-[#C7BDB4]/10 transition-colors"
               >
                 <div className="text-white font-medium">{category}</div>
               </div>
@@ -858,14 +858,14 @@ const GoalsPage = () => {
         <div className="mt-8 flex justify-end space-x-4">
           <Button
             variant="outline"
-            className="border-white/30 text-white hover:bg-white/10"
+            className="border-[#C7BDB4]/30 text-[#FFFBEF] hover:bg-[#C7BDB4]/10"
             onClick={() => console.log("Reset Goals clicked")}
             data-testid="button-reset-goals"
           >
             Reset
           </Button>
           <Button
-            className="bg-white text-black hover:bg-gray-100"
+            className="bg-[#FFFBEF] text-[#1D0200] hover:bg-[#C7BDB4]"
             onClick={() => console.log("Save Goals clicked")}
             data-testid="button-save-goals"
           >
