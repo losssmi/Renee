@@ -215,14 +215,15 @@ export const DashboardPreview = (): JSX.Element => {
       {/* Main Content */}
       <main className="p-6 space-y-6">
         {/* Conditional Content Based on Navigation */}
-        {activeNav === "Strategy" && activeSubNav === "Vision" && (
-          <VisionPage />
-        )}
-        
-        {activeNav === "Strategy" && activeSubNav !== "Vision" && (
-          <div className="text-white text-center py-12">
-            <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
-            <p className="text-white/60">Coming soon...</p>
+        {activeNav === "Strategy" && (
+          <div className="text-white">
+            {activeSubNav === "Vision" ? <VisionPage /> : 
+             activeSubNav === "Goals" ? <GoalsPage /> : (
+              <div className="text-center py-12">
+                <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
+                <p className="text-white/60">Coming soon...</p>
+              </div>
+            )}
           </div>
         )}
 
@@ -671,6 +672,189 @@ const VisionPage = () => {
           >
             Save Vision
           </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+// Goals Page Component - Monday.com style
+const GoalsPage = () => {
+  const goals = [
+    {
+      id: 1,
+      task: "Increase monthly revenue by 25%",
+      status: "In Progress",
+      priority: "High",
+      progress: 65,
+      assignee: "John D",
+      dueDate: "Dec 15, 2025",
+      completed: false
+    },
+    {
+      id: 2,
+      task: "Launch new product line",
+      status: "Planning",
+      priority: "High",
+      progress: 30,
+      assignee: "Sarah M",
+      dueDate: "Jan 30, 2026",
+      completed: false
+    },
+    {
+      id: 3,
+      task: "Improve customer satisfaction score",
+      status: "Done",
+      priority: "Medium",
+      progress: 100,
+      assignee: "Mike R",
+      dueDate: "Nov 20, 2025",
+      completed: true
+    },
+    {
+      id: 4,
+      task: "Expand to 3 new markets",
+      status: "In Progress",
+      priority: "High",
+      progress: 45,
+      assignee: "Anna L",
+      dueDate: "Mar 15, 2026",
+      completed: false
+    },
+    {
+      id: 5,
+      task: "Reduce operational costs by 15%",
+      status: "Planning",
+      priority: "Medium",
+      progress: 20,
+      assignee: "Tom W",
+      dueDate: "Feb 28, 2026",
+      completed: false
+    }
+  ];
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Done": return "bg-green-500";
+      case "In Progress": return "bg-blue-500";
+      case "Planning": return "bg-orange-500";
+      default: return "bg-gray-500";
+    }
+  };
+
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case "High": return "bg-red-500";
+      case "Medium": return "bg-yellow-500";
+      case "Low": return "bg-green-500";
+      default: return "bg-gray-500";
+    }
+  };
+
+  return (
+    <Card className="bg-white/10 backdrop-blur-md border-white/20 max-w-7xl mx-auto">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-white text-2xl">Strategic Goals</CardTitle>
+          <Button 
+            className="bg-white text-black hover:bg-gray-100"
+            onClick={() => console.log('Add Goal clicked')}
+            data-testid="button-add-goal"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Goal
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        {/* Board Header */}
+        <div className="grid grid-cols-12 gap-4 pb-4 border-b border-white/20 mb-4">
+          <div className="col-span-1 text-sm font-medium text-white/60"></div>
+          <div className="col-span-4 text-sm font-medium text-white/60">Goal</div>
+          <div className="col-span-1 text-sm font-medium text-white/60">Status</div>
+          <div className="col-span-1 text-sm font-medium text-white/60">Priority</div>
+          <div className="col-span-2 text-sm font-medium text-white/60">Progress</div>
+          <div className="col-span-1 text-sm font-medium text-white/60">Assignee</div>
+          <div className="col-span-2 text-sm font-medium text-white/60">Due Date</div>
+        </div>
+
+        {/* Goal Rows */}
+        <div className="space-y-3">
+          {goals.map((goal) => (
+            <div 
+              key={goal.id}
+              className="grid grid-cols-12 gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
+            >
+              {/* Checkbox */}
+              <div className="col-span-1 flex items-center">
+                <input
+                  type="checkbox"
+                  checked={goal.completed}
+                  onChange={() => console.log(`Toggle goal ${goal.id}`)}
+                  className="w-4 h-4 rounded border-white/30 bg-white/10 text-white focus:ring-white/20"
+                  data-testid={`checkbox-goal-${goal.id}`}
+                />
+              </div>
+
+              {/* Goal Title */}
+              <div className="col-span-4 flex items-center">
+                <span className={`text-sm ${goal.completed ? 'text-white/60 line-through' : 'text-white'}`}>
+                  {goal.task}
+                </span>
+              </div>
+
+              {/* Status */}
+              <div className="col-span-1 flex items-center">
+                <span className={`px-2 py-1 rounded text-xs font-medium text-white ${getStatusColor(goal.status)}`}>
+                  {goal.status}
+                </span>
+              </div>
+
+              {/* Priority */}
+              <div className="col-span-1 flex items-center">
+                <div className={`w-3 h-3 rounded-full ${getPriorityColor(goal.priority)}`}></div>
+              </div>
+
+              {/* Progress */}
+              <div className="col-span-2 flex items-center space-x-2">
+                <div className="flex-1 bg-white/20 rounded-full h-2">
+                  <div 
+                    className="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full transition-all"
+                    style={{ width: `${goal.progress}%` }}
+                  ></div>
+                </div>
+                <span className="text-xs text-white/60">{goal.progress}%</span>
+              </div>
+
+              {/* Assignee */}
+              <div className="col-span-1 flex items-center">
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-xs text-white font-medium">
+                  {goal.assignee.split(' ').map(n => n[0]).join('')}
+                </div>
+              </div>
+
+              {/* Due Date */}
+              <div className="col-span-2 flex items-center">
+                <span className="text-sm text-white/70">{goal.dueDate}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Summary Section */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+            <div className="text-2xl font-bold text-white mb-1">5</div>
+            <div className="text-sm text-white/60">Total Goals</div>
+          </div>
+          <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+            <div className="text-2xl font-bold text-green-400 mb-1">1</div>
+            <div className="text-sm text-white/60">Completed</div>
+          </div>
+          <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+            <div className="text-2xl font-bold text-blue-400 mb-1">52%</div>
+            <div className="text-sm text-white/60">Average Progress</div>
+          </div>
         </div>
       </CardContent>
     </Card>
