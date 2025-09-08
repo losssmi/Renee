@@ -6,9 +6,9 @@ export const Welcome = (): JSX.Element => {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    // Auto-advance to assessment screen after 3 seconds
+    // Auto-advance to step 2 after 3 seconds
     const timer = setTimeout(() => {
-      setLocation("/assessment-intro");
+      setLocation("/step2-strategy");
     }, 3000);
 
     return () => clearTimeout(timer);

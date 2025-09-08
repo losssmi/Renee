@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLocation } from "wouter";
+import { ChevronRight } from "lucide-react";
 import loginBackground from "@assets/Sign up_1757333780171.png";
 
 export const ChooseUsername = (): JSX.Element => {
@@ -86,10 +87,11 @@ export const ChooseUsername = (): JSX.Element => {
             <Button
               type="submit"
               disabled={isLoading || username.length < 3}
-              className="w-full h-12 bg-white/20 hover:bg-white/30 text-white font-medium rounded-full transition-colors mt-6 backdrop-blur-sm border border-white/20"
+              className="w-full h-12 bg-white/20 hover:bg-white/30 text-white font-medium rounded-full transition-colors mt-6 backdrop-blur-sm border border-white/20 flex items-center justify-center gap-2"
               data-testid="button-continue"
             >
               {isLoading ? "Setting username..." : "Continue"}
+              {!isLoading && username.length >= 3 && <ChevronRight className="w-4 h-4" />}
             </Button>
           </form>
         </div>

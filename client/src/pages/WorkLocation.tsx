@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLocation } from "wouter";
+import { ChevronRight } from "lucide-react";
 import loginBackground from "@assets/Sign up_1757333780171.png";
 
 export const WorkLocation = (): JSX.Element => {
@@ -102,10 +103,11 @@ export const WorkLocation = (): JSX.Element => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12 bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 font-medium rounded-full transition-colors mt-8 disabled:opacity-50"
+              className="w-full h-12 bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 font-medium rounded-full transition-colors mt-8 disabled:opacity-50 flex items-center justify-center gap-2"
               data-testid="button-continue"
             >
               {isLoading ? "Saving..." : "Continue"}
+              {!isLoading && <ChevronRight className="w-4 h-4" />}
             </Button>
           </form>
         </div>
