@@ -383,15 +383,15 @@ export const DashboardPreview = (): JSX.Element => {
             {/* Analytics and GCI Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Quick Analytics */}
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
+              <Card className="bg-[#FFFBEF]/10 backdrop-blur-md border-[#C7BDB4]/20">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-white">
+                    <CardTitle className="text-[#FFFBEF]">
                       Quick Analytics
                     </CardTitle>
                     <div className="flex items-center space-x-2">
                       <Select defaultValue="total-sales">
-                        <SelectTrigger className="w-40 h-8 text-sm bg-white/10 border-white/20 text-white">
+                        <SelectTrigger className="w-40 h-8 text-sm bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF]">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -403,7 +403,7 @@ export const DashboardPreview = (): JSX.Element => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-8 w-8 p-0 transition-colors hover:bg-white/10 text-white"
+                        className="h-8 w-8 p-0 transition-colors hover:bg-[#C7BDB4]/10 text-[#FFFBEF]"
                         onClick={() => console.log("Analytics chart clicked")}
                         data-testid="button-analytics-chart"
                       >
@@ -417,14 +417,14 @@ export const DashboardPreview = (): JSX.Element => {
                   <div className="grid grid-cols-3 gap-4 mb-6">
                     {quickAnalyticsMetrics.map((metric, index) => (
                       <div key={index} className="text-center">
-                        <div className="text-sm text-white/60 mb-1">
+                        <div className="text-sm text-[#FFFBEF]/60 mb-1">
                           {metric.label}
                         </div>
-                        <div className="text-xl font-semibold text-white">
+                        <div className="text-xl font-semibold text-[#FFFBEF]">
                           {metric.value}
                         </div>
                         {metric.subtitle && (
-                          <div className="text-xs text-white/40">
+                          <div className="text-xs text-[#FFFBEF]/40">
                             {metric.subtitle}
                           </div>
                         )}
@@ -491,7 +491,7 @@ export const DashboardPreview = (): JSX.Element => {
                     </svg>
 
                     {/* X-axis labels */}
-                    <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-white/40 px-4">
+                    <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-[#FFFBEF]/40 px-4">
                       <span>2 Jun</span>
                       <span>9 Jun</span>
                       <span>15 Jun</span>
@@ -505,14 +505,14 @@ export const DashboardPreview = (): JSX.Element => {
                     {actionItems.map((item, index) => (
                       <button
                         key={index}
-                        className="flex items-center justify-between p-2 hover:bg-white/10 rounded transition-colors cursor-pointer w-full"
+                        className="flex items-center justify-between p-2 hover:bg-[#C7BDB4]/10 rounded transition-colors cursor-pointer w-full"
                         onClick={() =>
                           console.log(`Action item ${index + 1} clicked`)
                         }
                         data-testid={`action-item-${index}`}
                       >
                         <div className="flex items-center space-x-3">
-                          <div className="w-6 h-6 bg-white/20 rounded flex items-center justify-center text-xs">
+                          <div className="w-6 h-6 bg-[#FFFBEF]/20 rounded flex items-center justify-center text-xs">
                             <ClipboardList className="w-3 h-3" />
                           </div>
                           <span className="text-sm text-white/90">
@@ -528,7 +528,7 @@ export const DashboardPreview = (): JSX.Element => {
               </Card>
 
               {/* GCI Section */}
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
+              <Card className="bg-[#FFFBEF]/10 backdrop-blur-md border-[#C7BDB4]/20">
                 <CardHeader>
                   <CardTitle className="text-white">GCI Metrics </CardTitle>
                 </CardHeader>
@@ -542,7 +542,7 @@ export const DashboardPreview = (): JSX.Element => {
                         <div className="text-2xl font-bold text-white mb-1">
                           {metric.title}
                         </div>
-                        <div className="text-sm text-white/60 mb-1">
+                        <div className="text-sm text-[#FFFBEF]/60 mb-1">
                           {metric.subtitle}
                         </div>
                         <div className="text-xs text-white/40">
