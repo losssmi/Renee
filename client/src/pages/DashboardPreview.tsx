@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import backgroundImage from "@assets/background.png";
+import renegadeLogo from "@assets/Renegade OS logo_transparent (1)_1757317560952.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -134,7 +135,7 @@ export const DashboardPreview = (): JSX.Element => {
       <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10">
         <div className="flex items-center space-x-8">
           <img 
-            src="/@assets/Renegade OS logo_transparent (1)_1757317560952.png" 
+            src={renegadeLogo} 
             alt="Renegade OS" 
             className="h-8 w-auto"
           />
