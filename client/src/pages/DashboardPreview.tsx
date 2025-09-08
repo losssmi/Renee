@@ -142,7 +142,7 @@ export const DashboardPreview = (): JSX.Element => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10">
+      <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10 h-16 overflow-hidden">
         <div className="flex items-center space-x-8">
           <img
             src={renegadeLogo}
