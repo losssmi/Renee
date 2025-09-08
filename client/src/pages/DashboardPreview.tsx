@@ -133,7 +133,11 @@ export const DashboardPreview = (): JSX.Element => {
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10">
         <div className="flex items-center space-x-8">
-          <div className="text-white text-xl font-semibold">Renegade.</div>
+          <img 
+            src="/@assets/Renegade OS logo_transparent (1)_1757317560952.png" 
+            alt="Renegade OS" 
+            className="h-8 w-auto"
+          />
           <nav className="flex space-x-6">
             {navigationItems.map((item, index) => (
               <button
