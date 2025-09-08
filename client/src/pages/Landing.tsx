@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
+import loginBackground from "@assets/Sign up_1757333780171.png";
 
 export const Landing = (): JSX.Element => {
   const [, setLocation] = useLocation();
@@ -22,7 +23,12 @@ export const Landing = (): JSX.Element => {
   };
 
   return (
-    <div className="bg-[#b5969c] min-h-screen w-full">
+    <div 
+      className="min-h-screen w-full bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${loginBackground})`,
+      }}
+    >
       {/* Header */}
       <header className="flex justify-between items-center px-8 py-6">
         <div className="text-white text-xl font-light">Renegade OS.</div>
