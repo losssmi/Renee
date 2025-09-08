@@ -41,8 +41,8 @@ export const ChooseUsername = (): JSX.Element => {
       // Clear the pending user ID
       localStorage.removeItem("pendingUserId");
       
-      // Navigate to dashboard
-      setLocation("/dashboard");
+      // Navigate to work location page
+      setLocation("/work-location");
     } catch (error: any) {
       console.error("Error setting username:", error);
       if (error.message.includes("Username already taken")) {

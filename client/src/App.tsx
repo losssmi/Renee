@@ -8,6 +8,9 @@ import NotFound from "@/pages/not-found";
 import { DashboardPreview } from "@/pages/DashboardPreview";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
+import { WorkLocation } from "@/pages/WorkLocation";
+import { Welcome } from "@/pages/Welcome";
+import { AssessmentIntro } from "@/pages/AssessmentIntro";
 
 function Router() {
   return (
@@ -15,6 +18,9 @@ function Router() {
       {/* Add pages below */}
       <Route path="/login" component={Login} />
       <Route path="/choose-username" component={ChooseUsername} />
+      <Route path="/work-location" component={WorkLocation} />
+      <Route path="/welcome" component={Welcome} />
+      <Route path="/assessment-intro" component={AssessmentIntro} />
       <Route path="/dashboard" component={DashboardPreview} />
       <Route path="/" component={Login} />
       {/* Fallback to 404 */}
