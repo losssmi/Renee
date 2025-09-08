@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "wouter";
 import backgroundImage from "@assets/background.png";
 import renegadeLogo from "@assets/Renegade OS logo_transparent (1)_1757317560952.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -36,6 +37,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 export const DashboardPreview = (): JSX.Element => {
+  const [, setLocation] = useLocation();
   const [activeNav, setActiveNav] = useState("Accountability");
   const [activeSubNav, setActiveSubNav] = useState("Dashboard");
   const [activeTab, setActiveTab] = useState("daily");
@@ -43,7 +45,8 @@ export const DashboardPreview = (): JSX.Element => {
   const handleLogout = () => {
     console.log("Logout clicked");
     // Add your logout logic here
-    // For example: clear session, redirect to login, etc.
+    // For example: clear session, etc.
+    setLocation("/login");
   };
 
   const navigationItems = [
