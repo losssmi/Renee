@@ -16,9 +16,9 @@ export const Login = (): JSX.Element => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -31,7 +31,7 @@ export const Login = (): JSX.Element => {
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-4"
       style={{ backgroundImage: `url(${loginBackground})` }}
     >
@@ -42,12 +42,10 @@ export const Login = (): JSX.Element => {
             <img
               src={renegadeLogo}
               alt="Renegade OS"
-              className="h-20 w-auto transform rotate-90"
+              className="h-25 w-auto transform rotate-90"
             />
           </div>
-          <p className="text-white/80 text-lg">
-            Create an account
-          </p>
+          <p className="text-white/80 text-lg">Create an account</p>
         </div>
 
         {/* Login Form */}
@@ -55,8 +53,8 @@ export const Login = (): JSX.Element => {
           <CardContent className="p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label 
-                  htmlFor="usernameOrEmail" 
+                <Label
+                  htmlFor="usernameOrEmail"
                   className="text-gray-600 font-medium"
                 >
                   Username or email
@@ -74,10 +72,7 @@ export const Login = (): JSX.Element => {
               </div>
 
               <div className="space-y-2">
-                <Label 
-                  htmlFor="password" 
-                  className="text-gray-600 font-medium"
-                >
+                <Label htmlFor="password" className="text-gray-600 font-medium">
                   Password
                 </Label>
                 <Input
