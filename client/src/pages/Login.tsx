@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLocation } from "wouter";
 import loginBackground from "@assets/Sign up_1757333780171.png";
+import renegadeLogo from "@assets/Renegade OS logo_transparent (1)_1757317560952.png";
 
 export const Login = (): JSX.Element => {
   const [, setLocation] = useLocation();
@@ -37,9 +38,13 @@ export const Login = (): JSX.Element => {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-light text-white mb-2">
-            Renegade OS.
-          </h1>
+          <div className="flex justify-center mb-4">
+            <img
+              src={renegadeLogo}
+              alt="Renegade OS"
+              className="h-20 w-auto"
+            />
+          </div>
           <p className="text-white/80 text-lg">
             Create an account
           </p>
