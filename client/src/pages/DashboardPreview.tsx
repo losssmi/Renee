@@ -678,183 +678,137 @@ const VisionPage = () => {
   );
 };
 
-// Goals Page Component - Monday.com style
+// Goals Page Component - Original client design with glass morphism
 const GoalsPage = () => {
-  const goals = [
-    {
-      id: 1,
-      task: "Increase monthly revenue by 25%",
-      status: "In Progress",
-      priority: "High",
-      progress: 65,
-      assignee: "John D",
-      dueDate: "Dec 15, 2025",
-      completed: false
-    },
-    {
-      id: 2,
-      task: "Launch new product line",
-      status: "Planning",
-      priority: "High",
-      progress: 30,
-      assignee: "Sarah M",
-      dueDate: "Jan 30, 2026",
-      completed: false
-    },
-    {
-      id: 3,
-      task: "Improve customer satisfaction score",
-      status: "Done",
-      priority: "Medium",
-      progress: 100,
-      assignee: "Mike R",
-      dueDate: "Nov 20, 2025",
-      completed: true
-    },
-    {
-      id: 4,
-      task: "Expand to 3 new markets",
-      status: "In Progress",
-      priority: "High",
-      progress: 45,
-      assignee: "Anna L",
-      dueDate: "Mar 15, 2026",
-      completed: false
-    },
-    {
-      id: 5,
-      task: "Reduce operational costs by 15%",
-      status: "Planning",
-      priority: "Medium",
-      progress: 20,
-      assignee: "Tom W",
-      dueDate: "Feb 28, 2026",
-      completed: false
-    }
+  const [activeTimeframe, setActiveTimeframe] = useState("1 year Goals");
+  
+  const timeframes = ["1 year Goals", "3 year Goals", "10 year Goals"];
+  
+  const goalCategories = [
+    "Future date",
+    "Revenue (GCI)",
+    "Profit", 
+    "KPIs",
+    "Revenue",
+    "Client base"
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Done": return "bg-green-500";
-      case "In Progress": return "bg-blue-500";
-      case "Planning": return "bg-orange-500";
-      default: return "bg-gray-500";
-    }
-  };
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "High": return "bg-red-500";
-      case "Medium": return "bg-yellow-500";
-      case "Low": return "bg-green-500";
-      default: return "bg-gray-500";
-    }
-  };
+  const lifeAreas = [
+    "Business",
+    "Health (Physical & Mental)",
+    "Relationships", 
+    "Finance/Investments",
+    "Personal Growth/Learning",
+    "Spirituality/Values"
+  ];
 
   return (
     <Card className="bg-white/10 backdrop-blur-md border-white/20 max-w-7xl mx-auto">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-white text-2xl">Strategic Goals</CardTitle>
-          <Button 
-            className="bg-white text-black hover:bg-gray-100"
-            onClick={() => console.log('Add Goal clicked')}
-            data-testid="button-add-goal"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add Goal
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>
-        {/* Board Header */}
-        <div className="grid grid-cols-12 gap-4 pb-4 border-b border-white/20 mb-4">
-          <div className="col-span-1 text-sm font-medium text-white/60"></div>
-          <div className="col-span-4 text-sm font-medium text-white/60">Goal</div>
-          <div className="col-span-1 text-sm font-medium text-white/60">Status</div>
-          <div className="col-span-1 text-sm font-medium text-white/60">Priority</div>
-          <div className="col-span-2 text-sm font-medium text-white/60">Progress</div>
-          <div className="col-span-1 text-sm font-medium text-white/60">Assignee</div>
-          <div className="col-span-2 text-sm font-medium text-white/60">Due Date</div>
-        </div>
-
-        {/* Goal Rows */}
-        <div className="space-y-3">
-          {goals.map((goal) => (
-            <div 
-              key={goal.id}
-              className="grid grid-cols-12 gap-4 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
+        <CardTitle className="text-white text-2xl mb-6">Goals</CardTitle>
+        
+        {/* Tab Navigation */}
+        <div className="flex space-x-1 bg-white/10 rounded-lg p-1">
+          {timeframes.map((timeframe) => (
+            <button
+              key={timeframe}
+              onClick={() => setActiveTimeframe(timeframe)}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                activeTimeframe === timeframe
+                  ? "bg-white/20 text-white"
+                  : "text-white/60 hover:text-white hover:bg-white/10"
+              }`}
+              data-testid={`tab-${timeframe.replace(' ', '-').toLowerCase()}`}
             >
-              {/* Checkbox */}
-              <div className="col-span-1 flex items-center">
-                <input
-                  type="checkbox"
-                  checked={goal.completed}
-                  onChange={() => console.log(`Toggle goal ${goal.id}`)}
-                  className="w-4 h-4 rounded border-white/30 bg-white/10 text-white focus:ring-white/20"
-                  data-testid={`checkbox-goal-${goal.id}`}
-                />
-              </div>
-
-              {/* Goal Title */}
-              <div className="col-span-4 flex items-center">
-                <span className={`text-sm ${goal.completed ? 'text-white/60 line-through' : 'text-white'}`}>
-                  {goal.task}
-                </span>
-              </div>
-
-              {/* Status */}
-              <div className="col-span-1 flex items-center">
-                <span className={`px-2 py-1 rounded text-xs font-medium text-white ${getStatusColor(goal.status)}`}>
-                  {goal.status}
-                </span>
-              </div>
-
-              {/* Priority */}
-              <div className="col-span-1 flex items-center">
-                <div className={`w-3 h-3 rounded-full ${getPriorityColor(goal.priority)}`}></div>
-              </div>
-
-              {/* Progress */}
-              <div className="col-span-2 flex items-center space-x-2">
-                <div className="flex-1 bg-white/20 rounded-full h-2">
-                  <div 
-                    className="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full transition-all"
-                    style={{ width: `${goal.progress}%` }}
-                  ></div>
-                </div>
-                <span className="text-xs text-white/60">{goal.progress}%</span>
-              </div>
-
-              {/* Assignee */}
-              <div className="col-span-1 flex items-center">
-                <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-xs text-white font-medium">
-                  {goal.assignee.split(' ').map(n => n[0]).join('')}
-                </div>
-              </div>
-
-              {/* Due Date */}
-              <div className="col-span-2 flex items-center">
-                <span className="text-sm text-white/70">{goal.dueDate}</span>
-              </div>
-            </div>
+              {timeframe}
+            </button>
           ))}
         </div>
+      </CardHeader>
+      
+      <CardContent>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* Left Sidebar - Goal Categories */}
+          <div className="lg:col-span-2 space-y-3">
+            {goalCategories.map((category, index) => (
+              <div 
+                key={index}
+                className="p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <div className="text-white font-medium">{category}</div>
+              </div>
+            ))}
+          </div>
 
-        {/* Summary Section */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-            <div className="text-2xl font-bold text-white mb-1">5</div>
-            <div className="text-sm text-white/60">Total Goals</div>
+          {/* Vertical Divider */}
+          <div className="hidden lg:block w-px bg-white/20"></div>
+
+          {/* Right Side - Life Areas with Purpose/Result */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="text-center">
+                <h3 className="text-white font-semibold text-lg">Purpose</h3>
+              </div>
+              <div className="text-center">
+                <h3 className="text-white font-semibold text-lg">Result</h3>
+              </div>
+            </div>
+
+            {lifeAreas.map((area, index) => (
+              <div key={index} className="bg-white/5 rounded-lg border border-white/10 p-4">
+                <div className="mb-3">
+                  <span className="text-white/90 font-medium text-sm">{area}</span>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Purpose Column */}
+                  <div>
+                    <Textarea
+                      placeholder="Enter purpose..."
+                      className="min-h-[80px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/40 text-sm"
+                      data-testid={`purpose-${area.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                    />
+                  </div>
+                  
+                  {/* Result Column */}
+                  <div>
+                    <Textarea
+                      placeholder="Enter result..."
+                      className="min-h-[80px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/40 text-sm"
+                      data-testid={`result-${area.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                    />
+                  </div>
+                </div>
+                
+                {/* Progress indicator inspired by Monday.com */}
+                <div className="mt-3 flex items-center space-x-2">
+                  <div className="flex-1 bg-white/20 rounded-full h-1">
+                    <div className="bg-gradient-to-r from-green-400 to-green-600 h-1 rounded-full w-0 transition-all"></div>
+                  </div>
+                  <span className="text-xs text-white/40">0%</span>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-            <div className="text-2xl font-bold text-green-400 mb-1">1</div>
-            <div className="text-sm text-white/60">Completed</div>
-          </div>
-          <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-            <div className="text-2xl font-bold text-blue-400 mb-1">52%</div>
-            <div className="text-sm text-white/60">Average Progress</div>
-          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="mt-8 flex justify-end space-x-4">
+          <Button 
+            variant="outline"
+            className="border-white/30 text-white hover:bg-white/10"
+            onClick={() => console.log('Reset Goals clicked')}
+            data-testid="button-reset-goals"
+          >
+            Reset
+          </Button>
+          <Button 
+            className="bg-white text-black hover:bg-gray-100"
+            onClick={() => console.log('Save Goals clicked')}
+            data-testid="button-save-goals"
+          >
+            Save Goals
+          </Button>
         </div>
       </CardContent>
     </Card>
