@@ -350,13 +350,13 @@ export const DashboardPreview = (): JSX.Element => {
         {/* Analytics and GCI Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Quick Analytics */}
-          <Card className="bg-white/95 backdrop-blur-sm">
+          <Card className="bg-white/10 backdrop-blur-md border-white/20">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-gray-900">Quick Analytics</CardTitle>
+                <CardTitle className="text-white">Quick Analytics</CardTitle>
                 <div className="flex items-center space-x-2">
                   <Select defaultValue="total-sales">
-                    <SelectTrigger className="w-40 h-8 text-sm">
+                    <SelectTrigger className="w-40 h-8 text-sm bg-white/10 border-white/20 text-white">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -368,7 +368,7 @@ export const DashboardPreview = (): JSX.Element => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="h-8 w-8 p-0 transition-colors hover:bg-gray-100"
+                    className="h-8 w-8 p-0 transition-colors hover:bg-white/10 text-white"
                     onClick={() => console.log('Analytics chart clicked')}
                     data-testid="button-analytics-chart"
                   >
@@ -382,14 +382,14 @@ export const DashboardPreview = (): JSX.Element => {
               <div className="grid grid-cols-3 gap-4 mb-6">
                 {quickAnalyticsMetrics.map((metric, index) => (
                   <div key={index} className="text-center">
-                    <div className="text-sm text-gray-600 mb-1">
+                    <div className="text-sm text-white/60 mb-1">
                       {metric.label}
                     </div>
-                    <div className="text-xl font-semibold text-gray-900">
+                    <div className="text-xl font-semibold text-white">
                       {metric.value}
                     </div>
                     {metric.subtitle && (
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-white/40">
                         {metric.subtitle}
                       </div>
                     )}
@@ -456,7 +456,7 @@ export const DashboardPreview = (): JSX.Element => {
                 </svg>
 
                 {/* X-axis labels */}
-                <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-500 px-4">
+                <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-white/40 px-4">
                   <span>2 Jun</span>
                   <span>9 Jun</span>
                   <span>15 Jun</span>
@@ -470,20 +470,20 @@ export const DashboardPreview = (): JSX.Element => {
                 {actionItems.map((item, index) => (
                   <button
                     key={index}
-                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded transition-colors cursor-pointer w-full"
+                    className="flex items-center justify-between p-2 hover:bg-white/10 rounded transition-colors cursor-pointer w-full"
                     onClick={() => console.log(`Action item ${index + 1} clicked`)}
                     data-testid={`action-item-${index}`}
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="w-6 h-6 bg-gray-200 rounded flex items-center justify-center text-xs">
+                      <div className="w-6 h-6 bg-white/20 rounded flex items-center justify-center text-xs">
                         <ClipboardList className="w-3 h-3" />
                       </div>
-                      <span className="text-sm text-gray-700">
+                      <span className="text-sm text-white/90">
                         <span className="font-semibold">{item.count}</span>{" "}
                         {item.text}
                       </span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <ChevronRight className="w-4 h-4 text-white/40" />
                   </button>
                 ))}
               </div>
@@ -491,21 +491,21 @@ export const DashboardPreview = (): JSX.Element => {
           </Card>
 
           {/* GCI Section */}
-          <Card className="bg-white/95 backdrop-blur-sm">
+          <Card className="bg-white/10 backdrop-blur-md border-white/20">
             <CardHeader>
-              <CardTitle className="text-gray-900">GCI Metrics </CardTitle>
+              <CardTitle className="text-white">GCI Metrics </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {gciMetrics.map((metric, index) => (
                 <div key={index} className="flex items-center justify-between">
                   <div className="flex-1">
-                    <div className="text-2xl font-bold text-gray-900 mb-1">
+                    <div className="text-2xl font-bold text-white mb-1">
                       {metric.title}
                     </div>
-                    <div className="text-sm text-gray-600 mb-1">
+                    <div className="text-sm text-white/60 mb-1">
                       {metric.subtitle}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-white/40">
                       {metric.description}
                     </div>
                   </div>
@@ -536,7 +536,7 @@ export const DashboardPreview = (): JSX.Element => {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-semibold text-gray-900">
+                      <span className="text-sm font-semibold text-white">
                         {metric.percentage}%
                       </span>
                     </div>
