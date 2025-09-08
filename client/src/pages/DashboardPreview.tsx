@@ -4,6 +4,12 @@ import renegadeLogo from "@assets/Renegade OS logo_transparent (1)_1757317560952
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -25,6 +31,7 @@ import {
   ClipboardList,
   ChevronRight,
   Plus,
+  LogOut,
 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -32,6 +39,12 @@ export const DashboardPreview = (): JSX.Element => {
   const [activeNav, setActiveNav] = useState("Accountability");
   const [activeSubNav, setActiveSubNav] = useState("Dashboard");
   const [activeTab, setActiveTab] = useState("daily");
+
+  const handleLogout = () => {
+    console.log("Logout clicked");
+    // Add your logout logic here
+    // For example: clear session, redirect to login, etc.
+  };
 
   const navigationItems = [
     { name: "Strategy", active: activeNav === "Strategy" },
@@ -204,12 +217,26 @@ export const DashboardPreview = (): JSX.Element => {
           >
             <Settings className="w-4 h-4" />
           </Button>
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="" />
-            <AvatarFallback className="bg-orange-500 text-white text-sm">
-              A
-            </AvatarFallback>
-          </Avatar>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-white/30 transition-all" data-testid="profile-dropdown-trigger">
+                <AvatarImage src="" />
+                <AvatarFallback className="bg-orange-500 text-white text-sm">
+                  A
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem 
+                onClick={handleLogout}
+                className="cursor-pointer text-red-600 focus:text-red-600"
+                data-testid="logout-button"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </header>
 
