@@ -221,7 +221,7 @@ export const DashboardPreview = (): JSX.Element => {
               key={index}
               onClick={() => setActiveSubNav(item.name)}
               className={`text-sm font-medium transition-colors cursor-pointer ${
-                item.active ? "text-white" : "text-white/60 hover:text-white"
+                item.active ? "text-[#FFFBEF]" : "text-[#FFFBEF]/70 hover:text-[#FFFBEF]"
               }`}
               data-testid={`subnav-${item.name.toLowerCase()}`}
             >
