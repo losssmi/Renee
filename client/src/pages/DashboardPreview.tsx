@@ -144,7 +144,7 @@ export const DashboardPreview = (): JSX.Element => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10 h-16 overflow-hidden">
+      <header className="flex items-center justify-between px-6 py-4 bg-[#56413C]/30 backdrop-blur-sm border-b border-[#C7BDB4]/20 h-16 overflow-hidden">
         <div className="flex items-center space-x-8">
           <img
             src={renegadeLogo}
@@ -166,8 +166,8 @@ export const DashboardPreview = (): JSX.Element => {
                 }}
                 className={`text-sm font-medium transition-colors cursor-pointer ${
                   item.active
-                    ? "text-white border-b-2 border-white pb-1"
-                    : "text-white/60 hover:text-white"
+                    ? "text-[#FFFBEF] border-b-2 border-[#FFFBEF] pb-1"
+                    : "text-[#FFFBEF]/70 hover:text-[#FFFBEF]"
                 }`}
                 data-testid={`nav-${item.name.toLowerCase()}`}
               >
@@ -179,17 +179,17 @@ export const DashboardPreview = (): JSX.Element => {
 
         <div className="flex items-center space-x-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#FFFBEF]/60 w-4 h-4" />
             <Input
               placeholder="Search..."
-              className="w-64 pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="w-64 pl-10 bg-[#FFFBEF]/10 border-[#C7BDB4]/30 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
               data-testid="search-input"
             />
           </div>
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-white/10 transition-colors"
+            className="text-[#FFFBEF] hover:bg-[#C7BDB4]/20 transition-colors"
             onClick={() => console.log("Notifications clicked")}
             data-testid="button-notifications"
           >
@@ -198,7 +198,7 @@ export const DashboardPreview = (): JSX.Element => {
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-white/10 transition-colors"
+            className="text-[#FFFBEF] hover:bg-[#C7BDB4]/20 transition-colors"
             onClick={() => console.log("Settings clicked")}
             data-testid="button-settings"
           >
@@ -206,7 +206,7 @@ export const DashboardPreview = (): JSX.Element => {
           </Button>
           <Avatar className="h-8 w-8">
             <AvatarImage src="" />
-            <AvatarFallback className="bg-orange-500 text-white text-sm">
+            <AvatarFallback className="bg-[#56413C] text-[#FFFBEF] text-sm">
               A
             </AvatarFallback>
           </Avatar>
