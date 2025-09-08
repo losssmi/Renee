@@ -147,7 +147,7 @@ export const DashboardPreview = (): JSX.Element => {
           <img
             src={renegadeLogo}
             alt="Renegade OS"
-            className="h-11 w-auto transform rotate-90"
+            className="h-12 w-auto transform rotate-90"
           />
           <nav className="flex space-x-6">
             {navigationItems.map((item, index) => (
