@@ -733,7 +733,7 @@ const GoalsPage = () => {
     }
   ];
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "Done": return "bg-green-500";
       case "In Progress": return "bg-blue-500";
@@ -742,7 +742,7 @@ const GoalsPage = () => {
     }
   };
 
-  const getPriorityColor = (priority) => {
+  const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "High": return "bg-red-500";
       case "Medium": return "bg-yellow-500";
