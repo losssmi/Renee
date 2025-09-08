@@ -15,6 +15,8 @@ export const Login = (): JSX.Element => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,12 +26,38 @@ export const Login = (): JSX.Element => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Create account clicked", formData);
-    // Add your authentication logic here
-    // For now, navigate to dashboard
-    setLocation("/dashboard");
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to create account");
+      }
+
+      const user = await response.json();
+      
+      // Store user ID temporarily for username setup
+      localStorage.setItem("pendingUserId", user.id.toString());
+      
+      // Navigate to username selection
+      setLocation("/choose-username");
+    } catch (error: any) {
+      console.error("Error creating account:", error);
+      setError(error.message || "Failed to create account. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -89,6 +117,12 @@ export const Login = (): JSX.Element => {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+                  {error}
+                </div>
+              )}
+
               {/* Name Fields - Side by Side */}
               <div className="grid grid-cols-2 gap-3">
                 <Input
@@ -140,10 +174,11 @@ export const Login = (): JSX.Element => {
               {/* Create Account Button */}
               <Button
                 type="submit"
-                className="w-full h-12 bg-black hover:bg-gray-800 text-white font-medium rounded-lg transition-colors mt-6"
+                disabled={isLoading}
+                className="w-full h-12 bg-black hover:bg-gray-800 text-white font-medium rounded-lg transition-colors mt-6 disabled:opacity-50"
                 data-testid="button-create-account"
               >
-                Create account
+                {isLoading ? "Creating account..." : "Create account"}
               </Button>
 
               {/* Login Link */}
