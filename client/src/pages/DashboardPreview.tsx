@@ -243,14 +243,14 @@ export const DashboardPreview = (): JSX.Element => {
             ) : (
               <div className="text-center py-12">
                 <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
-                <p className="text-white/60">Coming soon...</p>
+                <p className="text-[#FFFBEF]/60">Coming soon...</p>
               </div>
             )}
           </div>
         )}
 
         {activeNav === "Structure" && (
-          <div className="text-white text-center py-12">
+          <div className="text-[#FFFBEF] text-center py-12">
             <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
             <p className="text-white/60">Coming soon...</p>
           </div>
@@ -261,10 +261,10 @@ export const DashboardPreview = (): JSX.Element => {
             {/* Greeting Section */}
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-semibold text-white mb-1">
+                <h1 className="text-2xl font-semibold text-[#FFFBEF] mb-1">
                   Hello Antoine!
                 </h1>
-                <p className="text-white/60 text-sm">
+                <p className="text-[#FFFBEF]/60 text-sm">
                   Displaying the data from August 2025
                 </p>
               </div>
@@ -275,22 +275,22 @@ export const DashboardPreview = (): JSX.Element => {
                   onValueChange={setActiveTab}
                   className="w-auto"
                 >
-                  <TabsList className="bg-white/10 border-white/20">
+                  <TabsList className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20">
                     <TabsTrigger
                       value="daily"
-                      className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
+                      className="text-[#FFFBEF]/60 data-[state=active]:text-[#FFFBEF] data-[state=active]:bg-[#C7BDB4]/20"
                     >
                       Daily
                     </TabsTrigger>
                     <TabsTrigger
                       value="weekly"
-                      className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
+                      className="text-[#FFFBEF]/60 data-[state=active]:text-[#FFFBEF] data-[state=active]:bg-[#C7BDB4]/20"
                     >
                       Weekly
                     </TabsTrigger>
                     <TabsTrigger
                       value="monthly"
-                      className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
+                      className="text-[#FFFBEF]/60 data-[state=active]:text-[#FFFBEF] data-[state=active]:bg-[#C7BDB4]/20"
                     >
                       Monthly
                     </TabsTrigger>
@@ -298,7 +298,7 @@ export const DashboardPreview = (): JSX.Element => {
                 </Tabs>
 
                 <Button
-                  className="bg-white text-black hover:bg-gray-100 h-auto px-4 py-2 transition-colors"
+                  className="bg-[#FFFBEF] text-[#1D0200] hover:bg-[#C7BDB4] h-auto px-4 py-2 transition-colors"
                   onClick={() => console.log("Add Product Batch clicked")}
                   data-testid="button-add-product"
                 >
@@ -313,17 +313,17 @@ export const DashboardPreview = (): JSX.Element => {
               {metricCards.map((card, index) => (
                 <Card
                   key={index}
-                  className="bg-white/5 border-white/10 backdrop-blur-sm"
+                  className="bg-[#FFFBEF]/5 border-[#C7BDB4]/10 backdrop-blur-sm"
                 >
                   <CardHeader className="pb-2">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-white/60 text-sm font-medium">
+                      <CardTitle className="text-[#FFFBEF]/60 text-sm font-medium">
                         {card.title}
                       </CardTitle>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-white/60 hover:bg-white/10 h-auto p-1 transition-colors"
+                        className="text-[#FFFBEF]/60 hover:bg-[#C7BDB4]/10 h-auto p-1 transition-colors"
                         onClick={() => console.log("Card menu clicked")}
                         data-testid={`button-card-menu-${index}`}
                       >
@@ -347,7 +347,7 @@ export const DashboardPreview = (): JSX.Element => {
                       >
                         {card.change}
                       </span>
-                      <span className="text-white/40">{card.changeText}</span>
+                      <span className="text-[#FFFBEF]/40">{card.changeText}</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -369,7 +369,7 @@ export const DashboardPreview = (): JSX.Element => {
                       </div>
                     </div>
                     <Button
-                      className="bg-orange-600 hover:bg-orange-700 text-white h-auto px-3 py-1 text-sm transition-colors"
+                      className="bg-[#56413C] hover:bg-[#1D0200] text-[#FFFBEF] h-auto px-3 py-1 text-sm transition-colors"
                       onClick={() => console.log("See All Actions clicked")}
                       data-testid="button-see-actions"
                     >
