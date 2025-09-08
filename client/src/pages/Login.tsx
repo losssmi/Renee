@@ -37,15 +37,15 @@ export const Login = (): JSX.Element => {
     >
       <div className="w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
+        <div className="text-center mb-4">
+          <div className="flex justify-center mb-2">
             <img
               src={renegadeLogo}
               alt="Renegade OS"
               className="h-25 w-auto transform rotate-90"
             />
           </div>
-          <p className="text-white/80 text-lg">Create an account</p>
+          <p className="text-white/80 text-lg mb-4">Create an account</p>
         </div>
 
         {/* Login Form */}
