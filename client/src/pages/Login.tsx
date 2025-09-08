@@ -42,7 +42,7 @@ export const Login = (): JSX.Element => {
             <img
               src={renegadeLogo}
               alt="Renegade OS"
-              className="h-20 w-auto"
+              className="h-20 w-auto transform rotate-90"
             />
           </div>
           <p className="text-white/80 text-lg">
