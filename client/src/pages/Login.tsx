@@ -9,6 +9,7 @@ import renegadeLogo from "@assets/Renegade OS logo_transparent 1_1757334443265.p
 
 export const Login = (): JSX.Element => {
   const [, setLocation] = useLocation();
+  const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -32,26 +33,55 @@ export const Login = (): JSX.Element => {
     setError("");
 
     try {
-      const response = await fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      if (isLogin) {
+        // Login flow
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
+          credentials: 'include',
+        });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to create account");
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to login");
+        }
+
+        const user = await response.json();
+        
+        // Navigate based on user's onboarding status
+        if (!user.username) {
+          setLocation("/choose-username");
+        } else if (!user.city || !user.company) {
+          setLocation("/work-location");
+        } else {
+          setLocation("/dashboard");
+        }
+      } else {
+        // Register flow
+        const response = await fetch("/api/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to create account");
+        }
+
+        // User is automatically logged in after registration
+        // Navigate to username selection
+        setLocation("/choose-username");
       }
-
-      const user = await response.json();
-      
-      // Store user ID temporarily for username setup
-      localStorage.setItem("pendingUserId", user.id.toString());
-      
-      // Navigate to username selection
-      setLocation("/choose-username");
     } catch (error: any) {
       console.error("Error creating account:", error);
       setError(error.message || "Failed to create account. Please try again.");
@@ -75,7 +105,7 @@ export const Login = (): JSX.Element => {
               className="h-16 w-auto"
             />
           </div>
-          <p className="text-white/80 text-lg mb-4">Create an account</p>
+          <p className="text-white/80 text-lg mb-4">{isLogin ? "Welcome back" : "Create an account"}</p>
         </div>
 
         {/* Login Form */}
@@ -106,7 +136,7 @@ export const Login = (): JSX.Element => {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Sign up with Google
+              {isLogin ? "Sign in with Google" : "Sign up with Google"}
             </Button>
 
             {/* Divider */}
@@ -123,29 +153,31 @@ export const Login = (): JSX.Element => {
                 </div>
               )}
 
-              {/* Name Fields - Side by Side */}
-              <div className="grid grid-cols-2 gap-3">
-                <Input
-                  name="firstName"
-                  type="text"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="h-12 border-gray-200 rounded-lg focus:border-gray-400 focus:ring-0 bg-gray-50"
-                  data-testid="input-first-name"
-                  required
-                />
-                <Input
-                  name="lastName"
-                  type="text"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="h-12 border-gray-200 rounded-lg focus:border-gray-400 focus:ring-0 bg-gray-50"
-                  data-testid="input-last-name"
-                  required
-                />
-              </div>
+              {/* Name Fields - Side by Side (only for registration) */}
+              {!isLogin && (
+                <div className="grid grid-cols-2 gap-3">
+                  <Input
+                    name="firstName"
+                    type="text"
+                    placeholder="First Name"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className="h-12 border-gray-200 rounded-lg focus:border-gray-400 focus:ring-0 bg-gray-50"
+                    data-testid="input-first-name"
+                    required
+                  />
+                  <Input
+                    name="lastName"
+                    type="text"
+                    placeholder="Last Name"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className="h-12 border-gray-200 rounded-lg focus:border-gray-400 focus:ring-0 bg-gray-50"
+                    data-testid="input-last-name"
+                    required
+                  />
+                </div>
+              )}
 
               {/* Email Field */}
               <Input
@@ -178,19 +210,22 @@ export const Login = (): JSX.Element => {
                 className="w-full h-12 bg-black hover:bg-gray-800 text-white font-medium rounded-lg transition-colors mt-6 disabled:opacity-50"
                 data-testid="button-create-account"
               >
-                {isLoading ? "Creating account..." : "Create account"}
+                {isLoading ? (isLogin ? "Signing in..." : "Creating account...") : (isLogin ? "Sign in" : "Create account")}
               </Button>
 
-              {/* Login Link */}
+              {/* Toggle between Login/Register */}
               <p className="text-center text-gray-600 text-sm mt-4">
-                Have an account?{" "}
+                {isLogin ? "Don't have an account? " : "Already have an account? "}
                 <button
                   type="button"
-                  onClick={() => setLocation("/login")}
                   className="text-black hover:underline font-medium"
-                  data-testid="link-login"
+                  onClick={() => {
+                    setIsLogin(!isLogin);
+                    setError("");
+                  }}
+                  data-testid="link-toggle-mode"
                 >
-                  Log in here
+                  {isLogin ? "Sign up" : "Log in here"}
                 </button>
               </p>
             </form>

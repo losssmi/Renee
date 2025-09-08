@@ -10,36 +10,31 @@ export const ChooseUsername = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Get user ID from localStorage (will be set after signup)
-  const userId = localStorage.getItem("pendingUserId");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userId) {
-      setError("Session expired. Please sign up again.");
-      setLocation("/");
-      return;
-    }
-
     setIsLoading(true);
     setError("");
 
     try {
-      const response = await fetch(`/api/users/${userId}/username`, {
+      const response = await fetch(`/api/auth/username`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username }),
+        credentials: 'include',
       });
 
       if (!response.ok) {
         const errorData = await response.json();
+        if (response.status === 401) {
+          setError("Session expired. Please log in again.");
+          setLocation("/login");
+          return;
+        }
         throw new Error(errorData.error || "Failed to set username");
       }
-
-      // Clear the pending user ID
-      localStorage.removeItem("pendingUserId");
       
       // Navigate to work location page
       setLocation("/work-location");
@@ -55,11 +50,6 @@ export const ChooseUsername = (): JSX.Element => {
     }
   };
 
-  // If no pending user, redirect to login
-  if (!userId) {
-    setLocation("/");
-    return <div></div>;
-  }
 
   return (
     <div

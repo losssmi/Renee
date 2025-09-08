@@ -6,8 +6,6 @@ export const AssessmentIntro = (): JSX.Element => {
   const [, setLocation] = useLocation();
 
   const handleStart = () => {
-    // Clean up temporary user ID from localStorage
-    localStorage.removeItem("pendingUserId");
     // Navigate to dashboard
     setLocation("/dashboard");
   };

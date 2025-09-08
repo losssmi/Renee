@@ -27,18 +27,20 @@ export const WorkLocation = (): JSX.Element => {
     setError("");
 
     try {
-      const pendingUserId = localStorage.getItem("pendingUserId");
-      if (!pendingUserId) {
-        throw new Error("No user session found");
-      }
-
-      const response = await fetch(`/api/users/${pendingUserId}/work-info`, {
+      const response = await fetch(`/api/auth/work-info`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
+
+      if (response.status === 401) {
+        setError("Session expired. Please log in again.");
+        setLocation("/login");
+        return;
+      }
 
       if (!response.ok) {
         const errorData = await response.json();
