@@ -556,55 +556,58 @@ export const DashboardPreview = (): JSX.Element => {
 // Vision Page Component
 const VisionPage = () => {
   return (
-    <Card className="bg-white/95 backdrop-blur-sm max-w-6xl mx-auto">
+    <Card className="bg-white/10 backdrop-blur-md border-white/20 max-w-6xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-gray-900 text-2xl">Vision</CardTitle>
+        <CardTitle className="text-white text-2xl">Vision</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Vision</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Vision</label>
               <Textarea
                 placeholder="Enter your vision statement..."
-                className="min-h-[100px] resize-none"
+                className="min-h-[100px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-vision"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Mission</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Mission</label>
               <Textarea
                 placeholder="Enter your mission statement..."
-                className="min-h-[100px] resize-none"
+                className="min-h-[100px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-mission"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Core Focus</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Core Focus</label>
               <Input
                 placeholder="Enter your core focus..."
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-core-focus"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">USP</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">USP</label>
               <Input
                 placeholder="Enter your unique selling proposition..."
+                className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-usp"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Values</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Values</label>
               <div className="grid grid-cols-2 gap-3">
                 {[1, 2, 3, 4, 5, 6].map((num) => (
                   <Input
                     key={num}
                     placeholder={`Value ${num}`}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
                     data-testid={`input-value-${num}`}
                   />
                 ))}
@@ -615,37 +618,37 @@ const VisionPage = () => {
           {/* Right Column - SWOT Analysis */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Strengths</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Strengths</label>
               <Textarea
                 placeholder="List your strengths..."
-                className="min-h-[120px] resize-none"
+                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-strengths"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Weaknesses</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Weaknesses</label>
               <Textarea
                 placeholder="List your weaknesses..."
-                className="min-h-[120px] resize-none"
+                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-weaknesses"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Opportunities</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Opportunities</label>
               <Textarea
                 placeholder="List opportunities..."
-                className="min-h-[120px] resize-none"
+                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-opportunities"
               />
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Threats</label>
+              <label className="block text-sm font-medium text-white/90 mb-2">Threats</label>
               <Textarea
                 placeholder="List potential threats..."
-                className="min-h-[120px] resize-none"
+                className="min-h-[120px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/60"
                 data-testid="input-threats"
               />
             </div>
@@ -655,12 +658,14 @@ const VisionPage = () => {
         <div className="mt-8 flex justify-end space-x-4">
           <Button 
             variant="outline"
+            className="border-white/30 text-white hover:bg-white/10"
             onClick={() => console.log('Reset clicked')}
             data-testid="button-reset"
           >
             Reset
           </Button>
           <Button 
+            className="bg-white text-black hover:bg-gray-100"
             onClick={() => console.log('Save Vision clicked')}
             data-testid="button-save-vision"
           >
