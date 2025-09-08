@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bell, Settings, Search, DollarSign, Package, TrendingDown, MoreHorizontal, BarChart3, ClipboardList, ChevronRight, Plus } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 
 export const DashboardPreview = (): JSX.Element => {
   const [activeNav, setActiveNav] = useState("Accountability");
@@ -30,13 +31,36 @@ export const DashboardPreview = (): JSX.Element => {
     { name: "Accountability", active: activeNav === "Accountability" },
   ];
 
-  const subNavigationItems = [
-    { name: "Dashboard", active: activeSubNav === "Dashboard" },
-    { name: "Scorecard", active: activeSubNav === "Scorecard" },
-    { name: "Forecast", active: activeSubNav === "Forecast" },
-    { name: "KPIs", active: activeSubNav === "KPIs" },
-    { name: "Meetings", active: activeSubNav === "Meetings" },
-  ];
+  // Dynamic sub-navigation based on main navigation
+  const getSubNavigationItems = () => {
+    switch (activeNav) {
+      case "Strategy":
+        return [
+          { name: "Vision", active: activeSubNav === "Vision" },
+          { name: "Goals", active: activeSubNav === "Goals" },
+          { name: "Priorities", active: activeSubNav === "Priorities" },
+          { name: "Market Analysis", active: activeSubNav === "Market Analysis" },
+        ];
+      case "Structure":
+        return [
+          { name: "Org Chart", active: activeSubNav === "Org Chart" },
+          { name: "Roles", active: activeSubNav === "Roles" },
+          { name: "Processes", active: activeSubNav === "Processes" },
+          { name: "Systems", active: activeSubNav === "Systems" },
+        ];
+      case "Accountability":
+      default:
+        return [
+          { name: "Dashboard", active: activeSubNav === "Dashboard" },
+          { name: "Scorecard", active: activeSubNav === "Scorecard" },
+          { name: "Forecast", active: activeSubNav === "Forecast" },
+          { name: "KPIs", active: activeSubNav === "KPIs" },
+          { name: "Meetings", active: activeSubNav === "Meetings" },
+        ];
+    }
+  };
+
+  const subNavigationItems = getSubNavigationItems();
 
   const metricCards = [
     {
@@ -114,7 +138,13 @@ export const DashboardPreview = (): JSX.Element => {
             {navigationItems.map((item, index) => (
               <button
                 key={index}
-                onClick={() => setActiveNav(item.name)}
+                onClick={() => {
+                  setActiveNav(item.name);
+                  // Set default sub-navigation for each section
+                  if (item.name === "Strategy") setActiveSubNav("Vision");
+                  else if (item.name === "Structure") setActiveSubNav("Org Chart");
+                  else if (item.name === "Accountability") setActiveSubNav("Dashboard");
+                }}
                 className={`text-sm font-medium transition-colors cursor-pointer ${
                   item.active
                     ? "text-white border-b-2 border-white pb-1"
@@ -184,51 +214,72 @@ export const DashboardPreview = (): JSX.Element => {
 
       {/* Main Content */}
       <main className="p-6 space-y-6">
-        {/* Greeting Section */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-white mb-1">
-              Hello Antoine!
-            </h1>
-            <p className="text-white/60 text-sm">
-              Displaying the data from August 2025
-            </p>
+        {/* Conditional Content Based on Navigation */}
+        {activeNav === "Strategy" && activeSubNav === "Vision" && (
+          <VisionPage />
+        )}
+        
+        {activeNav === "Strategy" && activeSubNav !== "Vision" && (
+          <div className="text-white text-center py-12">
+            <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
+            <p className="text-white/60">Coming soon...</p>
           </div>
+        )}
 
-          <div className="flex items-center space-x-3">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
-              <TabsList className="bg-white/10 border-white/20">
-                <TabsTrigger
-                  value="daily"
-                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
-                >
-                  Daily
-                </TabsTrigger>
-                <TabsTrigger
-                  value="weekly"
-                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
-                >
-                  Weekly
-                </TabsTrigger>
-                <TabsTrigger
-                  value="monthly"
-                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
-                >
-                  Monthly
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-
-            <Button 
-              className="bg-white text-black hover:bg-gray-100 h-auto px-4 py-2 transition-colors"
-              onClick={() => console.log('Add Product Batch clicked')}
-              data-testid="button-add-product"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add Product Batch
-            </Button>
+        {activeNav === "Structure" && (
+          <div className="text-white text-center py-12">
+            <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
+            <p className="text-white/60">Coming soon...</p>
           </div>
-        </div>
+        )}
+
+        {activeNav === "Accountability" && (
+          <>
+            {/* Greeting Section */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-semibold text-white mb-1">
+                  Hello Antoine!
+                </h1>
+                <p className="text-white/60 text-sm">
+                  Displaying the data from August 2025
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-3">
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
+                  <TabsList className="bg-white/10 border-white/20">
+                    <TabsTrigger
+                      value="daily"
+                      className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
+                    >
+                      Daily
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="weekly"
+                      className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
+                    >
+                      Weekly
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="monthly"
+                      className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20"
+                    >
+                      Monthly
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
+
+                <Button 
+                  className="bg-white text-black hover:bg-gray-100 h-auto px-4 py-2 transition-colors"
+                  onClick={() => console.log('Add Product Batch clicked')}
+                  data-testid="button-add-product"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Product Batch
+                </Button>
+              </div>
+            </div>
 
         {/* Metric Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -495,7 +546,128 @@ export const DashboardPreview = (): JSX.Element => {
             </CardContent>
           </Card>
         </div>
+        </>
+        )}
       </main>
     </div>
+  );
+};
+
+// Vision Page Component
+const VisionPage = () => {
+  return (
+    <Card className="bg-white/95 backdrop-blur-sm max-w-6xl mx-auto">
+      <CardHeader>
+        <CardTitle className="text-gray-900 text-2xl">Vision</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column */}
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Vision</label>
+              <Textarea
+                placeholder="Enter your vision statement..."
+                className="min-h-[100px] resize-none"
+                data-testid="input-vision"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Mission</label>
+              <Textarea
+                placeholder="Enter your mission statement..."
+                className="min-h-[100px] resize-none"
+                data-testid="input-mission"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Core Focus</label>
+              <Input
+                placeholder="Enter your core focus..."
+                data-testid="input-core-focus"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">USP</label>
+              <Input
+                placeholder="Enter your unique selling proposition..."
+                data-testid="input-usp"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Values</label>
+              <div className="grid grid-cols-2 gap-3">
+                {[1, 2, 3, 4, 5, 6].map((num) => (
+                  <Input
+                    key={num}
+                    placeholder={`Value ${num}`}
+                    data-testid={`input-value-${num}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* Right Column - SWOT Analysis */}
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Strengths</label>
+              <Textarea
+                placeholder="List your strengths..."
+                className="min-h-[120px] resize-none"
+                data-testid="input-strengths"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Weaknesses</label>
+              <Textarea
+                placeholder="List your weaknesses..."
+                className="min-h-[120px] resize-none"
+                data-testid="input-weaknesses"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Opportunities</label>
+              <Textarea
+                placeholder="List opportunities..."
+                className="min-h-[120px] resize-none"
+                data-testid="input-opportunities"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Threats</label>
+              <Textarea
+                placeholder="List potential threats..."
+                className="min-h-[120px] resize-none"
+                data-testid="input-threats"
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-8 flex justify-end space-x-4">
+          <Button 
+            variant="outline"
+            onClick={() => console.log('Reset clicked')}
+            data-testid="button-reset"
+          >
+            Reset
+          </Button>
+          <Button 
+            onClick={() => console.log('Save Vision clicked')}
+            data-testid="button-save-vision"
+          >
+            Save Vision
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
