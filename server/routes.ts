@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { createUserSchema, updateUserSchema } from "@shared/schema";
+import { createUserSchema, updateUserSchema, updateWorkInfoSchema } from "@shared/schema";
 import bcrypt from "bcrypt";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -63,6 +63,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error updating user:", error);
       res.status(400).json({ error: "Invalid user data" });
+    }
+  });
+
+  // Update user work information endpoint
+  app.patch("/api/users/:id/work-info", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.id);
+      const validatedData = updateWorkInfoSchema.parse(req.body);
+
+      // Update user work info
+      const updatedUser = await storage.updateWorkInfo(userId, validatedData);
+      if (!updatedUser) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Return user without password
+      const { password, ...userResponse } = updatedUser;
+      res.json(userResponse);
+    } catch (error) {
+      console.error("Error updating work info:", error);
+      res.status(400).json({ error: "Invalid work information" });
     }
   });
 

@@ -1,4 +1,4 @@
-import { users, type User, type CreateUser, type UpdateUser } from "@shared/schema";
+import { users, type User, type CreateUser, type UpdateUser, type UpdateWorkInfo } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
 
@@ -11,6 +11,7 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: CreateUser): Promise<User>;
   updateUser(id: number, user: UpdateUser): Promise<User | undefined>;
+  updateWorkInfo(id: number, workInfo: UpdateWorkInfo): Promise<User | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -44,6 +45,15 @@ export class DatabaseStorage implements IStorage {
     const [user] = await db
       .update(users)
       .set(userData)
+      .where(eq(users.id, id))
+      .returning();
+    return user || undefined;
+  }
+
+  async updateWorkInfo(id: number, workInfo: UpdateWorkInfo): Promise<User | undefined> {
+    const [user] = await db
+      .update(users)
+      .set(workInfo)
       .where(eq(users.id, id))
       .returning();
     return user || undefined;
