@@ -7,12 +7,14 @@ import NotFound from "@/pages/not-found";
 
 import { DashboardPreview } from "@/pages/DashboardPreview";
 import { Login } from "@/pages/Login";
+import { ChooseUsername } from "@/pages/ChooseUsername";
 
 function Router() {
   return (
     <Switch>
       {/* Add pages below */}
       <Route path="/login" component={Login} />
+      <Route path="/choose-username" component={ChooseUsername} />
       <Route path="/dashboard" component={DashboardPreview} />
       <Route path="/" component={Login} />
       {/* Fallback to 404 */}
