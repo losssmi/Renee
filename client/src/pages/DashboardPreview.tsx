@@ -214,7 +214,7 @@ export const DashboardPreview = (): JSX.Element => {
       </header>
 
       {/* Sub Navigation */}
-      <nav className="flex items-center px-6 py-3 bg-black/10 backdrop-blur-sm border-b border-white/5">
+      <nav className="flex items-center px-6 py-3 bg-[#56413C]/20 backdrop-blur-sm border-b border-[#C7BDB4]/10">
         <div className="flex space-x-6">
           {subNavigationItems.map((item, index) => (
             <button
