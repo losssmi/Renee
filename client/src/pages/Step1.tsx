@@ -1,24 +1,14 @@
-import { useEffect } from "react";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 import { ChevronRight } from "lucide-react";
 import loginBackground from "@assets/Sign up_1757333780171.png";
 
-export const Welcome = (): JSX.Element => {
+export const Step1 = (): JSX.Element => {
   const [, setLocation] = useLocation();
 
   const handleNext = () => {
-    setLocation("/step1");
+    setLocation("/step2-strategy");
   };
-
-  useEffect(() => {
-    // Auto-advance to step 1 after 3 seconds
-    const timer = setTimeout(() => {
-      setLocation("/step1");
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [setLocation]);
 
   return (
     <div
@@ -27,18 +17,15 @@ export const Welcome = (): JSX.Element => {
         backgroundImage: `url(${loginBackground})`,
       }}
     >
-      <div className="text-center">
-        <h1 className="text-white text-lg font-light mb-4" data-testid="text-welcome-intro">
-          Welcome to
+      <div className="text-center max-w-2xl">
+        <h1 className="text-white text-3xl font-light mb-8" data-testid="text-step1-title">
+          Step 1
         </h1>
-        <h2 className="text-white text-6xl font-light leading-none mb-8" data-testid="text-renegade-branding">
-          Renegade OS.
-        </h2>
         
         <Button
           onClick={handleNext}
           className="px-8 py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 font-medium rounded-full transition-colors flex items-center gap-2 mx-auto"
-          data-testid="button-next-welcome"
+          data-testid="button-next-step1"
         >
           <ChevronRight className="w-4 h-4" />
         </Button>
