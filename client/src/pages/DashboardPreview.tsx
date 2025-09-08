@@ -54,10 +54,12 @@ export const DashboardPreview = (): JSX.Element => {
         ];
       case "Structure":
         return [
-          { name: "Org Chart", active: activeSubNav === "Org Chart" },
-          { name: "Roles", active: activeSubNav === "Roles" },
-          { name: "Processes", active: activeSubNav === "Processes" },
-          { name: "Systems", active: activeSubNav === "Systems" },
+          { name: "Marketing", active: activeSubNav === "Marketing" },
+          { name: "Sellers", active: activeSubNav === "Sellers" },
+          { name: "Buyers", active: activeSubNav === "Buyers" },
+          { name: "Appraisals", active: activeSubNav === "Appraisals" },
+          { name: "Listings", active: activeSubNav === "Listings" },
+          { name: "Sales", active: activeSubNav === "Sales" },
         ];
       case "Accountability":
       default:
