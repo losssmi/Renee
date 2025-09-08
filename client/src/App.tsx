@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
+import { Landing } from "@/pages/Landing";
 import { DashboardPreview } from "@/pages/DashboardPreview";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
@@ -20,7 +21,9 @@ function Router() {
   return (
     <Switch>
       {/* Add pages below */}
+      <Route path="/" component={Landing} />
       <Route path="/login" component={Login} />
+      <Route path="/register" component={Login} />
       <Route path="/choose-username" component={ChooseUsername} />
       <Route path="/work-location" component={WorkLocation} />
       <Route path="/welcome" component={Welcome} />
@@ -30,7 +33,6 @@ function Router() {
       <Route path="/step4-accountability" component={Step4Accountability} />
       <Route path="/assessment-intro" component={AssessmentIntro} />
       <Route path="/dashboard" component={DashboardPreview} />
-      <Route path="/" component={Login} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
