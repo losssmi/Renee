@@ -499,4 +499,4 @@ const MeetingsPage = () => {
   );
 };
 
-export default DashboardPreview;
+export { DashboardPreview };
