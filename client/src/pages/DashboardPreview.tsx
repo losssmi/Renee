@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "wouter";
 import backgroundImage from "@assets/background.png";
-import renegadeLogo from "@assets/Renegade OS logo_transparent (1)_1757317560952.png";
+import { DashboardSidebar } from "@/components/DashboardSidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,9 +21,6 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Bell,
-  Settings,
-  Search,
   DollarSign,
   Package,
   TrendingDown,
@@ -38,9 +35,16 @@ import { Textarea } from "@/components/ui/textarea";
 
 export const DashboardPreview = (): JSX.Element => {
   const [, setLocation] = useLocation();
-  const [activeNav, setActiveNav] = useState("Accountability");
-  const [activeSubNav, setActiveSubNav] = useState("Dashboard");
+  const [activeNav, setActiveNav] = useState("Home");
+  const [activeSubNav, setActiveSubNav] = useState("My Renegade");
   const [activeTab, setActiveTab] = useState("daily");
+
+  const handleNavChange = (nav: string, subNav?: string) => {
+    setActiveNav(nav);
+    if (subNav) {
+      setActiveSubNav(subNav);
+    }
+  };
 
   const handleLogout = () => {
     console.log("Logout clicked");
@@ -49,47 +53,6 @@ export const DashboardPreview = (): JSX.Element => {
     setLocation("/login");
   };
 
-  const navigationItems = [
-    { name: "Strategy", active: activeNav === "Strategy" },
-    { name: "Structure", active: activeNav === "Structure" },
-    { name: "Accountability", active: activeNav === "Accountability" },
-  ];
-
-  // Dynamic sub-navigation based on main navigation
-  const getSubNavigationItems = () => {
-    switch (activeNav) {
-      case "Strategy":
-        return [
-          { name: "Vision", active: activeSubNav === "Vision" },
-          { name: "Goals", active: activeSubNav === "Goals" },
-          { name: "Priorities", active: activeSubNav === "Priorities" },
-          {
-            name: "Market Analysis",
-            active: activeSubNav === "Market Analysis",
-          },
-        ];
-      case "Structure":
-        return [
-          { name: "Marketing", active: activeSubNav === "Marketing" },
-          { name: "Sellers", active: activeSubNav === "Sellers" },
-          { name: "Buyers", active: activeSubNav === "Buyers" },
-          { name: "Appraisals", active: activeSubNav === "Appraisals" },
-          { name: "Listings", active: activeSubNav === "Listings" },
-          { name: "Sales", active: activeSubNav === "Sales" },
-        ];
-      case "Accountability":
-      default:
-        return [
-          { name: "Dashboard", active: activeSubNav === "Dashboard" },
-          { name: "Scorecard", active: activeSubNav === "Scorecard" },
-          { name: "Forecast", active: activeSubNav === "Forecast" },
-          { name: "KPIs", active: activeSubNav === "KPIs" },
-          { name: "Meetings", active: activeSubNav === "Meetings" },
-        ];
-    }
-  };
-
-  const subNavigationItems = getSubNavigationItems();
 
   const metricCards = [
     {
@@ -156,70 +119,21 @@ export const DashboardPreview = (): JSX.Element => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-black/20 backdrop-blur-sm border-b border-white/10 h-16 overflow-hidden">
-        <div className="flex items-center space-x-8">
-          <img
-            src={renegadeLogo}
-            alt="Renegade OS"
-            className="h-32 w-auto transform rotate-90"
-          />
-          <nav className="flex space-x-6">
-            {navigationItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setActiveNav(item.name);
-                  // Set default sub-navigation for each section
-                  if (item.name === "Strategy") setActiveSubNav("Vision");
-                  else if (item.name === "Structure")
-                    setActiveSubNav("Org Chart");
-                  else if (item.name === "Accountability")
-                    setActiveSubNav("Dashboard");
-                }}
-                className={`text-sm font-medium transition-colors cursor-pointer ${
-                  item.active
-                    ? "text-white border-b-2 border-white pb-1"
-                    : "text-white/60 hover:text-white"
-                }`}
-                data-testid={`nav-${item.name.toLowerCase()}`}
-              >
-                {item.name}
-              </button>
-            ))}
-          </nav>
-        </div>
+      {/* Sidebar */}
+      <DashboardSidebar 
+        activeNav={activeNav} 
+        activeSubNav={activeSubNav} 
+        onNavChange={handleNavChange} 
+      />
 
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
-            <Input
-              placeholder="Search..."
-              className="w-64 pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60"
-              data-testid="search-input"
-            />
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-white hover:bg-white/10 transition-colors"
-            onClick={() => console.log("Notifications clicked")}
-            data-testid="button-notifications"
-          >
-            <Bell className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-white hover:bg-white/10 transition-colors"
-            onClick={() => console.log("Settings clicked")}
-            data-testid="button-settings"
-          >
-            <Settings className="w-4 h-4" />
-          </Button>
+      {/* Main Content */}
+      <main className="flex-1 p-6 space-y-6">
+        {/* Conditional Content Based on Navigation */}
+        {/* Top Bar with Logout */}
+        <div className="flex justify-end mb-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-white/30 transition-all" data-testid="profile-dropdown-trigger">
@@ -241,61 +155,129 @@ export const DashboardPreview = (): JSX.Element => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </header>
 
-      {/* Sub Navigation */}
-      <nav className="flex items-center px-6 py-3 bg-black/10 backdrop-blur-sm border-b border-white/5">
-        <div className="flex space-x-6">
-          {subNavigationItems.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveSubNav(item.name)}
-              className={`text-sm font-medium transition-colors cursor-pointer ${
-                item.active ? "text-white" : "text-white/60 hover:text-white"
-              }`}
-              data-testid={`subnav-${item.name.toLowerCase()}`}
-            >
-              {item.name}
-            </button>
-          ))}
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="p-6 space-y-6">
-        {/* Conditional Content Based on Navigation */}
-        {activeNav === "Strategy" && (
-          <div className="text-white">
-            {activeSubNav === "Vision" ? (
-              <VisionPage />
-            ) : activeSubNav === "Goals" ? (
-              <GoalsPage />
-            ) : (
-              <div className="text-center py-12">
-                <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
-                <p className="text-[#FFFBEF]/60">Coming soon...</p>
+        {/* Content Based on Navigation */}
+        {activeNav === "Home" && activeSubNav === "My Renegade" && (
+          <>
+            {/* Page Title */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-3xl font-light text-white mb-2">My Renegade</h1>
+                <div className="flex items-center gap-4">
+                  <span className="text-white/60 text-sm">Quick Add</span>
+                  <Button 
+                    size="sm" 
+                    className="bg-white/20 text-white hover:bg-white/30 h-auto px-3 py-1"
+                    data-testid="button-quick-add"
+                  >
+                    +
+                  </Button>
+                </div>
               </div>
-            )}
-          </div>
+            </div>
+
+            {/* Dashboard Content - Main widgets grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+              {/* Today's structure */}
+              <Card className="bg-white/10 border-white/10">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-white text-lg">Today's structure</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3 text-white/80 text-sm">
+                    <div>10 connects by 10am</div>
+                    <div>3 x 45 minute call sessions</div>
+                    <div>1 buyer work session</div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Reminders */}
+              <Card className="bg-white/10 border-white/10">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-white text-lg">Reminders</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-white/80 text-sm">Hot Stock uncontacted</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-white/80 text-sm">Pipeline coverage</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-white/80 text-sm">Priority drift</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* KPIs */}
+              <Card className="bg-white/10 border-white/10">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-white text-lg">KPIs</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Quarterly Priorities */}
+              <Card className="bg-white/10 border-white/10">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-white text-lg">Quarterly Priorities</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-white/80 text-sm">Launch DL Campaign</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-white/80 text-sm">Build DB to 500</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-white/80 text-sm">Secure 2 expired listings</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </>
         )}
 
-        {activeNav === "Structure" && (
-          <div className="text-[#FFFBEF] text-center py-12">
-            <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
+        {(activeNav === "Strategy" || activeNav === "Structure" || activeNav === "Sales" || activeNav === "Business Audit") && (
+          <div className="text-white text-center py-12">
+            <h2 className="text-2xl font-semibold mb-4">{activeSubNav || activeNav}</h2>
             <p className="text-white/60">Coming soon...</p>
           </div>
         )}
 
         {activeNav === "Accountability" && (
           <>
-            {/* Greeting Section */}
+            {/* Page Title */}
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-semibold text-[#FFFBEF] mb-1">
-                  Hello Antoine!
+                  {activeSubNav}
                 </h1>
                 <p className="text-[#FFFBEF]/60 text-sm">
-                  Displaying the data from August 2025
+                  Displaying the data from September 2025
                 </p>
               </div>
 
