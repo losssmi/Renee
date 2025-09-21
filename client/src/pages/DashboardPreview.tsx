@@ -2,15 +2,9 @@ import React, { useState } from "react";
 import { useLocation } from "wouter";
 import backgroundImage from "@assets/background.png";
 import { DashboardSidebar } from "@/components/DashboardSidebar";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DashboardHeader } from "@/components/DashboardHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -29,7 +23,6 @@ import {
   ClipboardList,
   ChevronRight,
   Plus,
-  LogOut,
 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -132,32 +125,22 @@ export const DashboardPreview = (): JSX.Element => {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
-        {/* Empty Top Bar for spacing */}
-        <div className="h-16 bg-black/20 backdrop-blur-sm border-b border-white/10"></div>
+        {/* Header */}
+        <DashboardHeader 
+          activeNav={activeNav}
+          activeSubNav={activeSubNav}
+          activeTab={activeNav === "Accountability" ? activeTab : undefined}
+          onTabChange={activeNav === "Accountability" ? setActiveTab : undefined}
+          onLogout={handleLogout}
+        />
         
         {/* Main Content */}
-        <main className="flex-1 p-6 space-y-6">
+        <main className="flex-1 p-6 pt-4 space-y-6 max-w-7xl mx-auto w-full">
         {/* Conditional Content Based on Navigation */}
 
         {/* Content Based on Navigation */}
         {activeNav === "Home" && activeSubNav === "My Renegade" && (
           <>
-            {/* Page Title */}
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h1 className="text-3xl font-light text-white mb-2">My Renegade</h1>
-                <div className="flex items-center gap-4">
-                  <span className="text-white/60 text-sm">Quick Add</span>
-                  <Button 
-                    size="sm" 
-                    className="bg-white/20 text-white hover:bg-white/30 h-auto px-3 py-1"
-                    data-testid="button-quick-add"
-                  >
-                    +
-                  </Button>
-                </div>
-              </div>
-            </div>
 
             {/* Dashboard Content - Main widgets grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
@@ -268,54 +251,11 @@ export const DashboardPreview = (): JSX.Element => {
 
         {activeNav === "Accountability" && (
           <>
-            {/* Page Title */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-2xl font-semibold text-[#FFFBEF] mb-1">
-                  {activeSubNav}
-                </h1>
-                <p className="text-[#FFFBEF]/60 text-sm">
-                  Displaying the data from September 2025
-                </p>
-              </div>
-
-              <div className="flex items-center space-x-3">
-                <Tabs
-                  value={activeTab}
-                  onValueChange={setActiveTab}
-                  className="w-auto"
-                >
-                  <TabsList className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20">
-                    <TabsTrigger
-                      value="daily"
-                      className="text-[#FFFBEF]/60 data-[state=active]:text-[#FFFBEF] data-[state=active]:bg-[#C7BDB4]/20"
-                    >
-                      Daily
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="weekly"
-                      className="text-[#FFFBEF]/60 data-[state=active]:text-[#FFFBEF] data-[state=active]:bg-[#C7BDB4]/20"
-                    >
-                      Weekly
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="monthly"
-                      className="text-[#FFFBEF]/60 data-[state=active]:text-[#FFFBEF] data-[state=active]:bg-[#C7BDB4]/20"
-                    >
-                      Monthly
-                    </TabsTrigger>
-                  </TabsList>
-                </Tabs>
-
-                <Button
-                  className="bg-[#FFFBEF] text-[#1D0200] hover:bg-[#C7BDB4] h-auto px-4 py-2 transition-colors"
-                  onClick={() => console.log("Add Product Batch clicked")}
-                  data-testid="button-add-product"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Product Batch
-                </Button>
-              </div>
+            {/* Page Summary */}
+            <div className="mb-4">
+              <p className="text-white/60 text-sm">
+                Displaying data from September 2025
+              </p>
             </div>
 
             {/* Metric Cards */}
