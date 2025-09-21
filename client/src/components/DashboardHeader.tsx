@@ -1,6 +1,5 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -9,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Search, Plus, LogOut, ChevronRight } from "lucide-react";
+import { Plus, LogOut, ChevronRight } from "lucide-react";
 
 interface DashboardHeaderProps {
   activeNav: string;
@@ -37,29 +36,8 @@ export const DashboardHeader = ({
         </div>
       </div>
 
-      {/* Center: Search (responsive) */}
-      <div className="hidden lg:flex flex-1 max-w-md mx-8">
-        <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
-          <Input
-            placeholder="Search..."
-            className="w-full pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 h-9"
-            data-testid="header-search-input"
-          />
-        </div>
-      </div>
-
-      {/* Mobile Search Button */}
-      <div className="lg:hidden flex-1 flex justify-center">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-white hover:bg-white/10 h-9 w-9 p-0"
-          data-testid="mobile-search-button"
-        >
-          <Search className="w-4 h-4" />
-        </Button>
-      </div>
+      {/* Center: Empty space for balance */}
+      <div className="flex-1"></div>
 
       {/* Right: Actions + User */}
       <div className="flex items-center space-x-2 md:space-x-3">
