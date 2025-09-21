@@ -215,7 +215,7 @@ export const Login = (): JSX.Element => {
 
               {/* Toggle between Login/Register */}
               <p className="text-center text-gray-600 text-sm mt-4">
-                {isLogin ? "Don't have an account? " : "Already have an account? "}
+                {isLogin ? "Don't have an account?  " : "Already have an account? "}
                 <button
                   type="button"
                   className="text-black hover:underline font-medium"
