@@ -130,8 +130,13 @@ export const DashboardPreview = (): JSX.Element => {
         onLogout={handleLogout} 
       />
 
-      {/* Main Content */}
-      <main className="flex-1 p-6 space-y-6 pt-0">
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Empty Top Bar for spacing */}
+        <div className="h-16 bg-black/20 backdrop-blur-sm border-b border-white/10"></div>
+        
+        {/* Main Content */}
+        <main className="flex-1 p-6 space-y-6">
         {/* Conditional Content Based on Navigation */}
 
         {/* Content Based on Navigation */}
@@ -593,7 +598,8 @@ export const DashboardPreview = (): JSX.Element => {
             </div>
           </>
         )}
-      </main>
+        </main>
+      </div>
     </div>
   );
 };
