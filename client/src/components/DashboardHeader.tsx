@@ -37,8 +37,8 @@ export const DashboardHeader = ({
         </div>
       </div>
 
-      {/* Center: Search (hidden on small screens) */}
-      <div className="hidden md:flex flex-1 max-w-md mx-8">
+      {/* Center: Search (responsive) */}
+      <div className="hidden lg:flex flex-1 max-w-md mx-8">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
           <Input
@@ -49,45 +49,59 @@ export const DashboardHeader = ({
         </div>
       </div>
 
+      {/* Mobile Search Button */}
+      <div className="lg:hidden flex-1 flex justify-center">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-white hover:bg-white/10 h-9 w-9 p-0"
+          data-testid="mobile-search-button"
+        >
+          <Search className="w-4 h-4" />
+        </Button>
+      </div>
+
       {/* Right: Actions + User */}
-      <div className="flex items-center space-x-3">
-        {/* Tabs for Accountability section */}
+      <div className="flex items-center space-x-2 md:space-x-3">
+        {/* Tabs for Accountability section (hidden on small screens) */}
         {activeNav === "Accountability" && activeTab && onTabChange && (
-          <Tabs value={activeTab} onValueChange={onTabChange} className="w-auto">
-            <TabsList className="bg-white/10 border-white/20 h-9">
-              <TabsTrigger
-                value="daily"
-                className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
-                data-testid="tab-daily"
-              >
-                Daily
-              </TabsTrigger>
-              <TabsTrigger
-                value="weekly"
-                className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
-                data-testid="tab-weekly"
-              >
-                Weekly
-              </TabsTrigger>
-              <TabsTrigger
-                value="monthly"
-                className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
-                data-testid="tab-monthly"
-              >
-                Monthly
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <div className="hidden lg:block">
+            <Tabs value={activeTab} onValueChange={onTabChange} className="w-auto">
+              <TabsList className="bg-white/10 border-white/20 h-9">
+                <TabsTrigger
+                  value="daily"
+                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
+                  data-testid="tab-daily"
+                >
+                  Daily
+                </TabsTrigger>
+                <TabsTrigger
+                  value="weekly"
+                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
+                  data-testid="tab-weekly"
+                >
+                  Weekly
+                </TabsTrigger>
+                <TabsTrigger
+                  value="monthly"
+                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
+                  data-testid="tab-monthly"
+                >
+                  Monthly
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
         )}
 
-        {/* Quick Add Button */}
+        {/* Quick Add Button (responsive) */}
         <Button
           size="sm"
-          className="bg-white/20 text-white border border-white/30 hover:bg-white/30 h-9 px-3"
+          className="bg-white/20 text-white border border-white/30 hover:bg-white/30 h-9 px-2 md:px-3"
           data-testid="button-quick-add"
         >
-          <Plus className="w-4 h-4 mr-1" />
-          Quick Add
+          <Plus className="w-4 h-4 md:mr-1" />
+          <span className="hidden sm:inline">Quick Add</span>
         </Button>
 
         {/* User Avatar Dropdown */}

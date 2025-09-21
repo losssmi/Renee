@@ -9,7 +9,7 @@ import renegadeLogo from "@assets/Renegade OS logo_transparent 1_1757334443265.p
 
 export const Login = (): JSX.Element => {
   const [, setLocation] = useLocation();
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

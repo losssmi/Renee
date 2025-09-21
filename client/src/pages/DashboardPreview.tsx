@@ -31,6 +31,7 @@ export const DashboardPreview = (): JSX.Element => {
   const [activeNav, setActiveNav] = useState("Home");
   const [activeSubNav, setActiveSubNav] = useState("My Renegade");
   const [activeTab, setActiveTab] = useState("daily");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavChange = (nav: string, subNav?: string) => {
     setActiveNav(nav);
@@ -120,7 +121,9 @@ export const DashboardPreview = (): JSX.Element => {
         activeNav={activeNav} 
         activeSubNav={activeSubNav} 
         onNavChange={handleNavChange}
-        onLogout={handleLogout} 
+        onLogout={handleLogout}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen} 
       />
 
       {/* Main Content Area */}
@@ -135,7 +138,7 @@ export const DashboardPreview = (): JSX.Element => {
         />
         
         {/* Main Content */}
-        <main className="flex-1 p-6 pt-4 space-y-6 max-w-7xl mx-auto w-full">
+        <main className="flex-1 p-4 md:p-6 pt-4 space-y-4 md:space-y-6 max-w-7xl mx-auto w-full">
         {/* Conditional Content Based on Navigation */}
 
         {/* Content Based on Navigation */}
@@ -143,7 +146,7 @@ export const DashboardPreview = (): JSX.Element => {
           <>
 
             {/* Dashboard Content - Main widgets grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 mb-4 md:mb-6">
               {/* Today's structure */}
               <Card className="bg-white/10 border-white/10">
                 <CardHeader className="pb-4">

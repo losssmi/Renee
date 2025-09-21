@@ -7,7 +7,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, ChevronRight, Home, LogOut } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ChevronDown, ChevronRight, Home, LogOut, Menu } from "lucide-react";
 import renegadeLogo from "@assets/Renegade OS logo_transparent 1_1757334443265.png";
 
 interface SidebarItem {
@@ -23,9 +31,11 @@ interface DashboardSidebarProps {
   activeSubNav: string;
   onNavChange: (nav: string, subNav?: string) => void;
   onLogout: () => void;
+  isMobileMenuOpen?: boolean;
+  setIsMobileMenuOpen?: (open: boolean) => void;
 }
 
-export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogout }: DashboardSidebarProps): JSX.Element => {
+export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogout, isMobileMenuOpen, setIsMobileMenuOpen }: DashboardSidebarProps): JSX.Element => {
   const [expandedSections, setExpandedSections] = useState<string[]>(["Home", "Strategy", "Structure", "Sales", "Accountability"]);
 
   const sidebarItems: SidebarItem[] = [
@@ -89,8 +99,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
     }
   };
 
-  return (
-    <div className="w-64 h-full bg-white/10 backdrop-blur-sm border-r border-white/10 flex flex-col">
+  const SidebarContent = () => (
+    <div className="h-full bg-white/10 backdrop-blur-sm border-r border-white/10 flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-white/10">
         <div className="flex items-center justify-between mb-3">
@@ -203,5 +213,35 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
         </div>
       </nav>
     </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block w-64">
+        <SidebarContent />
+      </div>
+
+      {/* Mobile Menu Button & Sheet */}
+      <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+        <SheetTrigger asChild className="md:hidden fixed top-4 left-4 z-50">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="bg-white/20 text-white hover:bg-white/30 transition-colors"
+            data-testid="mobile-menu-trigger"
+          >
+            <Menu className="w-5 h-5" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="w-64 p-0 bg-transparent border-none">
+          <SheetHeader className="sr-only">
+            <SheetTitle>Navigation Menu</SheetTitle>
+            <SheetDescription>Main navigation for the dashboard</SheetDescription>
+          </SheetHeader>
+          <SidebarContent />
+        </SheetContent>
+      </Sheet>
+    </>
   );
 };
