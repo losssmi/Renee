@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronRight, Home, User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown, ChevronRight, Home, LogOut } from "lucide-react";
+import renegadeLogo from "@assets/Renegade OS logo_transparent 1_1757334443265.png";
 
 interface SidebarItem {
   name: string;
@@ -14,9 +22,10 @@ interface DashboardSidebarProps {
   activeNav: string;
   activeSubNav: string;
   onNavChange: (nav: string, subNav?: string) => void;
+  onLogout: () => void;
 }
 
-export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange }: DashboardSidebarProps): JSX.Element => {
+export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogout }: DashboardSidebarProps): JSX.Element => {
   const [expandedSections, setExpandedSections] = useState<string[]>(["Home", "Strategy", "Structure", "Sales", "Accountability"]);
 
   const sidebarItems: SidebarItem[] = [
@@ -84,18 +93,41 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange }: Dashb
     <div className="w-64 h-full bg-white/10 backdrop-blur-sm border-r border-white/10 flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-white/10">
-        <div className="flex items-center justify-between">
-          <div className="text-white font-light text-lg">Renegade.</div>
+        <div className="flex items-center justify-between mb-3">
+          <img
+            src={renegadeLogo}
+            alt="Renegade OS"
+            className="h-8 w-auto"
+          />
           <div className="text-white text-sm bg-green-500 rounded-full px-2 py-1 text-xs">
             74%
           </div>
         </div>
-        <div className="text-white/60 text-xs mt-1">Stage of Growth: Start Up</div>
-      </div>
-
-      {/* User Profile */}
-      <div className="p-4 border-b border-white/10">
-        <div className="text-white text-right text-lg font-light">R.</div>
+        <div className="text-white/60 text-xs mb-3">Stage of Growth: Start Up</div>
+        
+        {/* User Profile */}
+        <div className="flex justify-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-white/30 transition-all" data-testid="profile-dropdown-trigger">
+                <AvatarImage src="" />
+                <AvatarFallback className="bg-orange-500 text-white text-sm">
+                  A
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem 
+                onClick={onLogout}
+                className="cursor-pointer text-red-600 focus:text-red-600"
+                data-testid="logout-button"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
       {/* Navigation */}

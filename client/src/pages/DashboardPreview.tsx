@@ -126,35 +126,13 @@ export const DashboardPreview = (): JSX.Element => {
       <DashboardSidebar 
         activeNav={activeNav} 
         activeSubNav={activeSubNav} 
-        onNavChange={handleNavChange} 
+        onNavChange={handleNavChange}
+        onLogout={handleLogout} 
       />
 
       {/* Main Content */}
-      <main className="flex-1 p-6 space-y-6">
+      <main className="flex-1 p-6 space-y-6 pt-0">
         {/* Conditional Content Based on Navigation */}
-        {/* Top Bar with Logout */}
-        <div className="flex justify-end mb-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-white/30 transition-all" data-testid="profile-dropdown-trigger">
-                <AvatarImage src="" />
-                <AvatarFallback className="bg-orange-500 text-white text-sm">
-                  A
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem 
-                onClick={handleLogout}
-                className="cursor-pointer text-red-600 focus:text-red-600"
-                data-testid="logout-button"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
 
         {/* Content Based on Navigation */}
         {activeNav === "Home" && activeSubNav === "My Renegade" && (
@@ -261,7 +239,22 @@ export const DashboardPreview = (): JSX.Element => {
           </>
         )}
 
-        {(activeNav === "Strategy" || activeNav === "Structure" || activeNav === "Sales" || activeNav === "Business Audit") && (
+        {activeNav === "Strategy" && (
+          <div className="text-white">
+            {activeSubNav === "Vision" ? (
+              <VisionPage />
+            ) : activeSubNav === "Goals" ? (
+              <GoalsPage />
+            ) : (
+              <div className="text-center py-12">
+                <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
+                <p className="text-white/60">Coming soon...</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {(activeNav === "Structure" || activeNav === "Sales" || activeNav === "Business Audit") && (
           <div className="text-white text-center py-12">
             <h2 className="text-2xl font-semibold mb-4">{activeSubNav || activeNav}</h2>
             <p className="text-white/60">Coming soon...</p>
