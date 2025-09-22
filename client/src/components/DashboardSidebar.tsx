@@ -100,7 +100,7 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
   };
 
   const SidebarContent = () => (
-    <div className="h-full bg-[#F5F3F0] border-r border-gray-200 flex flex-col">
+    <div className="h-full bg-[#F0EDE8] border-r border-gray-200 flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-3">

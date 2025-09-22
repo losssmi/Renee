@@ -112,7 +112,7 @@ export const DashboardPreview = (): JSX.Element => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F3F0] flex">
+    <div className="min-h-screen bg-[#F0EDE8] flex">
       {/* Sidebar */}
       <DashboardSidebar 
         activeNav={activeNav} 
