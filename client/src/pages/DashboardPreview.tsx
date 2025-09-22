@@ -228,24 +228,24 @@ export const DashboardPreview = (): JSX.Element => {
         )}
 
         {activeNav === "Strategy" && (
-          <div className="text-[hsl(var(--text-strong))]">
+          <div className="text-black">
             {activeSubNav === "Vision" ? (
               <VisionPage />
             ) : activeSubNav === "Goals" ? (
               <GoalsPage />
             ) : (
               <div className="text-center py-12">
-                <h2 className="text-2xl font-semibold mb-4 text-[hsl(var(--text-strong))]">{activeSubNav}</h2>
-                <p className="text-[hsl(var(--text))]">Coming soon...</p>
+                <h2 className="text-2xl font-semibold mb-4 text-black">{activeSubNav}</h2>
+                <p className="text-black">Coming soon...</p>
               </div>
             )}
           </div>
         )}
 
         {(activeNav === "Structure" || activeNav === "Sales" || activeNav === "Business Audit") && (
-          <div className="text-[hsl(var(--text-strong))] text-center py-12">
-            <h2 className="text-2xl font-semibold mb-4 text-[hsl(var(--text-strong))]">{activeSubNav || activeNav}</h2>
-            <p className="text-[hsl(var(--text))]">Coming soon...</p>
+          <div className="text-black text-center py-12">
+            <h2 className="text-2xl font-semibold mb-4 text-black">{activeSubNav || activeNav}</h2>
+            <p className="text-black">Coming soon...</p>
           </div>
         )}
 
@@ -283,11 +283,11 @@ export const DashboardPreview = (): JSX.Element => {
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center space-x-2 mb-1">
-                      <div className="text-white/60">{card.icon}</div>
-                      <span className="text-2xl font-semibold text-white">
+                      <div className="text-black/60">{card.icon}</div>
+                      <span className="text-2xl font-semibold text-black">
                         {card.value}
                       </span>
-                      <span className="text-white/60 text-sm">
+                      <span className="text-black/60 text-sm">
                         {card.subtitle}
                       </span>
                     </div>
@@ -297,29 +297,29 @@ export const DashboardPreview = (): JSX.Element => {
                       >
                         {card.change}
                       </span>
-                      <span className="text-[#FFFBEF]/40">{card.changeText}</span>
+                      <span className="text-black/40">{card.changeText}</span>
                     </div>
                   </CardContent>
                 </Card>
               ))}
 
               {/* AI Recommendation Card */}
-              <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+              <Card className="bg-[hsl(var(--surface-2))] border-[hsl(var(--border))] backdrop-blur-sm">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-white font-semibold mb-1">
+                      <div className="text-black font-semibold mb-1">
                         8 actions
                       </div>
-                      <div className="text-white/60 text-sm">
+                      <div className="text-black/60 text-sm">
                         Recommended with AI
                       </div>
-                      <div className="text-white/40 text-xs">
+                      <div className="text-black/40 text-xs">
                         Requires review
                       </div>
                     </div>
                     <Button
-                      className="bg-[#56413C] hover:bg-[#1D0200] text-[#FFFBEF] h-auto px-3 py-1 text-sm transition-colors"
+                      className="bg-[#56413C] hover:bg-[#1D0200] text-black h-auto px-3 py-1 text-sm transition-colors"
                       onClick={() => console.log("See All Actions clicked")}
                       data-testid="button-see-actions"
                     >
@@ -336,12 +336,12 @@ export const DashboardPreview = (): JSX.Element => {
               <Card className="bg-[#FFFBEF]/10 backdrop-blur-md border-[#C7BDB4]/20">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-[#FFFBEF]">
+                    <CardTitle className="text-black">
                       Quick Analytics
                     </CardTitle>
                     <div className="flex items-center space-x-2">
                       <Select defaultValue="total-sales">
-                        <SelectTrigger className="w-40 h-8 text-sm bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF]">
+                        <SelectTrigger className="w-40 h-8 text-sm bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -353,7 +353,7 @@ export const DashboardPreview = (): JSX.Element => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="h-8 w-8 p-0 transition-colors hover:bg-[#C7BDB4]/10 text-[#FFFBEF]"
+                        className="h-8 w-8 p-0 transition-colors hover:bg-[#C7BDB4]/10 text-black"
                         onClick={() => console.log("Analytics chart clicked")}
                         data-testid="button-analytics-chart"
                       >
@@ -367,14 +367,14 @@ export const DashboardPreview = (): JSX.Element => {
                   <div className="grid grid-cols-3 gap-4 mb-6">
                     {quickAnalyticsMetrics.map((metric, index) => (
                       <div key={index} className="text-center">
-                        <div className="text-sm text-[#FFFBEF]/60 mb-1">
+                        <div className="text-sm text-black/60 mb-1">
                           {metric.label}
                         </div>
-                        <div className="text-xl font-semibold text-[#FFFBEF]">
+                        <div className="text-xl font-semibold text-black">
                           {metric.value}
                         </div>
                         {metric.subtitle && (
-                          <div className="text-xs text-[#FFFBEF]/40">
+                          <div className="text-xs text-black/40">
                             {metric.subtitle}
                           </div>
                         )}
@@ -441,7 +441,7 @@ export const DashboardPreview = (): JSX.Element => {
                     </svg>
 
                     {/* X-axis labels */}
-                    <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-[#FFFBEF]/40 px-4">
+                    <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-black/40 px-4">
                       <span>2 Jun</span>
                       <span>9 Jun</span>
                       <span>15 Jun</span>
@@ -465,12 +465,12 @@ export const DashboardPreview = (): JSX.Element => {
                           <div className="w-6 h-6 bg-[#FFFBEF]/20 rounded flex items-center justify-center text-xs">
                             <ClipboardList className="w-3 h-3" />
                           </div>
-                          <span className="text-sm text-white/90">
+                          <span className="text-sm text-black/90">
                             <span className="font-semibold">{item.count}</span>{" "}
                             {item.text}
                           </span>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-white/40" />
+                        <ChevronRight className="w-4 h-4 text-black/40" />
                       </button>
                     ))}
                   </div>
@@ -480,7 +480,7 @@ export const DashboardPreview = (): JSX.Element => {
               {/* GCI Section */}
               <Card className="bg-[#FFFBEF]/10 backdrop-blur-md border-[#C7BDB4]/20">
                 <CardHeader>
-                  <CardTitle className="text-white">GCI Metrics </CardTitle>
+                  <CardTitle className="text-black">GCI Metrics </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {gciMetrics.map((metric, index) => (
@@ -489,13 +489,13 @@ export const DashboardPreview = (): JSX.Element => {
                       className="flex items-center justify-between"
                     >
                       <div className="flex-1">
-                        <div className="text-2xl font-bold text-white mb-1">
+                        <div className="text-2xl font-bold text-black mb-1">
                           {metric.title}
                         </div>
-                        <div className="text-sm text-[#FFFBEF]/60 mb-1">
+                        <div className="text-sm text-black/60 mb-1">
                           {metric.subtitle}
                         </div>
-                        <div className="text-xs text-white/40">
+                        <div className="text-xs text-black/40">
                           {metric.description}
                         </div>
                       </div>
@@ -526,7 +526,7 @@ export const DashboardPreview = (): JSX.Element => {
                           />
                         </svg>
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-sm font-semibold text-white">
+                          <span className="text-sm font-semibold text-black">
                             {metric.percentage}%
                           </span>
                         </div>
@@ -549,58 +549,58 @@ const VisionPage = () => {
   return (
     <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm max-w-6xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-[hsl(var(--text-strong))] text-2xl">Vision</CardTitle>
+        <CardTitle className="text-black text-2xl">Vision</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-[hsl(var(--text-strong))] mb-2">
+              <label className="block text-sm font-medium text-black mb-2">
                 Vision
               </label>
               <Textarea
                 placeholder="Enter your vision statement..."
-                className="min-h-[100px] resize-none bg-[hsl(var(--surface-2))] border-[hsl(var(--border))] text-[hsl(var(--text))] placeholder:text-[hsl(var(--text-muted))]"
+                className="min-h-[100px] resize-none bg-[hsl(var(--surface-2))] border-[hsl(var(--border))] text-black placeholder:text-[hsl(var(--text-muted))]"
                 data-testid="input-vision"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 Mission
               </label>
               <Textarea
                 placeholder="Enter your mission statement..."
-                className="min-h-[100px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="min-h-[100px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                 data-testid="input-mission"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 Core Focus
               </label>
               <Input
                 placeholder="Enter your core focus..."
-                className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                 data-testid="input-core-focus"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 USP
               </label>
               <Input
                 placeholder="Enter your unique selling proposition..."
-                className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                 data-testid="input-usp"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 Values
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -608,7 +608,7 @@ const VisionPage = () => {
                   <Input
                     key={num}
                     placeholder={`Value ${num}`}
-                    className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                    className="bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                     data-testid={`input-value-${num}`}
                   />
                 ))}
@@ -619,45 +619,45 @@ const VisionPage = () => {
           {/* Right Column - SWOT Analysis */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 Strengths
               </label>
               <Textarea
                 placeholder="List your strengths..."
-                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                 data-testid="input-strengths"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 Weaknesses
               </label>
               <Textarea
                 placeholder="List your weaknesses..."
-                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                 data-testid="input-weaknesses"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 Opportunities
               </label>
               <Textarea
                 placeholder="List opportunities..."
-                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                 data-testid="input-opportunities"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-black/90 mb-2">
                 Threats
               </label>
               <Textarea
                 placeholder="List potential threats..."
-                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="min-h-[120px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-black placeholder:text-black/60"
                 data-testid="input-threats"
               />
             </div>
@@ -667,7 +667,7 @@ const VisionPage = () => {
         <div className="mt-8 flex justify-end space-x-4">
           <Button
             variant="outline"
-            className="border-[#C7BDB4]/30 text-[#FFFBEF] hover:bg-[#C7BDB4]/10"
+            className="border-[#C7BDB4]/30 text-black hover:bg-[#C7BDB4]/10"
             onClick={() => console.log("Reset clicked")}
             data-testid="button-reset"
           >
@@ -711,20 +711,20 @@ const GoalsPage = () => {
   ];
 
   return (
-    <Card className="bg-white/10 backdrop-blur-md border-white/20 max-w-7xl mx-auto">
+    <Card className="bg-[hsl(var(--surface-1))] backdrop-blur-md border-[hsl(var(--border))] max-w-7xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-[#FFFBEF] text-2xl mb-6">Goals</CardTitle>
+        <CardTitle className="text-black text-2xl mb-6">Goals</CardTitle>
 
         {/* Tab Navigation */}
-        <div className="flex space-x-1 bg-[#FFFBEF]/10 rounded-lg p-1">
+        <div className="flex space-x-1 bg-[hsl(var(--surface-2))] rounded-lg p-1">
           {timeframes.map((timeframe) => (
             <button
               key={timeframe}
               onClick={() => setActiveTimeframe(timeframe)}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                 activeTimeframe === timeframe
-                  ? "bg-[#C7BDB4]/20 text-[#FFFBEF]"
-                  : "text-[#FFFBEF]/60 hover:text-[#FFFBEF] hover:bg-[#C7BDB4]/10"
+                  ? "bg-[hsl(var(--surface-3))] text-black"
+                  : "text-black/60 hover:text-black hover:bg-[hsl(var(--surface-3))]"
               }`}
               data-testid={`tab-${timeframe.replace(" ", "-").toLowerCase()}`}
             >
@@ -743,32 +743,32 @@ const GoalsPage = () => {
                 key={index}
                 className="p-4 bg-[#FFFBEF]/5 rounded-lg border border-[#C7BDB4]/10 hover:bg-[#C7BDB4]/10 transition-colors"
               >
-                <div className="text-white font-medium">{category}</div>
+                <div className="text-black font-medium">{category}</div>
               </div>
             ))}
           </div>
 
           {/* Vertical Divider */}
-          <div className="hidden lg:block w-px bg-white/20"></div>
+          <div className="hidden lg:block w-px bg-[hsl(var(--border))]"></div>
 
           {/* Right Side - Life Areas with Purpose/Result */}
           <div className="lg:col-span-2 space-y-4">
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="text-center">
-                <h3 className="text-white font-semibold text-lg">Purpose</h3>
+                <h3 className="text-black font-semibold text-lg">Purpose</h3>
               </div>
               <div className="text-center">
-                <h3 className="text-white font-semibold text-lg">Result</h3>
+                <h3 className="text-black font-semibold text-lg">Result</h3>
               </div>
             </div>
 
             {lifeAreas.map((area, index) => (
               <div
                 key={index}
-                className="bg-white/5 rounded-lg border border-white/10 p-4"
+                className="bg-[hsl(var(--surface-2))] rounded-lg border border-[hsl(var(--border))] p-4"
               >
                 <div className="mb-3">
-                  <span className="text-white/90 font-medium text-sm">
+                  <span className="text-black/90 font-medium text-sm">
                     {area}
                   </span>
                 </div>
@@ -778,7 +778,7 @@ const GoalsPage = () => {
                   <div>
                     <Textarea
                       placeholder="Enter purpose..."
-                      className="min-h-[80px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/40 text-sm"
+                      className="min-h-[80px] resize-none bg-[hsl(var(--surface-3))] border-[hsl(var(--border))] text-black placeholder:text-[hsl(var(--text-muted))] text-sm"
                       data-testid={`purpose-${area.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                     />
                   </div>
@@ -787,7 +787,7 @@ const GoalsPage = () => {
                   <div>
                     <Textarea
                       placeholder="Enter result..."
-                      className="min-h-[80px] resize-none bg-white/10 border-white/20 text-white placeholder:text-white/40 text-sm"
+                      className="min-h-[80px] resize-none bg-[hsl(var(--surface-3))] border-[hsl(var(--border))] text-black placeholder:text-[hsl(var(--text-muted))] text-sm"
                       data-testid={`result-${area.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                     />
                   </div>
@@ -795,10 +795,10 @@ const GoalsPage = () => {
 
                 {/* Progress indicator inspired by Monday.com */}
                 <div className="mt-3 flex items-center space-x-2">
-                  <div className="flex-1 bg-white/20 rounded-full h-1">
+                  <div className="flex-1 bg-[hsl(var(--border))] rounded-full h-1">
                     <div className="bg-gradient-to-r from-green-400 to-green-600 h-1 rounded-full w-0 transition-all"></div>
                   </div>
-                  <span className="text-xs text-white/40">0%</span>
+                  <span className="text-xs text-black/40">0%</span>
                 </div>
               </div>
             ))}
@@ -809,7 +809,7 @@ const GoalsPage = () => {
         <div className="mt-8 flex justify-end space-x-4">
           <Button
             variant="outline"
-            className="border-[#C7BDB4]/30 text-[#FFFBEF] hover:bg-[#C7BDB4]/10"
+            className="border-[#C7BDB4]/30 text-black hover:bg-[#C7BDB4]/10"
             onClick={() => console.log("Reset Goals clicked")}
             data-testid="button-reset-goals"
           >
