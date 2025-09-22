@@ -112,7 +112,7 @@ export const DashboardPreview = (): JSX.Element => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#E8E2D5] flex">
+    <div className="min-h-screen bg-[hsl(var(--bg))] flex">
       {/* Sidebar */}
       <DashboardSidebar 
         activeNav={activeNav} 
@@ -145,12 +145,12 @@ export const DashboardPreview = (): JSX.Element => {
             {/* Dashboard Content - Main widgets grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 mb-4 md:mb-6">
               {/* Today's structure */}
-              <Card className="bg-white border-gray-200 shadow-sm">
+              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-gray-900 text-lg">Today's structure</CardTitle>
+                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">Today's structure</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 text-gray-700 text-sm">
+                  <div className="space-y-3 text-[hsl(var(--text))] text-sm">
                     <div>10 connects by 10am</div>
                     <div>3 x 45 minute call sessions</div>
                     <div>1 buyer work session</div>
@@ -159,66 +159,66 @@ export const DashboardPreview = (): JSX.Element => {
               </Card>
 
               {/* Reminders */}
-              <Card className="bg-white border-gray-200 shadow-sm">
+              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-gray-900 text-lg">Reminders</CardTitle>
+                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">Reminders</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-gray-700 text-sm">Hot Stock uncontacted</div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--warning))]"></div>
+                      <div className="text-[hsl(var(--text))] text-sm">Hot Stock uncontacted</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-gray-700 text-sm">Pipeline coverage</div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--warning))]"></div>
+                      <div className="text-[hsl(var(--text))] text-sm">Pipeline coverage</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-gray-700 text-sm">Priority drift</div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--warning))]"></div>
+                      <div className="text-[hsl(var(--text))] text-sm">Priority drift</div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* KPIs */}
-              <Card className="bg-white border-gray-200 shadow-sm">
+              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-gray-900 text-lg">KPIs</CardTitle>
+                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">KPIs</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--success))]"></div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--success))]"></div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--success))]"></div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Quarterly Priorities */}
-              <Card className="bg-white border-gray-200 shadow-sm">
+              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-gray-900 text-lg">Quarterly Priorities</CardTitle>
+                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">Quarterly Priorities</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-gray-700 text-sm">Launch DL Campaign</div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--accent))]"></div>
+                      <div className="text-[hsl(var(--text))] text-sm">Launch DL Campaign</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-gray-700 text-sm">Build DB to 500</div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--accent))]"></div>
+                      <div className="text-[hsl(var(--text))] text-sm">Build DB to 500</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-gray-700 text-sm">Secure 2 expired listings</div>
+                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--accent))]"></div>
+                      <div className="text-[hsl(var(--text))] text-sm">Secure 2 expired listings</div>
                     </div>
                   </div>
                 </CardContent>
@@ -253,7 +253,7 @@ export const DashboardPreview = (): JSX.Element => {
           <>
             {/* Page Summary */}
             <div className="mb-4">
-              <p className="text-gray-600 text-sm">
+              <p className="text-[hsl(var(--text-muted))] text-sm">
                 Displaying data from September 2025
               </p>
             </div>

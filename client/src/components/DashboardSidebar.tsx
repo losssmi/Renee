@@ -93,9 +93,9 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
   };
 
   const SidebarContent = () => (
-    <div className="h-full bg-[#E8E2D5] border-r border-gray-200 flex flex-col">
+    <div className="h-full bg-[hsl(var(--bg))] border-r border-[hsl(var(--border))] flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200">
+      <div className="p-4 border-b border-[hsl(var(--border))]">
         <div className="flex items-center justify-between mb-3">
           <img
             src={renegadeLogo}
@@ -106,7 +106,7 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
             74%
           </div>
         </div>
-        <div className="text-gray-600 text-xs mb-3">Stage of Growth: Start Up</div>
+        <div className="text-[hsl(var(--text-muted))] text-xs mb-3">Stage of Growth: Start Up</div>
       </div>
 
       {/* Navigation */}
@@ -119,8 +119,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                 variant="ghost"
                 className={`w-full justify-start text-left p-3 h-auto font-normal ${
                   activeNav === item.name 
-                    ? "bg-gray-200 text-gray-900" 
-                    : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    ? "bg-[hsl(var(--surface-2))] text-[hsl(var(--text-strong))]" 
+                    : "text-[hsl(var(--text))] hover:bg-[hsl(var(--surface-1))] hover:text-[hsl(var(--text-strong))]"
                 }`}
                 onClick={() => {
                   handleMainNavClick(item.name);
@@ -159,8 +159,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                       variant="ghost"
                       className={`w-full justify-start text-left p-2 h-auto font-normal text-sm ${
                         activeNav === item.name && activeSubNav === subsection
-                          ? "bg-gray-100 text-gray-900"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+                          ? "bg-[hsl(var(--surface-1))] text-[hsl(var(--text-strong))]"
+                          : "text-[hsl(var(--text-muted))] hover:bg-[hsl(var(--surface-1))]/50 hover:text-[hsl(var(--text))]"
                       }`}
                       onClick={() => handleSubsectionClick(item.name, subsection)}
                       data-testid={`sidebar-subnav-${subsection.toLowerCase().replace(/\s+/g, '-')}`}
@@ -168,8 +168,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                       <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${
                           activeNav === item.name && activeSubNav === subsection
-                            ? "bg-gray-900" 
-                            : "bg-gray-400"
+                            ? "bg-[hsl(var(--text-strong))]" 
+                            : "bg-[hsl(var(--text-muted))]"
                         }`} />
                         {subsection}
                       </div>
