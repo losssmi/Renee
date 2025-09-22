@@ -112,7 +112,7 @@ export const DashboardPreview = (): JSX.Element => {
   ];
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--bg))] flex">
+    <div className="min-h-screen bg-white flex">
       {/* Sidebar */}
       <DashboardSidebar 
         activeNav={activeNav} 
@@ -145,12 +145,12 @@ export const DashboardPreview = (): JSX.Element => {
             {/* Dashboard Content - Main widgets grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 mb-4 md:mb-6">
               {/* Today's structure */}
-              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">Today's structure</CardTitle>
+                  <CardTitle className="text-[#1d0200] text-lg">Today's structure</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 text-[hsl(var(--text))] text-sm">
+                  <div className="space-y-3 text-[#1d0200] text-sm">
                     <div>10 connects by 10am</div>
                     <div>3 x 45 minute call sessions</div>
                     <div>1 buyer work session</div>
@@ -159,66 +159,66 @@ export const DashboardPreview = (): JSX.Element => {
               </Card>
 
               {/* Reminders */}
-              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">Reminders</CardTitle>
+                  <CardTitle className="text-[#1d0200] text-lg">Reminders</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--warning))]"></div>
-                      <div className="text-[hsl(var(--text))] text-sm">Hot Stock uncontacted</div>
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-[#1d0200] text-sm">Hot Stock uncontacted</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--warning))]"></div>
-                      <div className="text-[hsl(var(--text))] text-sm">Pipeline coverage</div>
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-[#1d0200] text-sm">Pipeline coverage</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--warning))]"></div>
-                      <div className="text-[hsl(var(--text))] text-sm">Priority drift</div>
+                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="text-[#1d0200] text-sm">Priority drift</div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* KPIs */}
-              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">KPIs</CardTitle>
+                  <CardTitle className="text-[#1d0200] text-lg">KPIs</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--success))]"></div>
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--success))]"></div>
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--success))]"></div>
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Quarterly Priorities */}
-              <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-[hsl(var(--text-strong))] text-lg">Quarterly Priorities</CardTitle>
+                  <CardTitle className="text-[#1d0200] text-lg">Quarterly Priorities</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--accent))]"></div>
-                      <div className="text-[hsl(var(--text))] text-sm">Launch DL Campaign</div>
+                      <div className="w-2 h-2 rounded-full bg-[#e3dcd2]"></div>
+                      <div className="text-[#1d0200] text-sm">Launch DL Campaign</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--accent))]"></div>
-                      <div className="text-[hsl(var(--text))] text-sm">Build DB to 500</div>
+                      <div className="w-2 h-2 rounded-full bg-[#e3dcd2]"></div>
+                      <div className="text-[#1d0200] text-sm">Build DB to 500</div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-[hsl(var(--accent))]"></div>
-                      <div className="text-[hsl(var(--text))] text-sm">Secure 2 expired listings</div>
+                      <div className="w-2 h-2 rounded-full bg-[#e3dcd2]"></div>
+                      <div className="text-[#1d0200] text-sm">Secure 2 expired listings</div>
                     </div>
                   </div>
                 </CardContent>
@@ -253,7 +253,7 @@ export const DashboardPreview = (): JSX.Element => {
           <>
             {/* Page Summary */}
             <div className="mb-4">
-              <p className="text-[hsl(var(--text-muted))] text-sm">
+              <p className="text-[#1d0200]/60 text-sm">
                 Displaying data from September 2025
               </p>
             </div>
@@ -547,21 +547,21 @@ export const DashboardPreview = (): JSX.Element => {
 // Vision Page Component
 const VisionPage = () => {
   return (
-    <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm max-w-6xl mx-auto">
+    <Card className="bg-white border-gray-200 shadow-sm max-w-6xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-black text-2xl">Vision</CardTitle>
+        <CardTitle className="text-[#1d0200] text-2xl">Vision</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-black mb-2">
+              <label className="block text-sm font-medium text-[#1d0200] mb-2">
                 Vision
               </label>
               <Textarea
                 placeholder="Enter your vision statement..."
-                className="min-h-[100px] resize-none bg-[hsl(var(--surface-2))] border-[hsl(var(--border))] text-black placeholder:text-[hsl(var(--text-muted))]"
+                className="min-h-[100px] resize-none bg-gray-50 border-gray-300 text-[#1d0200] placeholder:text-gray-500"
                 data-testid="input-vision"
               />
             </div>
@@ -711,20 +711,20 @@ const GoalsPage = () => {
   ];
 
   return (
-    <Card className="bg-[hsl(var(--surface-1))] backdrop-blur-md border-[hsl(var(--border))] max-w-7xl mx-auto">
+    <Card className="bg-white backdrop-blur-md border-gray-200 max-w-7xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-black text-2xl mb-6">Goals</CardTitle>
+        <CardTitle className="text-[#1d0200] text-2xl mb-6">Goals</CardTitle>
 
         {/* Tab Navigation */}
-        <div className="flex space-x-1 bg-[hsl(var(--surface-2))] rounded-lg p-1">
+        <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
           {timeframes.map((timeframe) => (
             <button
               key={timeframe}
               onClick={() => setActiveTimeframe(timeframe)}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                 activeTimeframe === timeframe
-                  ? "bg-[hsl(var(--surface-3))] text-black"
-                  : "text-black/60 hover:text-black hover:bg-[hsl(var(--surface-3))]"
+                  ? "bg-white text-[#1d0200] shadow-sm"
+                  : "text-[#1d0200]/60 hover:text-[#1d0200] hover:bg-white/50"
               }`}
               data-testid={`tab-${timeframe.replace(" ", "-").toLowerCase()}`}
             >
@@ -765,10 +765,10 @@ const GoalsPage = () => {
             {lifeAreas.map((area, index) => (
               <div
                 key={index}
-                className="bg-[hsl(var(--surface-2))] rounded-lg border border-[hsl(var(--border))] p-4"
+                className="bg-gray-50 rounded-lg border border-gray-200 p-4"
               >
                 <div className="mb-3">
-                  <span className="text-black/90 font-medium text-sm">
+                  <span className="text-[#1d0200] font-medium text-sm">
                     {area}
                   </span>
                 </div>
@@ -778,7 +778,7 @@ const GoalsPage = () => {
                   <div>
                     <Textarea
                       placeholder="Enter purpose..."
-                      className="min-h-[80px] resize-none bg-[hsl(var(--surface-3))] border-[hsl(var(--border))] text-black placeholder:text-[hsl(var(--text-muted))] text-sm"
+                      className="min-h-[80px] resize-none bg-white border-gray-300 text-[#1d0200] placeholder:text-gray-500 text-sm"
                       data-testid={`purpose-${area.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                     />
                   </div>
@@ -787,7 +787,7 @@ const GoalsPage = () => {
                   <div>
                     <Textarea
                       placeholder="Enter result..."
-                      className="min-h-[80px] resize-none bg-[hsl(var(--surface-3))] border-[hsl(var(--border))] text-black placeholder:text-[hsl(var(--text-muted))] text-sm"
+                      className="min-h-[80px] resize-none bg-white border-gray-300 text-[#1d0200] placeholder:text-gray-500 text-sm"
                       data-testid={`result-${area.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                     />
                   </div>

@@ -119,23 +119,24 @@
 @tailwind utilities;
 
 :root {
-  /* Warm color palette */
-  --bg: 33 23% 80%; /* #D9CFBF */
-  --bg-subtle: 33 22% 76%; /* #D1C6B5 */
-  --surface-1: 36 40% 85%; /* #E7DDCC */
-  --surface-2: 35 30% 82%; /* #E0D5C4 */
-  --surface-3: 35 26% 80%; /* #D8CCBA */
-  --border: 33 19% 67%; /* #BBAF9E */
-  --border-weak: 37 20% 76%; /* #CDC4B6 */
-  --text-strong: 20 27% 13%; /* #2B1E17 */
-  --text: 25 22% 21%; /* #40342B */
-  --text-muted: 27 11% 41%; /* #72675E */
-  --text-disabled: 28 12% 57%; /* #9A8F86 */
-  --primary: 14 20% 29%; /* #56413C */
-  --primary-hover: 14 21% 20%; /* #3E2D28 */
-  --accent: 20 46% 44%; /* #A65E3B */
-  --success: 160 40% 31%; /* #2F6F5B */
-  --warning: 32 64% 46%; /* #C27B2B */
+  /* Renegade OS Brand Color System */
+  --bg: 0 0% 100%; /* Pure White #FFFFFF */
+  --bg-subtle: 0 0% 95%; /* Soft Grey #f2f2f2 */
+  --surface-1: 0 0% 100%; /* Pure White #FFFFFF */
+  --surface-2: 0 0% 95%; /* Soft Grey #f2f2f2 */
+  --surface-stone: 33 15% 89%; /* Stone #e3dcd2 */
+  --surface-cream: 44 60% 97%; /* Cream #fffbef */
+  --border: 0 0% 85%; /* Light Grey for borders */
+  --border-weak: 0 0% 90%; /* Very Light Grey */
+  --text-strong: 20 100% 6%; /* Dark brown #1d0200 */
+  --text: 20 100% 6%; /* Dark brown #1d0200 */
+  --text-muted: 0 0% 45%; /* Medium Grey */
+  --text-disabled: 0 0% 60%; /* Light Grey */
+  --primary: 20 100% 6%; /* Dark brown #1d0200 */
+  --primary-hover: 20 100% 4%; /* Darker brown */
+  --accent: 33 15% 89%; /* Stone #e3dcd2 */
+  --success: 160 40% 31%; /* Keep existing green */
+  --warning: 32 64% 46%; /* Keep existing orange */
 }
 
 @layer base {

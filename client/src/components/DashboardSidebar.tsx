@@ -93,9 +93,9 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
   };
 
   const SidebarContent = () => (
-    <div className="h-full bg-[hsl(var(--bg))] border-r border-[hsl(var(--border))] flex flex-col">
+    <div className="h-full bg-white border-r border-gray-200 flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-[hsl(var(--border))]">
+      <div className="p-4 border-b border-gray-200">
         <div className="mb-3">
           <img
             src={renegadeLogo}
@@ -103,7 +103,7 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
             className="h-8 w-auto brightness-0"
           />
         </div>
-        <div className="text-[hsl(var(--text-muted))] text-xs mb-3">Stage of Growth: Start Up • 74%</div>
+        <div className="text-[#1d0200]/60 text-xs mb-3">Stage of Growth: Start Up • 74%</div>
       </div>
 
       {/* Navigation */}
