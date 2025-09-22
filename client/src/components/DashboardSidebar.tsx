@@ -1,12 +1,5 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
@@ -15,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ChevronDown, ChevronRight, Home, LogOut, Menu } from "lucide-react";
+import { ChevronDown, ChevronRight, Home, Menu } from "lucide-react";
 import renegadeLogo from "@assets/Renegade OS logo_transparent 1_1757334443265.png";
 
 interface SidebarItem {
@@ -100,7 +93,7 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
   };
 
   const SidebarContent = () => (
-    <div className="h-full bg-[#F0EDE8] border-r border-gray-200 flex flex-col">
+    <div className="h-full bg-[#E8E2D5] border-r border-gray-200 flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-3">
@@ -114,30 +107,6 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
           </div>
         </div>
         <div className="text-gray-600 text-xs mb-3">Stage of Growth: Start Up</div>
-        
-        {/* User Profile */}
-        <div className="flex justify-end">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-white/30 transition-all" data-testid="profile-dropdown-trigger">
-                <AvatarImage src="" />
-                <AvatarFallback className="bg-orange-500 text-white text-sm">
-                  A
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem 
-                onClick={onLogout}
-                className="cursor-pointer text-red-600 focus:text-red-600"
-                data-testid="logout-button"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
       </div>
 
       {/* Navigation */}
