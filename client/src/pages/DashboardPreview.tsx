@@ -112,10 +112,7 @@ export const DashboardPreview = (): JSX.Element => {
   ];
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat flex"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
+    <div className="min-h-screen bg-[#F5F3F0] flex">
       {/* Sidebar */}
       <DashboardSidebar 
         activeNav={activeNav} 
@@ -148,12 +145,12 @@ export const DashboardPreview = (): JSX.Element => {
             {/* Dashboard Content - Main widgets grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 mb-4 md:mb-6">
               {/* Today's structure */}
-              <Card className="bg-white/10 border-white/10">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-white text-lg">Today's structure</CardTitle>
+                  <CardTitle className="text-gray-900 text-lg">Today's structure</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3 text-white/80 text-sm">
+                  <div className="space-y-3 text-gray-700 text-sm">
                     <div>10 connects by 10am</div>
                     <div>3 x 45 minute call sessions</div>
                     <div>1 buyer work session</div>
@@ -162,66 +159,66 @@ export const DashboardPreview = (): JSX.Element => {
               </Card>
 
               {/* Reminders */}
-              <Card className="bg-white/10 border-white/10">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-white text-lg">Reminders</CardTitle>
+                  <CardTitle className="text-gray-900 text-lg">Reminders</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-white/80 text-sm">Hot Stock uncontacted</div>
+                      <div className="text-gray-700 text-sm">Hot Stock uncontacted</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-white/80 text-sm">Pipeline coverage</div>
+                      <div className="text-gray-700 text-sm">Pipeline coverage</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-white/80 text-sm">Priority drift</div>
+                      <div className="text-gray-700 text-sm">Priority drift</div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* KPIs */}
-              <Card className="bg-white/10 border-white/10">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-white text-lg">KPIs</CardTitle>
+                  <CardTitle className="text-gray-900 text-lg">KPIs</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                      <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Quarterly Priorities */}
-              <Card className="bg-white/10 border-white/10">
+              <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-white text-lg">Quarterly Priorities</CardTitle>
+                  <CardTitle className="text-gray-900 text-lg">Quarterly Priorities</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-white/80 text-sm">Launch DL Campaign</div>
+                      <div className="text-gray-700 text-sm">Launch DL Campaign</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-white/80 text-sm">Build DB to 500</div>
+                      <div className="text-gray-700 text-sm">Build DB to 500</div>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-                      <div className="text-white/80 text-sm">Secure 2 expired listings</div>
+                      <div className="text-gray-700 text-sm">Secure 2 expired listings</div>
                     </div>
                   </div>
                 </CardContent>
@@ -231,24 +228,24 @@ export const DashboardPreview = (): JSX.Element => {
         )}
 
         {activeNav === "Strategy" && (
-          <div className="text-white">
+          <div className="text-gray-900">
             {activeSubNav === "Vision" ? (
               <VisionPage />
             ) : activeSubNav === "Goals" ? (
               <GoalsPage />
             ) : (
               <div className="text-center py-12">
-                <h2 className="text-2xl font-semibold mb-4">{activeSubNav}</h2>
-                <p className="text-white/60">Coming soon...</p>
+                <h2 className="text-2xl font-semibold mb-4 text-gray-900">{activeSubNav}</h2>
+                <p className="text-gray-600">Coming soon...</p>
               </div>
             )}
           </div>
         )}
 
         {(activeNav === "Structure" || activeNav === "Sales" || activeNav === "Business Audit") && (
-          <div className="text-white text-center py-12">
-            <h2 className="text-2xl font-semibold mb-4">{activeSubNav || activeNav}</h2>
-            <p className="text-white/60">Coming soon...</p>
+          <div className="text-gray-900 text-center py-12">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900">{activeSubNav || activeNav}</h2>
+            <p className="text-gray-600">Coming soon...</p>
           </div>
         )}
 
@@ -256,7 +253,7 @@ export const DashboardPreview = (): JSX.Element => {
           <>
             {/* Page Summary */}
             <div className="mb-4">
-              <p className="text-white/60 text-sm">
+              <p className="text-gray-600 text-sm">
                 Displaying data from September 2025
               </p>
             </div>
@@ -550,21 +547,21 @@ export const DashboardPreview = (): JSX.Element => {
 // Vision Page Component
 const VisionPage = () => {
   return (
-    <Card className="bg-[#FFFBEF]/10 backdrop-blur-md border-[#C7BDB4]/20 max-w-6xl mx-auto">
+    <Card className="bg-white border-gray-200 shadow-sm max-w-6xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-[#FFFBEF] text-2xl">Vision</CardTitle>
+        <CardTitle className="text-gray-900 text-2xl">Vision</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-[#FFFBEF]/90 mb-2">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
                 Vision
               </label>
               <Textarea
                 placeholder="Enter your vision statement..."
-                className="min-h-[100px] resize-none bg-[#FFFBEF]/10 border-[#C7BDB4]/20 text-[#FFFBEF] placeholder:text-[#FFFBEF]/60"
+                className="min-h-[100px] resize-none bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500"
                 data-testid="input-vision"
               />
             </div>

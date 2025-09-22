@@ -100,9 +100,9 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
   };
 
   const SidebarContent = () => (
-    <div className="h-full bg-white/10 backdrop-blur-sm border-r border-white/10 flex flex-col">
+    <div className="h-full bg-[#F5F3F0] border-r border-gray-200 flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-white/10">
+      <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-3">
           <img
             src={renegadeLogo}
@@ -113,7 +113,7 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
             74%
           </div>
         </div>
-        <div className="text-white/60 text-xs mb-3">Stage of Growth: Start Up</div>
+        <div className="text-gray-600 text-xs mb-3">Stage of Growth: Start Up</div>
         
         {/* User Profile */}
         <div className="flex justify-end">
@@ -150,8 +150,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                 variant="ghost"
                 className={`w-full justify-start text-left p-3 h-auto font-normal ${
                   activeNav === item.name 
-                    ? "bg-white/20 text-white" 
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-gray-200 text-gray-900" 
+                    : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 }`}
                 onClick={() => {
                   handleMainNavClick(item.name);
@@ -190,8 +190,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                       variant="ghost"
                       className={`w-full justify-start text-left p-2 h-auto font-normal text-sm ${
                         activeNav === item.name && activeSubNav === subsection
-                          ? "bg-white/10 text-white"
-                          : "text-white/60 hover:bg-white/5 hover:text-white/80"
+                          ? "bg-gray-100 text-gray-900"
+                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
                       }`}
                       onClick={() => handleSubsectionClick(item.name, subsection)}
                       data-testid={`sidebar-subnav-${subsection.toLowerCase().replace(/\s+/g, '-')}`}
@@ -199,8 +199,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                       <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${
                           activeNav === item.name && activeSubNav === subsection
-                            ? "bg-white" 
-                            : "bg-white/40"
+                            ? "bg-gray-900" 
+                            : "bg-gray-400"
                         }`} />
                         {subsection}
                       </div>

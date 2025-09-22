@@ -26,13 +26,13 @@ export const DashboardHeader = ({
   onLogout 
 }: DashboardHeaderProps): JSX.Element => {
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white/10 backdrop-blur-md border-b border-white/20 px-6 flex items-center justify-between">
+    <header className="sticky top-0 z-30 h-16 bg-white border-b border-gray-200 px-6 flex items-center justify-between">
       {/* Left: Breadcrumb + Title */}
       <div className="flex items-center space-x-3">
-        <div className="flex items-center text-sm text-white/60">
+        <div className="flex items-center text-sm text-gray-600">
           <span>{activeNav}</span>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <span className="text-white font-medium">{activeSubNav}</span>
+          <span className="text-gray-900 font-medium">{activeSubNav}</span>
         </div>
       </div>
 
@@ -45,24 +45,24 @@ export const DashboardHeader = ({
         {activeNav === "Accountability" && activeTab && onTabChange && (
           <div className="hidden lg:block">
             <Tabs value={activeTab} onValueChange={onTabChange} className="w-auto">
-              <TabsList className="bg-white/10 border-white/20 h-9">
+              <TabsList className="bg-gray-100 border-gray-200 h-9">
                 <TabsTrigger
                   value="daily"
-                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
+                  className="text-gray-600 data-[state=active]:text-gray-900 data-[state=active]:bg-white h-7 text-sm"
                   data-testid="tab-daily"
                 >
                   Daily
                 </TabsTrigger>
                 <TabsTrigger
                   value="weekly"
-                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
+                  className="text-gray-600 data-[state=active]:text-gray-900 data-[state=active]:bg-white h-7 text-sm"
                   data-testid="tab-weekly"
                 >
                   Weekly
                 </TabsTrigger>
                 <TabsTrigger
                   value="monthly"
-                  className="text-white/60 data-[state=active]:text-white data-[state=active]:bg-white/20 h-7 text-sm"
+                  className="text-gray-600 data-[state=active]:text-gray-900 data-[state=active]:bg-white h-7 text-sm"
                   data-testid="tab-monthly"
                 >
                   Monthly
@@ -75,7 +75,7 @@ export const DashboardHeader = ({
         {/* Quick Add Button (responsive) */}
         <Button
           size="sm"
-          className="bg-white/20 text-white border border-white/30 hover:bg-white/30 h-9 px-2 md:px-3"
+          className="bg-gray-100 text-gray-900 border border-gray-300 hover:bg-gray-200 h-9 px-2 md:px-3"
           data-testid="button-quick-add"
         >
           <Plus className="w-4 h-4 md:mr-1" />
@@ -85,7 +85,7 @@ export const DashboardHeader = ({
         {/* User Avatar Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-white/30 transition-all" data-testid="header-profile-dropdown">
+            <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-gray-300 transition-all" data-testid="header-profile-dropdown">
               <AvatarImage src="" />
               <AvatarFallback className="bg-orange-500 text-white text-sm">
                 A
