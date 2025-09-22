@@ -735,9 +735,9 @@ const GoalsPage = () => {
       </CardHeader>
 
       <CardContent>
-        <div className="grid grid-cols-1 lg:grid-cols-6 gap-2">
+        <div className="flex flex-col lg:flex-row gap-0">
           {/* Left Sidebar - Goal Categories */}
-          <div className="lg:col-span-2 space-y-3">
+          <div className="lg:w-2/5 space-y-3 pr-4">
             {goalCategories.map((category, index) => (
               <div
                 key={index}
@@ -749,10 +749,10 @@ const GoalsPage = () => {
           </div>
 
           {/* Vertical Divider */}
-          <div className="hidden lg:block w-px bg-[hsl(var(--border))] mx-2"></div>
+          <div className="hidden lg:block w-px bg-[hsl(var(--border))]"></div>
 
-          {/* Purpose/Result Components positioned right next to divider */}
-          <div className="lg:col-span-3 space-y-4">
+          {/* Purpose/Result Components positioned directly next to divider */}
+          <div className="lg:w-3/5 space-y-4 pl-4">
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="text-center">
                 <h3 className="text-black font-semibold text-lg">Purpose</h3>
