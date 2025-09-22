@@ -116,8 +116,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                 variant="ghost"
                 className={`w-full justify-start text-left p-3 h-auto font-normal ${
                   activeNav === item.name 
-                    ? "bg-[hsl(var(--surface-2))] text-[hsl(var(--text-strong))]" 
-                    : "text-[hsl(var(--text))] hover:bg-[hsl(var(--surface-1))] hover:text-[hsl(var(--text-strong))]"
+                    ? "bg-gray-100 text-[#1d0200]" 
+                    : "text-[#1d0200] hover:bg-gray-50 hover:text-[#1d0200]"
                 }`}
                 onClick={() => {
                   handleMainNavClick(item.name);
@@ -156,8 +156,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                       variant="ghost"
                       className={`w-full justify-start text-left p-2 h-auto font-normal text-sm ${
                         activeNav === item.name && activeSubNav === subsection
-                          ? "bg-[hsl(var(--surface-1))] text-[hsl(var(--text-strong))]"
-                          : "text-[hsl(var(--text-muted))] hover:bg-[hsl(var(--surface-1))]/50 hover:text-[hsl(var(--text))]"
+                          ? "bg-white text-[#1d0200]"
+                          : "text-[#1d0200]/70 hover:bg-white/50 hover:text-[#1d0200]"
                       }`}
                       onClick={() => handleSubsectionClick(item.name, subsection)}
                       data-testid={`sidebar-subnav-${subsection.toLowerCase().replace(/\s+/g, '-')}`}
@@ -165,8 +165,8 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
                       <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${
                           activeNav === item.name && activeSubNav === subsection
-                            ? "bg-[hsl(var(--text-strong))]" 
-                            : "bg-[hsl(var(--text-muted))]"
+                            ? "bg-[#1d0200]" 
+                            : "bg-[#1d0200]/40"
                         }`} />
                         {subsection}
                       </div>
