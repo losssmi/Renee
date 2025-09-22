@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ChevronDown, ChevronRight, Home, Menu } from "lucide-react";
-import renegadeLogo from "@assets/Renegade OS logo_transparent 1_1757334443265.png";
+import renegadeLogo from "@assets/Renegade OS logo_transparent_dark (1)_1758527848829.png";
 
 interface SidebarItem {
   name: string;
@@ -100,7 +100,7 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
           <img
             src={renegadeLogo}
             alt="Renegade OS"
-            className="h-8 w-auto brightness-0"
+            className="h-8 w-auto"
           />
         </div>
         <div className="text-[hsl(var(--text-muted))] text-xs mb-3">Stage of Growth: Start Up • 74%</div>
