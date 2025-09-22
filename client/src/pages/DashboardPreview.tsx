@@ -748,19 +748,18 @@ const GoalsPage = () => {
             ))}
           </div>
 
-          {/* Vertical Divider */}
-          <div className="hidden lg:block w-px bg-[hsl(var(--border))]"></div>
+          {/* Vertical Divider with Purpose/Result Labels */}
+          <div className="hidden lg:flex lg:flex-col lg:items-center lg:justify-center lg:space-y-8">
+            <div className="w-px h-20 bg-[hsl(var(--border))]"></div>
+            <div className="text-center space-y-4">
+              <h3 className="text-black font-semibold text-sm transform -rotate-90 whitespace-nowrap">Purpose</h3>
+              <h3 className="text-black font-semibold text-sm transform -rotate-90 whitespace-nowrap">Result</h3>
+            </div>
+            <div className="w-px h-20 bg-[hsl(var(--border))]"></div>
+          </div>
 
           {/* Right Side - Life Areas with Purpose/Result */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="text-center">
-                <h3 className="text-black font-semibold text-lg">Purpose</h3>
-              </div>
-              <div className="text-center">
-                <h3 className="text-black font-semibold text-lg">Result</h3>
-              </div>
-            </div>
 
             {lifeAreas.map((area, index) => (
               <div
