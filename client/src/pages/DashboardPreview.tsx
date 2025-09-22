@@ -228,24 +228,24 @@ export const DashboardPreview = (): JSX.Element => {
         )}
 
         {activeNav === "Strategy" && (
-          <div className="text-gray-900">
+          <div className="text-[hsl(var(--text-strong))]">
             {activeSubNav === "Vision" ? (
               <VisionPage />
             ) : activeSubNav === "Goals" ? (
               <GoalsPage />
             ) : (
               <div className="text-center py-12">
-                <h2 className="text-2xl font-semibold mb-4 text-gray-900">{activeSubNav}</h2>
-                <p className="text-gray-600">Coming soon...</p>
+                <h2 className="text-2xl font-semibold mb-4 text-[hsl(var(--text-strong))]">{activeSubNav}</h2>
+                <p className="text-[hsl(var(--text))]">Coming soon...</p>
               </div>
             )}
           </div>
         )}
 
         {(activeNav === "Structure" || activeNav === "Sales" || activeNav === "Business Audit") && (
-          <div className="text-gray-900 text-center py-12">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-900">{activeSubNav || activeNav}</h2>
-            <p className="text-gray-600">Coming soon...</p>
+          <div className="text-[hsl(var(--text-strong))] text-center py-12">
+            <h2 className="text-2xl font-semibold mb-4 text-[hsl(var(--text-strong))]">{activeSubNav || activeNav}</h2>
+            <p className="text-[hsl(var(--text))]">Coming soon...</p>
           </div>
         )}
 
@@ -263,17 +263,17 @@ export const DashboardPreview = (): JSX.Element => {
               {metricCards.map((card, index) => (
                 <Card
                   key={index}
-                  className="bg-[#FFFBEF]/5 border-[#C7BDB4]/10 backdrop-blur-sm"
+                  className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] backdrop-blur-sm"
                 >
                   <CardHeader className="pb-2">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-[#FFFBEF]/60 text-sm font-medium">
+                      <CardTitle className="text-[hsl(var(--text-muted))] text-sm font-medium">
                         {card.title}
                       </CardTitle>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-[#FFFBEF]/60 hover:bg-[#C7BDB4]/10 h-auto p-1 transition-colors"
+                        className="text-[hsl(var(--text-muted))] hover:bg-[hsl(var(--surface-2))] h-auto p-1 transition-colors"
                         onClick={() => console.log("Card menu clicked")}
                         data-testid={`button-card-menu-${index}`}
                       >
@@ -547,21 +547,21 @@ export const DashboardPreview = (): JSX.Element => {
 // Vision Page Component
 const VisionPage = () => {
   return (
-    <Card className="bg-white border-gray-200 shadow-sm max-w-6xl mx-auto">
+    <Card className="bg-[hsl(var(--surface-1))] border-[hsl(var(--border))] shadow-sm max-w-6xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-gray-900 text-2xl">Vision</CardTitle>
+        <CardTitle className="text-[hsl(var(--text-strong))] text-2xl">Vision</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column */}
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">
+              <label className="block text-sm font-medium text-[hsl(var(--text-strong))] mb-2">
                 Vision
               </label>
               <Textarea
                 placeholder="Enter your vision statement..."
-                className="min-h-[100px] resize-none bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-500"
+                className="min-h-[100px] resize-none bg-[hsl(var(--surface-2))] border-[hsl(var(--border))] text-[hsl(var(--text))] placeholder:text-[hsl(var(--text-muted))]"
                 data-testid="input-vision"
               />
             </div>

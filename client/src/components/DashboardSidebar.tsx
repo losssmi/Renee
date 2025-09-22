@@ -96,17 +96,14 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
     <div className="h-full bg-[hsl(var(--bg))] border-r border-[hsl(var(--border))] flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-[hsl(var(--border))]">
-        <div className="flex items-center justify-between mb-3">
+        <div className="mb-3">
           <img
             src={renegadeLogo}
             alt="Renegade OS"
             className="h-8 w-auto"
           />
-          <div className="text-white text-sm bg-green-500 rounded-full px-2 py-1 text-xs">
-            74%
-          </div>
         </div>
-        <div className="text-[hsl(var(--text-muted))] text-xs mb-3">Stage of Growth: Start Up</div>
+        <div className="text-[hsl(var(--text-muted))] text-xs mb-3">Stage of Growth: Start Up • 74%</div>
       </div>
 
       {/* Navigation */}
