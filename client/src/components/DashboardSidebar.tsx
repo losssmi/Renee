@@ -100,7 +100,7 @@ export const DashboardSidebar = ({ activeNav, activeSubNav, onNavChange, onLogou
           <img
             src={renegadeLogo}
             alt="Renegade OS"
-            className="h-8 w-auto"
+            className="h-8 w-auto brightness-0"
           />
         </div>
         <div className="text-[hsl(var(--text-muted))] text-xs mb-3">Stage of Growth: Start Up • 74%</div>
