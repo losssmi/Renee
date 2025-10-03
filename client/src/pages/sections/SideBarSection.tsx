@@ -12,6 +12,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { useQuery } from "@tanstack/react-query";
 
 const homeItems = [
   { icon: HomeIcon, label: "Dashboard", active: true },
@@ -52,6 +53,13 @@ const supportsItems = [
 ];
 
 export const SideBarSection = (): JSX.Element => {
+  const { data: user } = useQuery<{ id: number; email: string; username?: string }>({
+    queryKey: ['/api/auth/user'],
+  });
+
+  const displayName = user?.username || user?.email?.split('@')[0] || 'User';
+  const userInitial = displayName.charAt(0).toUpperCase();
+
   return (
     <aside className="w-full h-full bg-[#fffbef] border-r border-[#dbe2eb] flex flex-col">
       <header className="flex items-center justify-between px-[21px] pt-[23px] pb-4">
@@ -211,15 +219,15 @@ export const SideBarSection = (): JSX.Element => {
           <div className="flex items-center gap-3">
             <Avatar className="w-8 h-8">
               <AvatarFallback className="bg-neutral-new600 text-white text-xs">
-                A
+                {userInitial}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new900 text-xs">
-                Antoine
+                {displayName}
               </span>
               <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-neutral-new600 text-[10px]">
-                antoine@gmail.com
+                {user?.email || ''}
               </span>
             </div>
           </div>
