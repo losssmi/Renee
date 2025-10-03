@@ -101,7 +101,7 @@ export const Dashboard = (): JSX.Element => {
 
                   <div className="flex flex-col gap-2 mb-4 flex-grow">
                     <div className="flex items-center gap-2.5">
-                      <div className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-100 text-2xl tracking-[0] leading-9 whitespace-nowrap">
+                      <div className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-black text-2xl tracking-[0] leading-9 whitespace-nowrap">
                         {card.value}
                       </div>
                       {card.change && (
