@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
 import { Landing } from "@/pages/Landing";
-import { DashboardPreview } from "@/pages/DashboardPreview";
+import { Dashboard } from "@/pages/Dashboard";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -32,7 +32,7 @@ function Router() {
       <Route path="/step3-structure" component={Step3Structure} />
       <Route path="/step4-accountability" component={Step4Accountability} />
       <Route path="/assessment-intro" component={AssessmentIntro} />
-      <Route path="/dashboard" component={DashboardPreview} />
+      <Route path="/dashboard" component={Dashboard} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
