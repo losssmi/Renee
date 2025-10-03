@@ -1,5 +1,5 @@
-import { ArrowUpRightIcon, TrendingUpIcon } from "lucide-react";
-import React from "react";
+import { ArrowUpRightIcon, TrendingUpIcon, MenuIcon, XIcon } from "lucide-react";
+import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -51,18 +51,43 @@ const metricCards = [
 ];
 
 export const Dashboard = (): JSX.Element => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="bg-[#f5f5f5] w-full min-h-screen flex">
-      <aside className="w-[263px] flex-shrink-0">
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-md"
+        data-testid="button-mobile-menu"
+      >
+        {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+      </button>
+
+      {/* Sidebar - hidden on mobile, shown on desktop */}
+      <aside className={`
+        fixed lg:static inset-y-0 left-0 z-40
+        w-[263px] flex-shrink-0
+        transform transition-transform duration-300 ease-in-out
+        ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
         <SideBarSection />
       </aside>
 
-      <main className="flex-1 flex flex-col bg-[#f5f5f5]">
+      {/* Overlay for mobile menu */}
+      {mobileMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      <main className="flex-1 flex flex-col bg-[#f5f5f5] w-full lg:w-auto">
         <DashboardHeaderSection />
         <TopBarSection />
 
-        <div className="px-6 py-4 flex flex-col gap-4 bg-[#f5f5f5]">
-          <div className="grid grid-cols-4 gap-4">
+        <div className="px-4 md:px-6 py-4 flex flex-col gap-4 bg-[#f5f5f5]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {metricCards.map((card, index) => (
               <Card
                 key={index}
@@ -145,12 +170,12 @@ export const Dashboard = (): JSX.Element => {
             ))}
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col lg:flex-row gap-4">
             <div className="flex-1">
               <SalesOverviewSection />
             </div>
             <div className="flex-1">
-              <section className="w-full bg-white rounded-lg border border-solid border-[#ededed] px-6 py-4">
+              <section className="w-full bg-white rounded-lg border border-solid border-[#ededed] px-4 md:px-6 py-4">
                 <header className="flex items-center gap-2 mb-4">
                   <img
                     className="w-6 h-6"

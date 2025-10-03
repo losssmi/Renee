@@ -39,7 +39,7 @@ const metricsData = [
 
 export const SalesOverviewSection = (): JSX.Element => {
   return (
-    <section className="w-full bg-white rounded-lg border border-solid border-[#ededed] px-6 py-4">
+    <section className="w-full bg-white rounded-lg border border-solid border-[#ededed] px-4 md:px-6 py-4">
       <header className="flex items-center gap-2 mb-4">
         <img
           className="w-6 h-6"
@@ -51,20 +51,20 @@ export const SalesOverviewSection = (): JSX.Element => {
         </h2>
       </header>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {metricsData.map((metric, index) => (
           <Card
             key={index}
             className="bg-[#f5f5f5] border-0 shadow-[inset_0px_0px_4px_#00000040]"
           >
-            <CardContent className="p-6">
+            <CardContent className="p-4 md:p-6">
               <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new900 text-sm tracking-[-0.14px] leading-7 mb-4">
                 {metric.title}
               </h3>
 
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2.5">
-                  <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-100 text-2xl tracking-[0] leading-9">
+                  <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-black text-2xl tracking-[0] leading-9">
                     {metric.value}
                   </span>
 

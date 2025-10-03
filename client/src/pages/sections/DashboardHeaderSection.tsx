@@ -12,7 +12,7 @@ import {
 
 export const DashboardHeaderSection = (): JSX.Element => {
   return (
-    <header className="w-full h-[62px] bg-white border-b border-[#dbe2eb] flex items-center justify-between px-6">
+    <header className="w-full min-h-[62px] bg-white border-b border-[#dbe2eb] flex items-center justify-between px-4 md:px-6 py-2 md:py-0">
       <Breadcrumb>
         <BreadcrumbList className="flex items-center gap-2">
           <BreadcrumbItem>
@@ -36,8 +36,8 @@ export const DashboardHeaderSection = (): JSX.Element => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="flex items-center gap-4">
-        <Badge className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-10 rounded-[100px] border border-solid border-[#dbe2eb] h-auto">
+      <div className="flex items-center gap-2 md:gap-4">
+        <Badge className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-10 rounded-[100px] border border-solid border-[#dbe2eb] h-auto">
           <DiamondIcon className="w-5 h-5" />
           <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-primary-900 text-sm tracking-[0] leading-[21px] whitespace-nowrap">
             Premium account
@@ -45,7 +45,7 @@ export const DashboardHeaderSection = (): JSX.Element => {
         </Badge>
 
         <img
-          className="w-[114px] h-[30px]"
+          className="w-[90px] h-[24px] md:w-[114px] md:h-[30px]"
           alt="Frame"
           src="/figmaAssets/frame-2147225131.svg"
         />
