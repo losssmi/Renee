@@ -13,10 +13,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useQuery } from "@tanstack/react-query";
+import { Link, useLocation } from "wouter";
 
 const homeItems = [
-  { icon: HomeIcon, label: "Dashboard", active: true },
-  { icon: BoxIcon, label: "My Renegade", active: false },
+  { icon: HomeIcon, label: "Dashboard", path: "/dashboard" },
+  { icon: BoxIcon, label: "My Renegade", path: "/my-renegade" },
 ];
 
 const strategyItems = [
@@ -56,6 +57,7 @@ export const SideBarSection = (): JSX.Element => {
   const { data: user } = useQuery<{ id: number; email: string; username?: string }>({
     queryKey: ['/api/auth/user'],
   });
+  const [location] = useLocation();
 
   const displayName = user?.username || user?.email?.split('@')[0] || 'User';
   const userInitial = displayName.charAt(0).toUpperCase();
@@ -88,28 +90,33 @@ export const SideBarSection = (): JSX.Element => {
             </span>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-4 space-y-1">
-            {homeItems.map((item, index) => (
-              <Button
-                key={index}
-                variant={item.active ? "secondary" : "ghost"}
-                className={`w-full justify-start gap-2 h-auto ${
-                  item.active
-                    ? "bg-[#fffdf9] rounded-lg border border-[#dbe2eb] shadow-[0px_0px_10px_#0000000a] px-3 py-3"
-                    : "px-3 py-2"
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                <span
-                  className={`[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs tracking-[0] leading-[normal] whitespace-nowrap ${
-                    item.active
-                      ? "font-bold text-neutral-new900"
-                      : "font-medium text-neutral-new600"
-                  }`}
-                >
-                  {item.label}
-                </span>
-              </Button>
-            ))}
+            {homeItems.map((item, index) => {
+              const isActive = location === item.path;
+              return (
+                <Link key={index} href={item.path}>
+                  <Button
+                    variant={isActive ? "secondary" : "ghost"}
+                    className={`w-full justify-start gap-2 h-auto ${
+                      isActive
+                        ? "bg-[#fffdf9] rounded-lg border border-[#dbe2eb] shadow-[0px_0px_10px_#0000000a] px-3 py-3"
+                        : "px-3 py-2"
+                    }`}
+                    data-testid={`nav-${item.label.toLowerCase().replace(' ', '-')}`}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    <span
+                      className={`[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs tracking-[0] leading-[normal] whitespace-nowrap ${
+                        isActive
+                          ? "font-bold text-neutral-new900"
+                          : "font-medium text-neutral-new600"
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                  </Button>
+                </Link>
+              );
+            })}
           </CollapsibleContent>
         </Collapsible>
 
