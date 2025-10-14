@@ -21,14 +21,16 @@ const homeItems = [
 ];
 
 const strategyItems = [
-  { icon: "/figmaAssets/oui-integration-general.svg", label: "Vision & Goals" },
+  { icon: "/figmaAssets/oui-integration-general.svg", label: "Vision & Goals", path: "/vision-goals" },
   {
     icon: "/figmaAssets/carbon-ibm-event-automation-6.svg",
     label: "Quarterly Priorities",
+    path: null,
   },
   {
     icon: "/figmaAssets/carbon-ibm-event-automation-1.svg",
     label: "Market Analysis",
+    path: null,
   },
 ];
 
@@ -128,18 +130,29 @@ export const SideBarSection = (): JSX.Element => {
             </span>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-[15px] space-y-1">
-            {strategyItems.map((item, index) => (
-              <Button
-                key={index}
-                variant="ghost"
-                className="w-full justify-start gap-2 h-auto px-3 py-2"
-              >
-                <img className="w-4 h-4" alt={item.label} src={item.icon} />
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-neutral-new600 text-xs tracking-[0] leading-[normal] whitespace-nowrap">
-                  {item.label}
-                </span>
-              </Button>
-            ))}
+            {strategyItems.map((item, index) => {
+              const content = (
+                <Button
+                  key={index}
+                  variant="ghost"
+                  className="w-full justify-start gap-2 h-auto px-3 py-2"
+                  data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                >
+                  <img className="w-4 h-4" alt={item.label} src={item.icon} />
+                  <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-neutral-new600 text-xs tracking-[0] leading-[normal] whitespace-nowrap">
+                    {item.label}
+                  </span>
+                </Button>
+              );
+              
+              return item.path ? (
+                <Link key={index} href={item.path}>
+                  {content}
+                </Link>
+              ) : (
+                content
+              );
+            })}
           </CollapsibleContent>
         </Collapsible>
 
