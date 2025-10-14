@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 
 import { Landing } from "@/pages/Landing";
 import { Dashboard } from "@/pages/Dashboard";
+import { MyRenegade } from "@/pages/MyRenegade";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -33,6 +34,7 @@ function Router() {
       <Route path="/step4-accountability" component={Step4Accountability} />
       <Route path="/assessment-intro" component={AssessmentIntro} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/my-renegade" component={MyRenegade} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
