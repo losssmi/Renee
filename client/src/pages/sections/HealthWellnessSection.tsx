@@ -10,9 +10,9 @@ const marketingData = [
   },
   {
     channel: "Social Media",
-    status: "Progress",
+    status: "Scheduled",
     progress: 40,
-    barColor: "bg-[#ffc130]",
+    barColor: "bg-[#367bf6]",
   },
   {
     channel: "Newsletter",
@@ -26,33 +26,30 @@ export const HealthWellnessSection = (): JSX.Element => {
   return (
     <Card className="w-full bg-white rounded-lg border border-solid border-[#ededed] shadow-sm">
       <CardContent className="p-4 md:p-6">
-        <header className="mb-4">
+        <header className="mb-3">
           <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new900 text-sm tracking-[-0.14px] leading-7">
             Marketing
           </h2>
         </header>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           {marketingData.map((item, index) => (
-            <div key={index} className="flex items-center gap-3">
-              <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-neutral-new900 text-xs tracking-[-0.12px] leading-7 w-24 flex-shrink-0">
+            <div key={index} className="flex items-center justify-between gap-3">
+              <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-neutral-new900 text-xs tracking-[-0.12px] leading-7 min-w-[80px]">
                 {item.channel}
               </span>
-              <div className="flex-1 flex items-center gap-2">
-                <div className="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
-                  <div
-                    className={`${item.barColor} h-full flex items-center justify-end px-2`}
-                    style={{ width: `${item.progress}%` }}
-                  >
-                    <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-white text-xs">
-                      {item.status}
-                    </span>
-                  </div>
-                </div>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-neutral-new900 text-xs w-12 text-right">
-                  {item.progress}%
-                </span>
+              <div className="flex-1 relative h-6 bg-gray-200 rounded-sm overflow-hidden max-w-[300px]">
+                <div
+                  className={`${item.barColor} h-full flex items-center justify-center`}
+                  style={{ width: `${item.progress}%` }}
+                />
               </div>
+              <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-neutral-new900 text-xs min-w-[60px] text-right">
+                {item.status}
+              </span>
+              <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-neutral-new900 text-xs min-w-[40px] text-right">
+                {item.progress}%
+              </span>
             </div>
           ))}
         </div>
