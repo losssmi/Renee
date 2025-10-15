@@ -250,69 +250,76 @@ export function Sales() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">Month</label>
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Month</label>
                 <Input
                   value={formData.month}
                   onChange={(e) => setFormData({ ...formData, month: e.target.value })}
-                  placeholder="e.g., Sept"
+                  placeholder="Sept"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]"
                   data-testid="input-month"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">Price</label>
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Price</label>
                 <Input
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  placeholder="e.g., $3,000,000"
+                  placeholder="$3,000,000"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]"
                   data-testid="input-price"
                 />
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium">Address</label>
+              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Address</label>
               <Input
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                placeholder="e.g., 1 John Street, Woollahra"
+                placeholder="1 John Street, Woollahra"
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]"
                 data-testid="input-address"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">Motivation</label>
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Motivation</label>
                 <Input
                   value={formData.motivation}
                   onChange={(e) => setFormData({ ...formData, motivation: e.target.value })}
-                  placeholder="e.g., Downsize"
+                  placeholder="Downsize"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]"
                   data-testid="input-motivation"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">Lead Status</label>
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Lead Status</label>
                 <Input
                   value={formData.leadStatus}
                   onChange={(e) => setFormData({ ...formData, leadStatus: e.target.value })}
-                  placeholder="e.g., OFI"
+                  placeholder="OFI"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]"
                   data-testid="input-lead-status"
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">Est. Commission</label>
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Est. Commission</label>
                 <Input
                   value={formData.estComm}
                   onChange={(e) => setFormData({ ...formData, estComm: e.target.value })}
-                  placeholder="e.g., 1.8%"
+                  placeholder="1.8%"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]"
                   data-testid="input-est-comm"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">Est. GCI</label>
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Est. GCI</label>
                 <Input
                   value={formData.estGCI}
                   onChange={(e) => setFormData({ ...formData, estGCI: e.target.value })}
-                  placeholder="e.g., $54,000"
+                  placeholder="$54,000"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]"
                   data-testid="input-est-gci"
                 />
               </div>
@@ -325,7 +332,7 @@ export function Sales() {
                 className="w-4 h-4"
                 data-testid="checkbox-appraised"
               />
-              <label className="text-sm font-medium">Appraised</label>
+              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">Appraised</label>
             </div>
           </div>
           <DialogFooter>

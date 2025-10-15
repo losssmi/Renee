@@ -181,8 +181,8 @@ export function VisionGoals() {
                           <Textarea
                             value={vision}
                             onChange={(e) => setVision(e.target.value)}
-                            placeholder='Example: "To be the most trusted real estate advisor in the region, known for innovation and client care."'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px]"
+                            placeholder='Add your vision here...'
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px] ml-16 p-3 bg-gray-50 rounded border border-gray-200"
                             data-testid="input-vision"
                           />
                         ) : (
@@ -190,9 +190,6 @@ export function VisionGoals() {
                             {vision || 'Click Edit to add your vision...'}
                           </p>
                         )}
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3] ml-16 mt-1">
-                          Example: "To be the most trusted real estate advisor in the region, known for innovation and client care."
-                        </p>
                       </div>
 
                       <div>
@@ -208,8 +205,8 @@ export function VisionGoals() {
                           <Textarea
                             value={mission}
                             onChange={(e) => setMission(e.target.value)}
-                            placeholder='Example: "To help clients achieve their property goals through insight, integrity, and consistency."'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px]"
+                            placeholder='Add your mission here...'
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px] ml-16 p-3 bg-gray-50 rounded border border-gray-200"
                             data-testid="input-mission"
                           />
                         ) : (
@@ -217,9 +214,6 @@ export function VisionGoals() {
                             {mission || 'Click Edit to add your mission...'}
                           </p>
                         )}
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3] ml-16 mt-1">
-                          Example: "To help clients achieve their property goals through insight, integrity, and consistency."
-                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -248,8 +242,8 @@ export function VisionGoals() {
                           <Input
                             value={coreFocus}
                             onChange={(e) => setCoreFocus(e.target.value)}
-                            placeholder='Example: "Luxury waterfront listings & investor relations."'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm"
+                            placeholder='Add your core focus...'
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm ml-16 p-2 bg-gray-50 rounded border border-gray-200"
                             data-testid="input-core-focus"
                           />
                         ) : (
@@ -257,9 +251,6 @@ export function VisionGoals() {
                             {coreFocus || 'Click Edit to add your core focus...'}
                           </p>
                         )}
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3] ml-16 mt-1">
-                          Example: "Luxury waterfront listings & investor relations."
-                        </p>
                       </div>
 
                       <div>
@@ -275,8 +266,8 @@ export function VisionGoals() {
                           <Input
                             value={usp}
                             onChange={(e) => setUSP(e.target.value)}
-                            placeholder='Example: "Combining high-end presentation with strategic marketing."'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm"
+                            placeholder='Add your USP...'
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm ml-16 p-2 bg-gray-50 rounded border border-gray-200"
                             data-testid="input-usp"
                           />
                         ) : (
@@ -284,9 +275,6 @@ export function VisionGoals() {
                             {usp || 'Click Edit to add your USP...'}
                           </p>
                         )}
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3] ml-16 mt-1">
-                          Example: "Combining high-end presentation with strategic marketing."
-                        </p>
                       </div>
 
                       <div>
@@ -350,13 +338,13 @@ export function VisionGoals() {
                         <Textarea
                           value={strengths}
                           onChange={(e) => setStrengths(e.target.value)}
-                          placeholder='Example: "Strong local brand"'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] min-h-[100px]"
+                          placeholder='Add strengths...'
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
                           data-testid="input-strengths"
                         />
                       ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3]">
-                          {strengths || 'Example: "Strong local brand"'}
+                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
+                          {strengths || 'Click Edit to add...'}
                         </p>
                       )}
                     </div>
@@ -369,13 +357,13 @@ export function VisionGoals() {
                         <Textarea
                           value={weaknesses}
                           onChange={(e) => setWeaknesses(e.target.value)}
-                          placeholder='Example: "Limited automation"'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] min-h-[100px]"
+                          placeholder='Add weaknesses...'
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
                           data-testid="input-weaknesses"
                         />
                       ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3]">
-                          {weaknesses || 'Example: "Limited automation"'}
+                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
+                          {weaknesses || 'Click Edit to add...'}
                         </p>
                       )}
                     </div>
@@ -388,13 +376,13 @@ export function VisionGoals() {
                         <Textarea
                           value={opportunities}
                           onChange={(e) => setOpportunities(e.target.value)}
-                          placeholder='"New luxury developments"'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] min-h-[100px]"
+                          placeholder='Add opportunities...'
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
                           data-testid="input-opportunities"
                         />
                       ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3]">
-                          {opportunities || '"New luxury developments"'}
+                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
+                          {opportunities || 'Click Edit to add...'}
                         </p>
                       )}
                     </div>
@@ -407,13 +395,13 @@ export function VisionGoals() {
                         <Textarea
                           value={threats}
                           onChange={(e) => setThreats(e.target.value)}
-                          placeholder='"High competition in area"'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] min-h-[100px]"
+                          placeholder='Add threats...'
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
                           data-testid="input-threats"
                         />
                       ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3]">
-                          {threats || '"High competition in area"'}
+                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
+                          {threats || 'Click Edit to add...'}
                         </p>
                       )}
                     </div>
@@ -438,8 +426,8 @@ export function VisionGoals() {
                       <Textarea
                         value={bhag}
                         onChange={(e) => setBhag(e.target.value)}
-                        placeholder='Example: "Achieve $10M in sales volume and open 2 regional offices."'
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[60px]"
+                        placeholder='Add your BHAG...'
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[60px] p-3 bg-gray-50 rounded border border-gray-200"
                         data-testid="input-bhag"
                       />
                     ) : (
@@ -447,9 +435,6 @@ export function VisionGoals() {
                         {bhag || 'Click Edit to add your BHAG...'}
                       </p>
                     )}
-                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[10px] text-[rgba(23,42,65,0.62)] tracking-[-0.1px] leading-[1.3] mt-1">
-                      Example: "Achieve $10M in sales volume and open 2 regional offices."
-                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -498,26 +483,20 @@ export function VisionGoals() {
                       {visionMetrics.map((item, index) => (
                         <div key={index} className="grid grid-cols-3 gap-4 items-center">
                           <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.metric}</span>
-                          {isEditingGoals ? (
-                            <Input
-                              value={item.target}
-                              onChange={(e) => updateVisionMetric(index, 'target', e.target.value)}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
-                              data-testid={`input-vision-target-${index}`}
-                            />
-                          ) : (
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.target}</span>
-                          )}
-                          {isEditingGoals ? (
-                            <Input
-                              value={item.notes}
-                              onChange={(e) => updateVisionMetric(index, 'notes', e.target.value)}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
-                              data-testid={`input-vision-notes-${index}`}
-                            />
-                          ) : (
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.notes || '-'}</span>
-                          )}
+                          <Input
+                            value={item.target}
+                            onChange={(e) => updateVisionMetric(index, 'target', e.target.value)}
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
+                            disabled={!isEditingGoals}
+                            data-testid={`input-vision-target-${index}`}
+                          />
+                          <Input
+                            value={item.notes}
+                            onChange={(e) => updateVisionMetric(index, 'notes', e.target.value)}
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
+                            disabled={!isEditingGoals}
+                            data-testid={`input-vision-notes-${index}`}
+                          />
                         </div>
                       ))}
                     </div>
@@ -542,26 +521,20 @@ export function VisionGoals() {
                       {suggestedTargets.map((item, index) => (
                         <div key={index} className="grid grid-cols-3 gap-4 items-center">
                           <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.metric}</span>
-                          {isEditingGoals ? (
-                            <Input
-                              value={item.target}
-                              onChange={(e) => updateSuggestedTarget(index, 'target', e.target.value)}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
-                              data-testid={`input-suggested-target-${index}`}
-                            />
-                          ) : (
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.target}</span>
-                          )}
-                          {isEditingGoals ? (
-                            <Input
-                              value={item.notes}
-                              onChange={(e) => updateSuggestedTarget(index, 'notes', e.target.value)}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
-                              data-testid={`input-suggested-notes-${index}`}
-                            />
-                          ) : (
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.notes || '-'}</span>
-                          )}
+                          <Input
+                            value={item.target}
+                            onChange={(e) => updateSuggestedTarget(index, 'target', e.target.value)}
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
+                            disabled={!isEditingGoals}
+                            data-testid={`input-suggested-target-${index}`}
+                          />
+                          <Input
+                            value={item.notes}
+                            onChange={(e) => updateSuggestedTarget(index, 'notes', e.target.value)}
+                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
+                            disabled={!isEditingGoals}
+                            data-testid={`input-suggested-notes-${index}`}
+                          />
                         </div>
                       ))}
                     </div>
@@ -588,36 +561,27 @@ export function VisionGoals() {
                     {finalGoals.map((item, index) => (
                       <div key={index} className="grid grid-cols-4 gap-4 items-center">
                         <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.metric}</span>
-                        {isEditingGoals ? (
-                          <Input
-                            value={item.target}
-                            onChange={(e) => updateFinalGoal(index, 'target', e.target.value)}
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
-                            data-testid={`input-final-target-${index}`}
-                          />
-                        ) : (
-                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.target}</span>
-                        )}
-                        {isEditingGoals ? (
-                          <Input
-                            value={item.progress}
-                            onChange={(e) => updateFinalGoal(index, 'progress', e.target.value)}
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
-                            data-testid={`input-final-progress-${index}`}
-                          />
-                        ) : (
-                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.progress}</span>
-                        )}
-                        {isEditingGoals ? (
-                          <Input
-                            value={item.notes}
-                            onChange={(e) => updateFinalGoal(index, 'notes', e.target.value)}
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
-                            data-testid={`input-final-notes-${index}`}
-                          />
-                        ) : (
-                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">{item.notes || '-'}</span>
-                        )}
+                        <Input
+                          value={item.target}
+                          onChange={(e) => updateFinalGoal(index, 'target', e.target.value)}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
+                          disabled={!isEditingGoals}
+                          data-testid={`input-final-target-${index}`}
+                        />
+                        <Input
+                          value={item.progress}
+                          onChange={(e) => updateFinalGoal(index, 'progress', e.target.value)}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
+                          disabled={!isEditingGoals}
+                          data-testid={`input-final-progress-${index}`}
+                        />
+                        <Input
+                          value={item.notes}
+                          onChange={(e) => updateFinalGoal(index, 'notes', e.target.value)}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs h-8"
+                          disabled={!isEditingGoals}
+                          data-testid={`input-final-notes-${index}`}
+                        />
                       </div>
                     ))}
                   </div>
