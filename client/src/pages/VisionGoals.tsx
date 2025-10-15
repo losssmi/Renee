@@ -187,7 +187,7 @@ export function VisionGoals() {
                           />
                         ) : (
                           <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-3 bg-gray-50 rounded border border-gray-200 min-h-[80px]">
-                            {vision || 'Click Edit to add your vision...'}
+                            {vision}
                           </p>
                         )}
                       </div>
@@ -211,7 +211,7 @@ export function VisionGoals() {
                           />
                         ) : (
                           <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-3 bg-gray-50 rounded border border-gray-200 min-h-[80px]">
-                            {mission || 'Click Edit to add your mission...'}
+                            {mission}
                           </p>
                         )}
                       </div>
@@ -248,7 +248,7 @@ export function VisionGoals() {
                           />
                         ) : (
                           <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-2 bg-gray-50 rounded border border-gray-200">
-                            {coreFocus || 'Click Edit to add your core focus...'}
+                            {coreFocus}
                           </p>
                         )}
                       </div>
@@ -272,7 +272,7 @@ export function VisionGoals() {
                           />
                         ) : (
                           <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-2 bg-gray-50 rounded border border-gray-200">
-                            {usp || 'Click Edit to add your USP...'}
+                            {usp}
                           </p>
                         )}
                       </div>
@@ -344,7 +344,7 @@ export function VisionGoals() {
                         />
                       ) : (
                         <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {strengths || 'Click Edit to add...'}
+                          {strengths}
                         </p>
                       )}
                     </div>
@@ -363,7 +363,7 @@ export function VisionGoals() {
                         />
                       ) : (
                         <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {weaknesses || 'Click Edit to add...'}
+                          {weaknesses}
                         </p>
                       )}
                     </div>
@@ -382,7 +382,7 @@ export function VisionGoals() {
                         />
                       ) : (
                         <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {opportunities || 'Click Edit to add...'}
+                          {opportunities}
                         </p>
                       )}
                     </div>
@@ -401,7 +401,7 @@ export function VisionGoals() {
                         />
                       ) : (
                         <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {threats || 'Click Edit to add...'}
+                          {threats}
                         </p>
                       )}
                     </div>
@@ -432,7 +432,7 @@ export function VisionGoals() {
                       />
                     ) : (
                       <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] p-3 bg-gray-50 rounded border border-gray-200 min-h-[60px]">
-                        {bhag || 'Click Edit to add your BHAG...'}
+                        {bhag}
                       </p>
                     )}
                   </div>
