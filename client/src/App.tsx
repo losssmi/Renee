@@ -10,6 +10,7 @@ import { Dashboard } from "@/pages/Dashboard";
 import { MyRenegade } from "@/pages/MyRenegade";
 import { VisionGoals } from "@/pages/VisionGoals";
 import { KPIs } from "@/pages/KPIs";
+import { Sales } from "@/pages/Sales";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/my-renegade" component={MyRenegade} />
       <Route path="/vision-goals" component={VisionGoals} />
       <Route path="/kpis" component={KPIs} />
+      <Route path="/sales" component={Sales} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
