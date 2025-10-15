@@ -136,8 +136,7 @@ export function MyRenegade() {
                     <div className="flex flex-col gap-3">
                       {initialDailyFocusTasks.map((task) => (
                         <div key={task.id} className="flex items-center gap-3">
-                          <div className={`w-[11px] h-[11px] rounded-full cursor-pointer`} style={{ backgroundColor: task.status === 'green' ? '#09b600' : task.status === 'orange' ? '#ffc130' : '#ff4d4d' }} data-testid={`status-task-${task.id}`} />
-                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[#172a41] text-xs tracking-[-0.12px] leading-[1.3]">
+                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.12px] leading-[1.3]">
                             {task.text}
                           </span>
                         </div>
@@ -152,8 +151,7 @@ export function MyRenegade() {
                     <div className="flex flex-col gap-3">
                       {initialReminders.map((reminder) => (
                         <div key={reminder.id} className="flex items-center gap-3">
-                          <div className={`w-[11px] h-[11px] rounded-full cursor-pointer`} style={{ backgroundColor: reminder.status === 'green' ? '#09b600' : reminder.status === 'orange' ? '#ffc130' : '#ff4d4d' }} data-testid={`status-reminder-${reminder.id}`} />
-                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[#172a41] text-xs tracking-[-0.12px] leading-[1.3]">
+                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.12px] leading-[1.3]">
                             {reminder.text}
                           </span>
                         </div>
@@ -168,8 +166,7 @@ export function MyRenegade() {
                     <div className="flex flex-col gap-3">
                       {initialQuarterlyPriorities.map((priority) => (
                         <div key={priority.id} className="flex items-center gap-3">
-                          <div className={`w-[11px] h-[11px] rounded-full cursor-pointer`} style={{ backgroundColor: priority.status === 'green' ? '#09b600' : priority.status === 'orange' ? '#ffc130' : '#ff4d4d' }} data-testid={`status-priority-${priority.id}`} />
-                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[#172a41] text-xs tracking-[-0.12px] leading-[1.3]">
+                          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.12px] leading-[1.3]">
                             {priority.text}
                           </span>
                         </div>
@@ -192,15 +189,11 @@ export function MyRenegade() {
                 <div className="flex flex-col gap-6">
                   {kpis.map((kpi, index) => (
                     <div key={index} className="flex items-center gap-4">
-                      <div className="w-[17px] h-[17px] rounded-full" style={{ 
-                        backgroundColor: index === 0 ? '#09b600' : index === 1 ? '#ffc130' : '#ff4d4d' 
-                      }} data-testid={`kpi-indicator-${index}`} />
-                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-light text-[#172a41] text-base tracking-[-0.16px] leading-[1.3] flex-1">
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-base tracking-[-0.16px] leading-[1.3] flex-1">
                         {kpi.label}
                       </span>
                       <div className="flex items-center gap-1">
-                        <CheckIcon className="w-3.5 h-3.5 text-[#09b600]" />
-                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b700] text-sm" data-testid={`kpi-percentage-${index}`}>
+                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`kpi-percentage-${index}`}>
                           {kpi.percentage}%
                         </span>
                       </div>
@@ -221,7 +214,7 @@ export function MyRenegade() {
                   </h2>
                   <button 
                     onClick={() => setIsAddingAction(true)}
-                    className="ml-auto [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[13px] tracking-[-0.13px] hover:text-[#09b600] transition-colors cursor-pointer"
+                    className="ml-auto [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[13px] tracking-[-0.13px] hover:opacity-70 transition-colors cursor-pointer"
                     data-testid="button-add-action"
                   >
                     Add new +
@@ -234,7 +227,7 @@ export function MyRenegade() {
                       <button
                         onClick={() => toggleAction(action.id)}
                         className={`w-[19px] h-[19px] rounded-full border-2 flex items-center justify-center transition-colors ${
-                          action.checked ? 'border-[#09b600] bg-[#09b600]' : 'border-gray-300'
+                          action.checked ? 'border-[#172a41] bg-[#172a41]' : 'border-gray-300'
                         }`}
                         data-testid={`checkbox-action-${action.id}`}
                       >
