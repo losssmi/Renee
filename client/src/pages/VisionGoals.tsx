@@ -177,19 +177,14 @@ export function VisionGoals() {
                             Your ultimate destination — what success looks like in 10 years.
                           </span>
                         </div>
-                        {isEditingVision ? (
-                          <Textarea
-                            value={vision}
-                            onChange={(e) => setVision(e.target.value)}
-                            placeholder='Add your vision here...'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px] ml-16 p-3 bg-gray-50 rounded border border-gray-200"
-                            data-testid="input-vision"
-                          />
-                        ) : (
-                          <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-3 bg-gray-50 rounded border border-gray-200 min-h-[80px]">
-                            {vision}
-                          </p>
-                        )}
+                        <Textarea
+                          value={vision}
+                          onChange={(e) => setVision(e.target.value)}
+                          placeholder='Add your vision here...'
+                          disabled={!isEditingVision}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px] ml-16 p-3 bg-gray-50 rounded border border-gray-200"
+                          data-testid="input-vision"
+                        />
                       </div>
 
                       <div>
@@ -201,19 +196,14 @@ export function VisionGoals() {
                             Your promise and focus — how you'll get there.
                           </span>
                         </div>
-                        {isEditingVision ? (
-                          <Textarea
-                            value={mission}
-                            onChange={(e) => setMission(e.target.value)}
-                            placeholder='Add your mission here...'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px] ml-16 p-3 bg-gray-50 rounded border border-gray-200"
-                            data-testid="input-mission"
-                          />
-                        ) : (
-                          <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-3 bg-gray-50 rounded border border-gray-200 min-h-[80px]">
-                            {mission}
-                          </p>
-                        )}
+                        <Textarea
+                          value={mission}
+                          onChange={(e) => setMission(e.target.value)}
+                          placeholder='Add your mission here...'
+                          disabled={!isEditingVision}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[80px] ml-16 p-3 bg-gray-50 rounded border border-gray-200"
+                          data-testid="input-mission"
+                        />
                       </div>
                     </div>
                   </CardContent>
@@ -238,19 +228,14 @@ export function VisionGoals() {
                             What do you do best? What's your niche?
                           </span>
                         </div>
-                        {isEditingVision ? (
-                          <Input
-                            value={coreFocus}
-                            onChange={(e) => setCoreFocus(e.target.value)}
-                            placeholder='Add your core focus...'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm ml-16 p-2 bg-gray-50 rounded border border-gray-200"
-                            data-testid="input-core-focus"
-                          />
-                        ) : (
-                          <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-2 bg-gray-50 rounded border border-gray-200">
-                            {coreFocus}
-                          </p>
-                        )}
+                        <Input
+                          value={coreFocus}
+                          onChange={(e) => setCoreFocus(e.target.value)}
+                          placeholder='Add your core focus...'
+                          disabled={!isEditingVision}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm ml-16 p-2 bg-gray-50 rounded border border-gray-200"
+                          data-testid="input-core-focus"
+                        />
                       </div>
 
                       <div>
@@ -262,19 +247,14 @@ export function VisionGoals() {
                             Why you're different.
                           </span>
                         </div>
-                        {isEditingVision ? (
-                          <Input
-                            value={usp}
-                            onChange={(e) => setUSP(e.target.value)}
-                            placeholder='Add your USP...'
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm ml-16 p-2 bg-gray-50 rounded border border-gray-200"
-                            data-testid="input-usp"
-                          />
-                        ) : (
-                          <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] ml-16 p-2 bg-gray-50 rounded border border-gray-200">
-                            {usp}
-                          </p>
-                        )}
+                        <Input
+                          value={usp}
+                          onChange={(e) => setUSP(e.target.value)}
+                          placeholder='Add your USP...'
+                          disabled={!isEditingVision}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm ml-16 p-2 bg-gray-50 rounded border border-gray-200"
+                          data-testid="input-usp"
+                        />
                       </div>
 
                       <div>
@@ -334,76 +314,56 @@ export function VisionGoals() {
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-base tracking-[-0.16px] leading-7 mb-4">
                         Strengths
                       </h3>
-                      {isEditingVision ? (
-                        <Textarea
-                          value={strengths}
-                          onChange={(e) => setStrengths(e.target.value)}
-                          placeholder='Add strengths...'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
-                          data-testid="input-strengths"
-                        />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {strengths}
-                        </p>
-                      )}
+                      <Textarea
+                        value={strengths}
+                        onChange={(e) => setStrengths(e.target.value)}
+                        placeholder='Add strengths...'
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
+                        data-testid="input-strengths"
+                      />
                     </div>
 
                     <div className="bg-[#f5f5f5] border border-[#f3f3f3] rounded-lg p-4 shadow-[inset_0px_0px_4px_rgba(0,0,0,0.25)]">
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-base tracking-[-0.16px] leading-7 mb-4">
                         Weaknesses
                       </h3>
-                      {isEditingVision ? (
-                        <Textarea
-                          value={weaknesses}
-                          onChange={(e) => setWeaknesses(e.target.value)}
-                          placeholder='Add weaknesses...'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
-                          data-testid="input-weaknesses"
-                        />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {weaknesses}
-                        </p>
-                      )}
+                      <Textarea
+                        value={weaknesses}
+                        onChange={(e) => setWeaknesses(e.target.value)}
+                        placeholder='Add weaknesses...'
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
+                        data-testid="input-weaknesses"
+                      />
                     </div>
 
                     <div className="bg-[#f5f5f5] border border-[#f3f3f3] rounded-lg p-4 shadow-[inset_0px_0px_4px_rgba(0,0,0,0.25)]">
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-base tracking-[-0.16px] leading-7 mb-4">
                         Opportunities
                       </h3>
-                      {isEditingVision ? (
-                        <Textarea
-                          value={opportunities}
-                          onChange={(e) => setOpportunities(e.target.value)}
-                          placeholder='Add opportunities...'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
-                          data-testid="input-opportunities"
-                        />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {opportunities}
-                        </p>
-                      )}
+                      <Textarea
+                        value={opportunities}
+                        onChange={(e) => setOpportunities(e.target.value)}
+                        placeholder='Add opportunities...'
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
+                        data-testid="input-opportunities"
+                      />
                     </div>
 
                     <div className="bg-[#f5f5f5] border border-[#f3f3f3] rounded-lg p-4 shadow-[inset_0px_0px_4px_rgba(0,0,0,0.25)]">
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-base tracking-[-0.16px] leading-7 mb-4">
                         Threats
                       </h3>
-                      {isEditingVision ? (
-                        <Textarea
-                          value={threats}
-                          onChange={(e) => setThreats(e.target.value)}
-                          placeholder='Add threats...'
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
-                          data-testid="input-threats"
-                        />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs tracking-[-0.1px] leading-[1.3] min-h-[100px]">
-                          {threats}
-                        </p>
-                      )}
+                      <Textarea
+                        value={threats}
+                        onChange={(e) => setThreats(e.target.value)}
+                        placeholder='Add threats...'
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs min-h-[100px]"
+                        data-testid="input-threats"
+                      />
                     </div>
                   </div>
                 </CardContent>
@@ -422,19 +382,14 @@ export function VisionGoals() {
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.3] mb-2">
                       Your 10-year game-changer.
                     </p>
-                    {isEditingVision ? (
-                      <Textarea
-                        value={bhag}
-                        onChange={(e) => setBhag(e.target.value)}
-                        placeholder='Add your BHAG...'
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[60px] p-3 bg-gray-50 rounded border border-gray-200"
-                        data-testid="input-bhag"
-                      />
-                    ) : (
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[-0.14px] leading-[1.5] p-3 bg-gray-50 rounded border border-gray-200 min-h-[60px]">
-                        {bhag}
-                      </p>
-                    )}
+                    <Textarea
+                      value={bhag}
+                      onChange={(e) => setBhag(e.target.value)}
+                      placeholder='Add your BHAG...'
+                      disabled={!isEditingVision}
+                      className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[60px] p-3 bg-gray-50 rounded border border-gray-200"
+                      data-testid="input-bhag"
+                    />
                   </div>
                 </CardContent>
               </Card>
