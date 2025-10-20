@@ -52,10 +52,10 @@ const structureItems = [
 ];
 
 const accountabilityItems = [
-  { icon: "/figmaAssets/oui-integration-general.svg", label: "Scorecard", path: null },
+  { icon: "/figmaAssets/oui-integration-general.svg", label: "Scorecard", path: "/scorecard" },
   { icon: "/figmaAssets/carbon-ibm-event-automation-4.svg", label: "KPIs", path: "/kpis" },
-  { icon: "/figmaAssets/carbon-ibm-event-automation-2.svg", label: "Meetings", path: null },
-  { icon: "/figmaAssets/carbon-ibm-event-automation-3.svg", label: "Reports", path: null },
+  { icon: "/figmaAssets/carbon-ibm-event-automation-2.svg", label: "Meetings", path: "/meetings" },
+  { icon: "/figmaAssets/carbon-ibm-event-automation-3.svg", label: "Reports", path: "/reports" },
 ];
 
 const supportsItems = [

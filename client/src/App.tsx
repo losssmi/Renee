@@ -18,6 +18,9 @@ import { Sellers } from "@/pages/Sellers";
 import { BusinessAudit } from "@/pages/BusinessAudit";
 import { QuarterlyPriorities } from "@/pages/QuarterlyPriorities";
 import { Settings } from "@/pages/Settings";
+import { Scorecard } from "@/pages/Scorecard";
+import { Meetings } from "@/pages/Meetings";
+import { Reports } from "@/pages/Reports";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -55,6 +58,9 @@ function Router() {
       <Route path="/business-audit" component={BusinessAudit} />
       <Route path="/quarterly-priorities" component={QuarterlyPriorities} />
       <Route path="/settings" component={Settings} />
+      <Route path="/scorecard" component={Scorecard} />
+      <Route path="/meetings" component={Meetings} />
+      <Route path="/reports" component={Reports} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
