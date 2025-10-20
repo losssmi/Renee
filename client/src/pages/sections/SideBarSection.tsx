@@ -68,6 +68,7 @@ export const SideBarSection = (): JSX.Element => {
     queryKey: ['/api/auth/user'],
   });
   const [location] = useLocation();
+  const [isInitialMount, setIsInitialMount] = useState(true);
 
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => {
     const saved = localStorage.getItem('sidebar-sections-state');
@@ -83,6 +84,10 @@ export const SideBarSection = (): JSX.Element => {
   });
 
   useEffect(() => {
+    setIsInitialMount(false);
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem('sidebar-sections-state', JSON.stringify(openSections));
   }, [openSections]);
 
@@ -94,7 +99,7 @@ export const SideBarSection = (): JSX.Element => {
   const userInitial = displayName.charAt(0).toUpperCase();
 
   return (
-    <aside className="w-full h-full bg-[#fffbef] border-r border-[#dbe2eb] flex flex-col">
+    <aside className={`w-full h-full bg-[#fffbef] border-r border-[#dbe2eb] flex flex-col ${isInitialMount ? '[&_*]:!transition-none' : ''}`}>
       <header className="flex items-center justify-between px-[21px] pt-[23px] pb-4">
         <div className="flex items-center gap-3">
           <img
