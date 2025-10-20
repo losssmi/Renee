@@ -37,9 +37,9 @@ export const DashboardHeaderSection = (): JSX.Element => {
       </Breadcrumb>
 
       <div className="flex items-center gap-2 md:gap-4">
-        <Badge className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 bg-neutral-10 rounded-[100px] border border-solid border-[#dbe2eb] h-auto">
-          <DiamondIcon className="w-5 h-5" />
-          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-primary-900 text-sm tracking-[0] leading-[21px] whitespace-nowrap">
+        <Badge className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#f5e6d3] to-[#e3dcd2] rounded-[100px] border border-solid border-[#d4c5b0] h-auto shadow-sm">
+          <DiamondIcon className="w-5 h-5 text-[#8b6914]" />
+          <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#5d4a1f] text-sm tracking-[0] leading-[21px] whitespace-nowrap">
             Premium account
           </span>
         </Badge>

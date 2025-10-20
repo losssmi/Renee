@@ -4,7 +4,7 @@ import {
   HomeIcon,
   MoreHorizontalIcon,
 } from "lucide-react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -69,6 +69,27 @@ export const SideBarSection = (): JSX.Element => {
   });
   const [location] = useLocation();
 
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('sidebar-sections-state');
+    return saved ? JSON.parse(saved) : {
+      home: true,
+      strategy: true,
+      structure: true,
+      accountability: true,
+      supports: true,
+      marketing: true,
+      prospecting: true,
+    };
+  });
+
+  useEffect(() => {
+    localStorage.setItem('sidebar-sections-state', JSON.stringify(openSections));
+  }, [openSections]);
+
+  const toggleSection = (section: string) => {
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
   const displayName = user?.username || user?.email?.split('@')[0] || 'User';
   const userInitial = displayName.charAt(0).toUpperCase();
 
@@ -92,7 +113,7 @@ export const SideBarSection = (): JSX.Element => {
       </header>
 
       <nav className="flex-1 px-3 space-y-4 overflow-y-auto">
-        <Collapsible defaultOpen>
+        <Collapsible open={openSections.home} onOpenChange={() => toggleSection('home')}>
           <CollapsibleTrigger className="flex items-center gap-2 w-full">
             <ChevronUpIcon className="w-4 h-4" />
             <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new600 text-[10px] tracking-[0] leading-[normal]">
@@ -130,7 +151,7 @@ export const SideBarSection = (): JSX.Element => {
           </CollapsibleContent>
         </Collapsible>
 
-        <Collapsible defaultOpen>
+        <Collapsible open={openSections.strategy} onOpenChange={() => toggleSection('strategy')}>
           <CollapsibleTrigger className="flex items-center gap-2 w-full">
             <ChevronUpIcon className="w-4 h-4" />
             <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new600 text-[10px] tracking-[0] leading-[normal]">
@@ -175,7 +196,7 @@ export const SideBarSection = (): JSX.Element => {
           </CollapsibleContent>
         </Collapsible>
 
-        <Collapsible defaultOpen>
+        <Collapsible open={openSections.structure} onOpenChange={() => toggleSection('structure')}>
           <CollapsibleTrigger className="flex items-center gap-2 w-full">
             <ChevronUpIcon className="w-4 h-4" />
             <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new600 text-[10px] tracking-[0] leading-[normal]">
@@ -187,8 +208,9 @@ export const SideBarSection = (): JSX.Element => {
               const isActive = location === item.path;
               
               if (item.subItems) {
+                const sectionKey = item.label.toLowerCase().replace(/\s+/g, '-');
                 return (
-                  <Collapsible key={index} defaultOpen>
+                  <Collapsible key={index} open={openSections[sectionKey]} onOpenChange={() => toggleSection(sectionKey)}>
                     <CollapsibleTrigger asChild>
                       <Button
                         variant="ghost"
@@ -268,7 +290,7 @@ export const SideBarSection = (): JSX.Element => {
           </CollapsibleContent>
         </Collapsible>
 
-        <Collapsible defaultOpen>
+        <Collapsible open={openSections.accountability} onOpenChange={() => toggleSection('accountability')}>
           <CollapsibleTrigger className="flex items-center gap-2 w-full">
             <ChevronUpIcon className="w-4 h-4" />
             <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new600 text-[10px] tracking-[0] leading-[normal]">
@@ -343,7 +365,7 @@ export const SideBarSection = (): JSX.Element => {
           </Link>
         </div>
 
-        <Collapsible defaultOpen>
+        <Collapsible open={openSections.supports} onOpenChange={() => toggleSection('supports')}>
           <CollapsibleTrigger className="flex items-center gap-2 w-full">
             <ChevronUpIcon className="w-4 h-4" />
             <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new600 text-[10px] tracking-[0] leading-[normal]">
