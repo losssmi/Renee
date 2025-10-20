@@ -30,7 +30,7 @@ const strategyItems = [
   {
     icon: "/figmaAssets/carbon-ibm-event-automation-1.svg",
     label: "Market Analysis",
-    path: null,
+    path: "/market-analysis",
   },
 ];
 
@@ -40,6 +40,11 @@ const structureItems = [
     icon: "/figmaAssets/carbon-ibm-event-automation-5.svg",
     label: "Prospecting",
     path: null,
+    subItems: [
+      { label: "Appraisals", path: "/appraisals" },
+      { label: "Buyers", path: "/buyers" },
+      { label: "Sellers", path: "/sellers" },
+    ]
   },
   { icon: "/figmaAssets/carbon-ibm-event-automation.svg", label: "Sales", path: "/sales" },
 ];
@@ -132,15 +137,26 @@ export const SideBarSection = (): JSX.Element => {
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-[15px] space-y-1">
             {strategyItems.map((item, index) => {
+              const isActive = location === item.path;
               const content = (
                 <Button
                   key={index}
-                  variant="ghost"
-                  className="w-full justify-start gap-2 h-auto px-3 py-2"
+                  variant={isActive ? "secondary" : "ghost"}
+                  className={`w-full justify-start gap-2 h-auto ${
+                    isActive
+                      ? "bg-[#fffdf9] rounded-lg border border-[#dbe2eb] shadow-[0px_0px_10px_#0000000a] px-3 py-3"
+                      : "px-3 py-2"
+                  }`}
                   data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <img className="w-4 h-4" alt={item.label} src={item.icon} />
-                  <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-neutral-new600 text-xs tracking-[0] leading-[normal] whitespace-nowrap">
+                  <span
+                    className={`[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs tracking-[0] leading-[normal] whitespace-nowrap ${
+                      isActive
+                        ? "font-bold text-neutral-new900"
+                        : "font-medium text-neutral-new600"
+                    }`}
+                  >
                     {item.label}
                   </span>
                 </Button>
@@ -166,15 +182,74 @@ export const SideBarSection = (): JSX.Element => {
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-[15px] space-y-1">
             {structureItems.map((item, index) => {
+              const isActive = location === item.path;
+              
+              if (item.subItems) {
+                return (
+                  <Collapsible key={index} defaultOpen>
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start gap-2 h-auto px-3 py-2"
+                        data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
+                      >
+                        <img className="w-4 h-4" alt={item.label} src={item.icon} />
+                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-neutral-new600 text-xs tracking-[0] leading-[normal] whitespace-nowrap">
+                          {item.label}
+                        </span>
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="ml-6 mt-1 space-y-1">
+                      {item.subItems.map((subItem, subIndex) => {
+                        const isSubActive = location === subItem.path;
+                        return (
+                          <Link key={subIndex} href={subItem.path}>
+                            <Button
+                              variant={isSubActive ? "secondary" : "ghost"}
+                              className={`w-full justify-start gap-2 h-auto ${
+                                isSubActive
+                                  ? "bg-[#fffdf9] rounded-lg border border-[#dbe2eb] shadow-[0px_0px_10px_#0000000a] px-3 py-2"
+                                  : "px-3 py-2"
+                              }`}
+                              data-testid={`nav-${subItem.label.toLowerCase().replace(/\s+/g, '-')}`}
+                            >
+                              <span
+                                className={`[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs tracking-[0] leading-[normal] whitespace-nowrap ${
+                                  isSubActive
+                                    ? "font-bold text-neutral-new900"
+                                    : "font-medium text-neutral-new600"
+                                }`}
+                              >
+                                {subItem.label}
+                              </span>
+                            </Button>
+                          </Link>
+                        );
+                      })}
+                    </CollapsibleContent>
+                  </Collapsible>
+                );
+              }
+              
               const content = (
                 <Button
                   key={index}
-                  variant="ghost"
-                  className="w-full justify-start gap-2 h-auto px-3 py-2"
+                  variant={isActive ? "secondary" : "ghost"}
+                  className={`w-full justify-start gap-2 h-auto ${
+                    isActive
+                      ? "bg-[#fffdf9] rounded-lg border border-[#dbe2eb] shadow-[0px_0px_10px_#0000000a] px-3 py-3"
+                      : "px-3 py-2"
+                  }`}
                   data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <img className="w-4 h-4" alt={item.label} src={item.icon} />
-                  <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-neutral-new600 text-xs tracking-[0] leading-[normal] whitespace-nowrap">
+                  <span
+                    className={`[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs tracking-[0] leading-[normal] whitespace-nowrap ${
+                      isActive
+                        ? "font-bold text-neutral-new900"
+                        : "font-medium text-neutral-new600"
+                    }`}
+                  >
                     {item.label}
                   </span>
                 </Button>
@@ -200,15 +275,26 @@ export const SideBarSection = (): JSX.Element => {
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-[15px] space-y-1">
             {accountabilityItems.map((item, index) => {
+              const isActive = location === item.path;
               const content = (
                 <Button
                   key={index}
-                  variant="ghost"
-                  className="w-full justify-start gap-2 h-auto px-3 py-2"
+                  variant={isActive ? "secondary" : "ghost"}
+                  className={`w-full justify-start gap-2 h-auto ${
+                    isActive
+                      ? "bg-[#fffdf9] rounded-lg border border-[#dbe2eb] shadow-[0px_0px_10px_#0000000a] px-3 py-3"
+                      : "px-3 py-2"
+                  }`}
                   data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   <img className="w-4 h-4" alt={item.label} src={item.icon} />
-                  <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-neutral-new600 text-xs tracking-[0] leading-[normal] whitespace-nowrap">
+                  <span
+                    className={`[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs tracking-[0] leading-[normal] whitespace-nowrap ${
+                      isActive
+                        ? "font-bold text-neutral-new900"
+                        : "font-medium text-neutral-new600"
+                    }`}
+                  >
                     {item.label}
                   </span>
                 </Button>
@@ -226,11 +312,33 @@ export const SideBarSection = (): JSX.Element => {
         </Collapsible>
 
         <div className="pt-4">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-2">
             <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-neutral-new600 text-[10px] tracking-[0] leading-[normal]">
               BUSINESS AUDIT
             </span>
           </div>
+          <Link href="/business-audit">
+            <Button
+              variant={location === "/business-audit" ? "secondary" : "ghost"}
+              className={`w-full justify-start gap-2 h-auto ${
+                location === "/business-audit"
+                  ? "bg-[#fffdf9] rounded-lg border border-[#dbe2eb] shadow-[0px_0px_10px_#0000000a] px-3 py-3"
+                  : "px-3 py-2"
+              }`}
+              data-testid="nav-business-audit"
+            >
+              <img className="w-4 h-4" alt="Business Audit" src="/figmaAssets/carbon-ibm-event-automation-2.svg" />
+              <span
+                className={`[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs tracking-[0] leading-[normal] whitespace-nowrap ${
+                  location === "/business-audit"
+                    ? "font-bold text-neutral-new900"
+                    : "font-medium text-neutral-new600"
+                }`}
+              >
+                Business Audit
+              </span>
+            </Button>
+          </Link>
         </div>
 
         <Collapsible defaultOpen>

@@ -11,6 +11,11 @@ import { MyRenegade } from "@/pages/MyRenegade";
 import { VisionGoals } from "@/pages/VisionGoals";
 import { KPIs } from "@/pages/KPIs";
 import { Sales } from "@/pages/Sales";
+import { MarketAnalysis } from "@/pages/MarketAnalysis";
+import { Appraisals } from "@/pages/Appraisals";
+import { Buyers } from "@/pages/Buyers";
+import { Sellers } from "@/pages/Sellers";
+import { BusinessAudit } from "@/pages/BusinessAudit";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -41,6 +46,11 @@ function Router() {
       <Route path="/vision-goals" component={VisionGoals} />
       <Route path="/kpis" component={KPIs} />
       <Route path="/sales" component={Sales} />
+      <Route path="/market-analysis" component={MarketAnalysis} />
+      <Route path="/appraisals" component={Appraisals} />
+      <Route path="/buyers" component={Buyers} />
+      <Route path="/sellers" component={Sellers} />
+      <Route path="/business-audit" component={BusinessAudit} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
