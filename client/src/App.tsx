@@ -16,6 +16,8 @@ import { Appraisals } from "@/pages/Appraisals";
 import { Buyers } from "@/pages/Buyers";
 import { Sellers } from "@/pages/Sellers";
 import { BusinessAudit } from "@/pages/BusinessAudit";
+import { QuarterlyPriorities } from "@/pages/QuarterlyPriorities";
+import { Settings } from "@/pages/Settings";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -51,6 +53,8 @@ function Router() {
       <Route path="/buyers" component={Buyers} />
       <Route path="/sellers" component={Sellers} />
       <Route path="/business-audit" component={BusinessAudit} />
+      <Route path="/quarterly-priorities" component={QuarterlyPriorities} />
+      <Route path="/settings" component={Settings} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
