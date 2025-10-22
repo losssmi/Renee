@@ -2,113 +2,102 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SideBarSection } from "./sections/SideBarSection";
 import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2 } from "lucide-react";
-
-interface SuburbData {
-  id: number;
-  suburb: string;
-  medianPrice: string;
-  priceChange: string;
-  salesVolume: string;
-  daysOnMarket: string;
-}
-
-const initialSuburbs: SuburbData[] = [
-  {
-    id: 1,
-    suburb: "Woollahra",
-    medianPrice: "$3,200,000",
-    priceChange: "+5.2%",
-    salesVolume: "42",
-    daysOnMarket: "28"
-  },
-  {
-    id: 2,
-    suburb: "Double Bay",
-    medianPrice: "$2,850,000",
-    priceChange: "+3.8%",
-    salesVolume: "38",
-    daysOnMarket: "32"
-  }
-];
 
 export function MarketAnalysis() {
   const { toast } = useToast();
-  const [suburbs, setSuburbs] = useState<SuburbData[]>(initialSuburbs);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [isAdding, setIsAdding] = useState(false);
 
-  const [formData, setFormData] = useState({
-    suburb: "",
-    medianPrice: "",
-    priceChange: "",
-    salesVolume: "",
-    daysOnMarket: ""
+  // Demographics
+  const [demographics, setDemographics] = useState({
+    population: "",
+    averageAge: "",
+    ownersRenters: "",
+    familySingle: "",
+    totalProperties: "",
+    totalHouses: "8,000",
+    totalApartments: "",
+    tenure: "",
   });
 
-  const resetForm = () => {
-    setFormData({
-      suburb: "",
-      medianPrice: "",
-      priceChange: "",
-      salesVolume: "",
-      daysOnMarket: ""
-    });
+  // Houses
+  const [houses, setHouses] = useState({
+    avSalePrice: "5,000,000",
+    highestSalePrice: "",
+    lowestSalePrice: "",
+    salesLast12Months: "20",
+    avDaysOnMarket: "",
+    growthRate: "",
+    averageCommission: "1.65%",
+    averageCommPerSale: "82,500",
+    turnoverRate: "0.25%",
+    valueOfMarket: "1,650,000",
+  });
+
+  const [annualGCIPotential] = useState([
+    { stage: "Stage 1", value: "82,500" },
+    { stage: "Stage 2", value: "165,000" },
+    { stage: "Stage 3", value: "330,000" },
+    { stage: "Stage 4", value: "495,000" },
+    { stage: "Stage 5", value: "660,000" },
+  ]);
+
+  // Apartments
+  const [apartments, setApartments] = useState({
+    avSalePrice: "",
+    highestSalePrice: "",
+    lowestSalePrice: "",
+    salesLast12Months: "",
+    avDaysOnMarket: "",
+    growthRate: "",
+    averageCommission: "1.65%",
+    averageCommPerSale: "0",
+    turnoverRate: "0.00%",
+    valueOfMarket: "0",
+  });
+
+  const [keyAgents, setKeyAgents] = useState(["", "", "", "", ""]);
+
+  const [marketShareTarget] = useState([
+    { stage: "Stage 1", value: "0.05" },
+    { stage: "Stage 2", value: "0.1" },
+    { stage: "Stage 3", value: "0.2" },
+    { stage: "Stage 4", value: "0.3" },
+    { stage: "Stage 5", value: "0.4" },
+  ]);
+
+  const [salesPotential] = useState([
+    { stage: "Stage 1", value: "1" },
+    { stage: "Stage 2", value: "2" },
+    { stage: "Stage 3", value: "4" },
+    { stage: "Stage 4", value: "6" },
+    { stage: "Stage 5", value: "8" },
+  ]);
+
+  const updateDemographic = (field: string, value: string) => {
+    setDemographics({ ...demographics, [field]: value });
   };
 
-  const handleEdit = (id: number) => {
-    const suburb = suburbs.find(s => s.id === id);
-    if (suburb) {
-      setFormData({
-        suburb: suburb.suburb,
-        medianPrice: suburb.medianPrice,
-        priceChange: suburb.priceChange,
-        salesVolume: suburb.salesVolume,
-        daysOnMarket: suburb.daysOnMarket
-      });
-      setEditingId(id);
-      setIsEditing(true);
-    }
+  const updateHouse = (field: string, value: string) => {
+    setHouses({ ...houses, [field]: value });
+  };
+
+  const updateApartment = (field: string, value: string) => {
+    setApartments({ ...apartments, [field]: value });
+  };
+
+  const updateKeyAgent = (index: number, value: string) => {
+    const updated = [...keyAgents];
+    updated[index] = value;
+    setKeyAgents(updated);
   };
 
   const handleSave = () => {
-    if (editingId !== null) {
-      setSuburbs(suburbs.map(suburb => 
-        suburb.id === editingId ? { ...suburb, ...formData } : suburb
-      ));
-      setEditingId(null);
-      setIsEditing(false);
-      resetForm();
-      toast({
-        title: "Suburb Updated",
-        description: "Suburb data has been updated successfully.",
-      });
-    }
-  };
-
-  const handleAdd = () => {
-    const newSuburb: SuburbData = {
-      id: suburbs.length + 1,
-      ...formData
-    };
-    setSuburbs([...suburbs, newSuburb]);
-    setIsAdding(false);
-    resetForm();
+    setIsEditing(false);
     toast({
-      title: "Suburb Added",
-      description: "New suburb has been added successfully.",
-    });
-  };
-
-  const handleDelete = (id: number) => {
-    setSuburbs(suburbs.filter(suburb => suburb.id !== id));
-    toast({
-      title: "Suburb Removed",
-      description: "Suburb has been removed successfully.",
+      title: "Saved",
+      description: "Your market analysis has been saved.",
     });
   };
 
@@ -122,245 +111,241 @@ export function MarketAnalysis() {
         <DashboardHeaderSection />
         
         <div className="px-6 py-5 bg-[#f5f5f5]">
-          <div className="flex flex-col gap-2">
-            <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal]">
+          <div className="flex items-center justify-between">
+            <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-snug">
               Market Analysis
             </h1>
-            <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-              Track market trends and suburb performance.
-            </p>
+            <button
+              onClick={() => {
+                if (isEditing) {
+                  handleSave();
+                } else {
+                  setIsEditing(true);
+                }
+              }}
+              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-[10px] tracking-[-0.1px] leading-7 px-3 py-1 border border-[#ededed] rounded-lg bg-white hover:bg-gray-50 transition-colors"
+              data-testid="button-edit-market"
+            >
+              {isEditing ? "Save" : "Edit"}
+            </button>
           </div>
         </div>
 
-        <div className="px-6 pb-6 bg-[#f5f5f5]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {suburbs.map((suburb) => (
-              <Card key={suburb.id} className="bg-white border-[#ededed] shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    {editingId === suburb.id && isEditing ? (
+        <div className="px-6 pb-6 flex flex-col gap-4 bg-[#f5f5f5]">
+          {/* Demographics */}
+          <Card className="bg-white border-[#ededed] shadow-sm">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-2 mb-6">
+                <img className="w-6 h-6" alt="Demographics" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                  Demographics
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  {Object.entries(demographics).slice(0, 4).map(([key, value]) => (
+                    <div key={key} className="grid grid-cols-2 gap-4 items-center">
+                      <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                        {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                      </label>
                       <Input
-                        value={formData.suburb}
-                        onChange={(e) => setFormData({ ...formData, suburb: e.target.value })}
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-lg h-8 border-[#ededed]"
-                        data-testid={`input-suburb-${suburb.id}`}
+                        value={value}
+                        onChange={(e) => updateDemographic(key, e.target.value)}
+                        disabled={!isEditing}
+                        className="h-8 text-sm"
+                        data-testid={`input-demo-${key}`}
                       />
-                    ) : (
-                      <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-lg tracking-[-0.18px] leading-7">
-                        {suburb.suburb}
-                      </h2>
-                    )}
-                    <div className="flex gap-2">
-                      {editingId === suburb.id && isEditing ? (
-                        <Button
-                          onClick={handleSave}
-                          size="sm"
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-7 px-3 bg-[#172a41] hover:bg-[#172a41]/90 text-white"
-                          data-testid={`button-save-${suburb.id}`}
-                        >
-                          Save
-                        </Button>
-                      ) : (
-                        <>
-                          <button
-                            onClick={() => handleEdit(suburb.id)}
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-[10px] tracking-[-0.1px] leading-7 px-2 py-1 border border-[#ededed] rounded-lg hover:bg-gray-50 transition-colors"
-                            data-testid={`button-edit-${suburb.id}`}
-                          >
-                            <Pencil className="w-3 h-3" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(suburb.id)}
-                            className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-[10px] tracking-[-0.1px] leading-7 px-2 py-1 border border-[#ededed] rounded-lg hover:bg-gray-50 transition-colors"
-                            data-testid={`button-delete-${suburb.id}`}
-                          >
-                            <Trash2 className="w-3 h-3" />
-                          </button>
-                        </>
-                      )}
                     </div>
-                  </div>
+                  ))}
+                </div>
+                <div className="space-y-3">
+                  {Object.entries(demographics).slice(4).map(([key, value]) => (
+                    <div key={key} className="grid grid-cols-2 gap-4 items-center">
+                      <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                        {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                      </label>
+                      <Input
+                        value={value}
+                        onChange={(e) => updateDemographic(key, e.target.value)}
+                        disabled={!isEditing}
+                        className="h-8 text-sm"
+                        data-testid={`input-demo-${key}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Median Price
-                      </p>
-                      {editingId === suburb.id && isEditing ? (
+          <div className="grid grid-cols-2 gap-4">
+            {/* Houses */}
+            <Card className="bg-white border-[#ededed] shadow-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <img className="w-6 h-6" alt="Houses" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                  <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                    HOUSES
+                  </h2>
+                </div>
+                
+                <div className="space-y-3">
+                  {Object.entries(houses).map(([key, value]) => (
+                    <div key={key} className="grid grid-cols-2 gap-4 items-center">
+                      <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
+                        {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                      </label>
+                      <Input
+                        value={value}
+                        onChange={(e) => updateHouse(key, e.target.value)}
+                        disabled={!isEditing}
+                        className="h-8 text-xs"
+                        data-testid={`input-house-${key}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-4">
+                    Annual GCI Potential
+                  </h3>
+                  <div className="space-y-2">
+                    {annualGCIPotential.map((item, index) => (
+                      <div key={index} className="grid grid-cols-2 gap-4 items-center">
+                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
+                          {item.stage}
+                        </span>
                         <Input
-                          value={formData.medianPrice}
-                          onChange={(e) => setFormData({ ...formData, medianPrice: e.target.value })}
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                          data-testid={`input-medianprice-${suburb.id}`}
+                          value={item.value}
+                          disabled
+                          className="h-8 text-xs bg-gray-50"
+                          data-testid={`input-gci-${index}`}
                         />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[0] leading-[24px]" data-testid={`text-medianprice-${suburb.id}`}>
-                          {suburb.medianPrice}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Price Change
-                      </p>
-                      {editingId === suburb.id && isEditing ? (
-                        <Input
-                          value={formData.priceChange}
-                          onChange={(e) => setFormData({ ...formData, priceChange: e.target.value })}
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                          data-testid={`input-pricechange-${suburb.id}`}
-                        />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-base tracking-[0] leading-[24px]" data-testid={`text-pricechange-${suburb.id}`}>
-                          {suburb.priceChange}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Sales Volume
-                      </p>
-                      {editingId === suburb.id && isEditing ? (
-                        <Input
-                          value={formData.salesVolume}
-                          onChange={(e) => setFormData({ ...formData, salesVolume: e.target.value })}
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                          data-testid={`input-salesvolume-${suburb.id}`}
-                        />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[0] leading-[24px]" data-testid={`text-salesvolume-${suburb.id}`}>
-                          {suburb.salesVolume}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Days on Market
-                      </p>
-                      {editingId === suburb.id && isEditing ? (
-                        <Input
-                          value={formData.daysOnMarket}
-                          onChange={(e) => setFormData({ ...formData, daysOnMarket: e.target.value })}
-                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                          data-testid={`input-daysonmarket-${suburb.id}`}
-                        />
-                      ) : (
-                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[0] leading-[24px]" data-testid={`text-daysonmarket-${suburb.id}`}>
-                          {suburb.daysOnMarket}
-                        </p>
-                      )}
-                    </div>
+                      </div>
+                    ))}
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              </CardContent>
+            </Card>
 
-            {isAdding ? (
-              <Card className="bg-white border-[#ededed] shadow-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <Input
-                      value={formData.suburb}
-                      onChange={(e) => setFormData({ ...formData, suburb: e.target.value })}
-                      placeholder="Suburb name"
-                      className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-lg h-8 border-[#ededed]"
-                      data-testid="input-new-suburb"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Median Price
-                      </p>
+            {/* Apartments */}
+            <Card className="bg-white border-[#ededed] shadow-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <img className="w-6 h-6" alt="Apartments" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                  <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                    APARTMENTS
+                  </h2>
+                </div>
+                
+                <div className="space-y-3">
+                  {Object.entries(apartments).map(([key, value]) => (
+                    <div key={key} className="grid grid-cols-2 gap-4 items-center">
+                      <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
+                        {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                      </label>
                       <Input
-                        value={formData.medianPrice}
-                        onChange={(e) => setFormData({ ...formData, medianPrice: e.target.value })}
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                        data-testid="input-new-medianprice"
+                        value={value}
+                        onChange={(e) => updateApartment(key, e.target.value)}
+                        disabled={!isEditing}
+                        className="h-8 text-xs"
+                        data-testid={`input-apt-${key}`}
                       />
                     </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Price Change
-                      </p>
+          <div className="grid grid-cols-3 gap-4">
+            {/* Key Agents */}
+            <Card className="bg-white border-[#ededed] shadow-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <img className="w-6 h-6" alt="Key Agents" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                  <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                    KEY AGENTS
+                  </h2>
+                </div>
+                
+                <div className="space-y-2">
+                  {keyAgents.map((agent, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm w-4">
+                        {index + 1}
+                      </span>
                       <Input
-                        value={formData.priceChange}
-                        onChange={(e) => setFormData({ ...formData, priceChange: e.target.value })}
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                        data-testid="input-new-pricechange"
+                        value={agent}
+                        onChange={(e) => updateKeyAgent(index, e.target.value)}
+                        placeholder={`Agent ${index + 1}`}
+                        disabled={!isEditing}
+                        className="h-8 text-sm flex-1"
+                        data-testid={`input-agent-${index}`}
                       />
                     </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Sales Volume
-                      </p>
+            {/* Market Share Target */}
+            <Card className="bg-white border-[#ededed] shadow-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <img className="w-6 h-6" alt="Market Share" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                  <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                    Market Share Target
+                  </h2>
+                </div>
+                
+                <div className="space-y-2">
+                  {marketShareTarget.map((item, index) => (
+                    <div key={index} className="grid grid-cols-2 gap-4 items-center">
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                        {item.stage}
+                      </span>
                       <Input
-                        value={formData.salesVolume}
-                        onChange={(e) => setFormData({ ...formData, salesVolume: e.target.value })}
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                        data-testid="input-new-salesvolume"
+                        value={item.value}
+                        disabled
+                        className="h-8 text-sm bg-gray-50"
+                        data-testid={`input-share-${index}`}
                       />
                     </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-                    <div>
-                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs tracking-[0] leading-[18px] mb-1">
-                        Days on Market
-                      </p>
+            {/* Sales Potential */}
+            <Card className="bg-white border-[#ededed] shadow-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <img className="w-6 h-6" alt="Sales Potential" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                  <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                    Sales Potential
+                  </h2>
+                </div>
+                
+                <div className="space-y-2">
+                  {salesPotential.map((item, index) => (
+                    <div key={index} className="grid grid-cols-2 gap-4 items-center">
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                        {item.stage}
+                      </span>
                       <Input
-                        value={formData.daysOnMarket}
-                        onChange={(e) => setFormData({ ...formData, daysOnMarket: e.target.value })}
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-8 border-[#ededed]"
-                        data-testid="input-new-daysonmarket"
+                        value={item.value}
+                        disabled
+                        className="h-8 text-sm bg-gray-50"
+                        data-testid={`input-sales-${index}`}
                       />
                     </div>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Button
-                      onClick={handleAdd}
-                      size="sm"
-                      className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-7 px-3 bg-[#172a41] hover:bg-[#172a41]/90 text-white"
-                      data-testid="button-save-new"
-                    >
-                      Add Suburb
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setIsAdding(false);
-                        resetForm();
-                      }}
-                      variant="outline"
-                      size="sm"
-                      className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-7 px-3"
-                      data-testid="button-cancel-new"
-                    >
-                      Cancel
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ) : (
-              <Card className="bg-white border-[#ededed] border-dashed shadow-sm cursor-pointer hover:bg-gray-50 transition-colors">
-                <CardContent 
-                  className="p-6 flex items-center justify-center min-h-[200px]"
-                  onClick={() => setIsAdding(true)}
-                  data-testid="button-add-suburb"
-                >
-                  <div className="flex flex-col items-center gap-2">
-                    <Plus className="w-8 h-8 text-[#6b7280]" />
-                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#6b7280] text-sm">
-                      Add New Suburb
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>
