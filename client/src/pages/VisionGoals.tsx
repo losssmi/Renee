@@ -71,6 +71,11 @@ export function VisionGoals() {
 
   const [tenYearPlan, setTenYearPlan] = useState("");
   
+  const [strengths, setStrengths] = useState<string[]>(["", "", ""]);
+  const [weaknesses, setWeaknesses] = useState<string[]>(["", "", ""]);
+  const [opportunities, setOpportunities] = useState<string[]>(["", "", ""]);
+  const [threats, setThreats] = useState<string[]>(["", "", ""]);
+  
   const [threeYearTargets, setThreeYearTargets] = useState<YearTarget[]>([
     {
       year: "2025",
@@ -194,6 +199,30 @@ export function VisionGoals() {
     const updated = [...ninetyDayTargets];
     updated[quarterIndex] = { ...updated[quarterIndex], [field]: value };
     setNinetyDayTargets(updated);
+  };
+
+  const updateStrength = (index: number, value: string) => {
+    const updated = [...strengths];
+    updated[index] = value;
+    setStrengths(updated);
+  };
+
+  const updateWeakness = (index: number, value: string) => {
+    const updated = [...weaknesses];
+    updated[index] = value;
+    setWeaknesses(updated);
+  };
+
+  const updateOpportunity = (index: number, value: string) => {
+    const updated = [...opportunities];
+    updated[index] = value;
+    setOpportunities(updated);
+  };
+
+  const updateThreat = (index: number, value: string) => {
+    const updated = [...threats];
+    updated[index] = value;
+    setThreats(updated);
   };
 
   return (
@@ -384,6 +413,111 @@ export function VisionGoals() {
                         />
                       </div>
                     ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border-[#ededed] shadow-sm">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-6">
+                    <img className="w-6 h-6" alt="SWOT" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                    <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                      SWOT
+                    </h2>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
+                        Strengths
+                      </h3>
+                      <div className="space-y-2">
+                        {strengths.map((strength, index) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
+                              {index + 1}
+                            </span>
+                            <Input
+                              value={strength}
+                              onChange={(e) => updateStrength(index, e.target.value)}
+                              placeholder={`Strength ${index + 1}`}
+                              disabled={!isEditingVision}
+                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
+                              data-testid={`input-strength-${index}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
+                        Weaknesses
+                      </h3>
+                      <div className="space-y-2">
+                        {weaknesses.map((weakness, index) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
+                              {index + 1}
+                            </span>
+                            <Input
+                              value={weakness}
+                              onChange={(e) => updateWeakness(index, e.target.value)}
+                              placeholder={`Weakness ${index + 1}`}
+                              disabled={!isEditingVision}
+                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
+                              data-testid={`input-weakness-${index}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
+                        Opportunities
+                      </h3>
+                      <div className="space-y-2">
+                        {opportunities.map((opportunity, index) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
+                              {index + 1}
+                            </span>
+                            <Input
+                              value={opportunity}
+                              onChange={(e) => updateOpportunity(index, e.target.value)}
+                              placeholder={`Opportunity ${index + 1}`}
+                              disabled={!isEditingVision}
+                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
+                              data-testid={`input-opportunity-${index}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
+                        Threats
+                      </h3>
+                      <div className="space-y-2">
+                        {threats.map((threat, index) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
+                              {index + 1}
+                            </span>
+                            <Input
+                              value={threat}
+                              onChange={(e) => updateThreat(index, e.target.value)}
+                              placeholder={`Threat ${index + 1}`}
+                              disabled={!isEditingVision}
+                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
+                              data-testid={`input-threat-${index}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
