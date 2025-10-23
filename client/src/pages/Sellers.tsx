@@ -34,6 +34,7 @@ interface SellerEntry {
   readiness: "red" | "yellow" | "green";
   estCommissionRate: string;
   appraised: string;
+  stage: string;
   status: string;
 }
 
@@ -51,6 +52,7 @@ const initialSellers: SellerEntry[] = [
     readiness: "green",
     estCommissionRate: "2.5",
     appraised: "Yes",
+    stage: "Hot Stocks",
     status: "Active"
   }
 ];
@@ -92,6 +94,7 @@ export function Sellers() {
     readiness: "yellow" as "red" | "yellow" | "green",
     estCommissionRate: "",
     appraised: "",
+    stage: "",
     status: ""
   });
 
@@ -108,6 +111,7 @@ export function Sellers() {
       readiness: "yellow",
       estCommissionRate: "",
       appraised: "",
+      stage: "",
       status: ""
     });
   };
@@ -141,6 +145,7 @@ export function Sellers() {
         readiness: seller.readiness,
         estCommissionRate: seller.estCommissionRate,
         appraised: seller.appraised,
+        stage: seller.stage,
         status: seller.status
       });
       setEditingId(id);
@@ -250,6 +255,9 @@ export function Sellers() {
                         Appraised
                       </th>
                       <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Stage
+                      </th>
+                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
                         Status
                       </th>
                       <th className="px-4 py-3 text-right [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
@@ -295,6 +303,9 @@ export function Sellers() {
                         </td>
                         <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-appraised-${seller.id}`}>
                           {seller.appraised}
+                        </td>
+                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`text-stage-${seller.id}`}>
+                          {seller.stage}
                         </td>
                         <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-status-${seller.id}`}>
                           {seller.status}
@@ -511,20 +522,37 @@ export function Sellers() {
               </div>
             </div>
 
-            <div className="grid gap-2">
-              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                Status
-              </label>
-              <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value })}>
-                <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-status">
-                  <SelectValue placeholder="Select status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Active">Active</SelectItem>
-                  <SelectItem value="Inactive">Inactive</SelectItem>
-                  <SelectItem value="Listed">Listed</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Stage
+                </label>
+                <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
+                  <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-stage">
+                    <SelectValue placeholder="Select stage" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Hot Stocks">Hot Stocks</SelectItem>
+                    <SelectItem value="Pipeline">Pipeline</SelectItem>
+                    <SelectItem value="Prospect">Prospect</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Status
+                </label>
+                <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value })}>
+                  <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-status">
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Active">Active</SelectItem>
+                    <SelectItem value="Inactive">Inactive</SelectItem>
+                    <SelectItem value="Listed">Listed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             {formData.price && formData.estCommissionRate && (
