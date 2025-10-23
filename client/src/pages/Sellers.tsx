@@ -20,7 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface SellerEntry {
   id: number;
@@ -115,7 +114,6 @@ export function Sellers() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [draggedSeller, setDraggedSeller] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState<"Hot Stocks" | "Pipeline" | "Prospect">("Hot Stocks");
   
   const [formData, setFormData] = useState({
     name: "",
@@ -258,10 +256,10 @@ export function Sellers() {
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1">
-                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base mb-1" data-testid={`text-name-${seller.id}`}>
+                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-1" data-testid={`text-name-${seller.id}`}>
                   {seller.name}
                 </h3>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm" data-testid={`text-address-${seller.id}`}>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs truncate" data-testid={`text-address-${seller.id}`}>
                   {seller.address}, {seller.suburbs}
                 </p>
               </div>
@@ -271,72 +269,66 @@ export function Sellers() {
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
                   data-testid={`button-edit-${seller.id}`}
                 >
-                  <Pencil className="w-4 h-4" />
+                  <Pencil className="w-3 h-3" />
                 </button>
                 <button
                   onClick={() => handleDelete(seller.id)}
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
                   data-testid={`button-delete-${seller.id}`}
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-3 h-3" />
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mb-3">
+            <div className="grid grid-cols-2 gap-2 mb-2">
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Phone</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-phone-${seller.id}`}>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Phone</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-phone-${seller.id}`}>
                   {seller.phone}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Email</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm truncate" data-testid={`text-email-${seller.id}`}>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Email</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs truncate" data-testid={`text-email-${seller.id}`}>
                   {seller.email}
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3 mb-3">
+            <div className="grid grid-cols-3 gap-2 mb-2">
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Price</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`text-price-${seller.id}`}>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Price</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-price-${seller.id}`}>
                   ${parseFloat(seller.price).toLocaleString('en-US')}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Est. GCI</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-sm" data-testid={`text-estgci-${seller.id}`}>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Est. GCI</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-estgci-${seller.id}`}>
                   {calculateEstGCI(seller.price, seller.estCommissionRate)}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Readiness</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Readiness</p>
                 <div data-testid={`text-readiness-${seller.id}`}>
                   <TrafficLight color={seller.readiness} />
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Lead Source</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-leadsource-${seller.id}`}>
+            <div className="flex gap-4 text-[10px]">
+              <div className="flex-1">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Source: </span>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-leadsource-${seller.id}`}>
                   {seller.leadSource}
-                </p>
+                </span>
               </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Motivation</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-motivation-${seller.id}`}>
-                  {seller.motivation}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Appraised</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-appraised-${seller.id}`}>
+              <div className="flex-1">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Appraised: </span>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-appraised-${seller.id}`}>
                   {seller.appraised}
-                </p>
+                </span>
               </div>
             </div>
           </div>
@@ -376,82 +368,82 @@ export function Sellers() {
         </div>
 
         <div className="px-6 pb-6 bg-[#f5f5f5]">
-          <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-full">
-            <TabsList className="bg-white border border-[#ededed] p-1 mb-4">
-              <TabsTrigger value="Hot Stocks" className="flex-1 data-[state=active]:bg-[#172a41] data-[state=active]:text-white" data-testid="tab-hotstocks">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">
+          <div className="grid grid-cols-3 gap-4">
+            {/* Hot Stocks Column */}
+            <div className="flex flex-col">
+              <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
+                <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
                   Hot Stocks ({getSellersByStage("Hot Stocks").length})
-                </span>
-              </TabsTrigger>
-              <TabsTrigger value="Pipeline" className="flex-1 data-[state=active]:bg-[#172a41] data-[state=active]:text-white" data-testid="tab-pipeline">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">
-                  Pipeline ({getSellersByStage("Pipeline").length})
-                </span>
-              </TabsTrigger>
-              <TabsTrigger value="Prospect" className="flex-1 data-[state=active]:bg-[#172a41] data-[state=active]:text-white" data-testid="tab-prospect">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">
-                  Prospect ({getSellersByStage("Prospect").length})
-                </span>
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="Hot Stocks" className="mt-0">
+                </h2>
+              </div>
               <div
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, "Hot Stocks")}
-                className="min-h-[400px] p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+                className="flex-1 min-h-[500px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
                 data-testid="dropzone-hotstocks"
               >
                 {getSellersByStage("Hot Stocks").length === 0 ? (
                   <div className="flex items-center justify-center h-[200px]">
-                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm">
-                      No sellers in Hot Stocks. Drag sellers here or add a new one.
+                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
+                      Drag sellers here
                     </p>
                   </div>
                 ) : (
                   getSellersByStage("Hot Stocks").map(renderSellerCard)
                 )}
               </div>
-            </TabsContent>
+            </div>
 
-            <TabsContent value="Pipeline" className="mt-0">
+            {/* Pipeline Column */}
+            <div className="flex flex-col">
+              <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
+                <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
+                  Pipeline ({getSellersByStage("Pipeline").length})
+                </h2>
+              </div>
               <div
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, "Pipeline")}
-                className="min-h-[400px] p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+                className="flex-1 min-h-[500px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
                 data-testid="dropzone-pipeline"
               >
                 {getSellersByStage("Pipeline").length === 0 ? (
                   <div className="flex items-center justify-center h-[200px]">
-                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm">
-                      No sellers in Pipeline. Drag sellers here or add a new one.
+                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
+                      Drag sellers here
                     </p>
                   </div>
                 ) : (
                   getSellersByStage("Pipeline").map(renderSellerCard)
                 )}
               </div>
-            </TabsContent>
+            </div>
 
-            <TabsContent value="Prospect" className="mt-0">
+            {/* Prospect Column */}
+            <div className="flex flex-col">
+              <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
+                <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
+                  Prospect ({getSellersByStage("Prospect").length})
+                </h2>
+              </div>
               <div
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, "Prospect")}
-                className="min-h-[400px] p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+                className="flex-1 min-h-[500px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
                 data-testid="dropzone-prospect"
               >
                 {getSellersByStage("Prospect").length === 0 ? (
                   <div className="flex items-center justify-center h-[200px]">
-                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm">
-                      No sellers in Prospect. Drag sellers here or add a new one.
+                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
+                      Drag sellers here
                     </p>
                   </div>
                 ) : (
                   getSellersByStage("Prospect").map(renderSellerCard)
                 )}
               </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
       </main>
 
