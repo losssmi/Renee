@@ -15,6 +15,7 @@ import { MarketAnalysis } from "@/pages/MarketAnalysis";
 import { Appraisals } from "@/pages/Appraisals";
 import { Buyers } from "@/pages/Buyers";
 import { Sellers } from "@/pages/Sellers";
+import { Listings } from "@/pages/Listings";
 import { BusinessAudit } from "@/pages/BusinessAudit";
 import { QuarterlyPriorities } from "@/pages/QuarterlyPriorities";
 import { Settings } from "@/pages/Settings";
@@ -55,6 +56,7 @@ function Router() {
       <Route path="/appraisals" component={Appraisals} />
       <Route path="/buyers" component={Buyers} />
       <Route path="/sellers" component={Sellers} />
+      <Route path="/listings" component={Listings} />
       <Route path="/business-audit" component={BusinessAudit} />
       <Route path="/quarterly-priorities" component={QuarterlyPriorities} />
       <Route path="/settings" component={Settings} />

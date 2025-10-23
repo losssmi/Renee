@@ -46,6 +46,7 @@ const structureItems = [
       { label: "Appraisals", path: "/appraisals" },
       { label: "Buyers", path: "/buyers" },
       { label: "Sellers", path: "/sellers" },
+      { label: "Listings", path: "/listings" },
     ]
   },
   { icon: "/figmaAssets/carbon-ibm-event-automation.svg", label: "Sales", path: "/sales" },

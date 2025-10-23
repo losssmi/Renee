@@ -21,71 +21,79 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface SellerEntry {
+interface ListingEntry {
   id: number;
-  name: string;
-  phone: string;
-  email: string;
   address: string;
-  suburbs: string;
-  price: string;
+  suburb: string;
+  guide: string;
+  revisedGuide: string;
+  vendorsPrice: string;
+  sellingPrice: string;
+  methodOfSale: string;
   leadSource: string;
   motivation: string;
   readiness: "red" | "yellow" | "green";
-  estCommissionRate: string;
-  appraised: string;
-  stage: "Hot Stocks" | "Pipeline" | "Prospect";
-  status: string;
+  listedDate: string;
+  daysOnMarket: number;
+  offers: string;
+  commRate: string;
+  stage: "Pre-market" | "Off-Market" | "On Market";
 }
 
-const initialSellers: SellerEntry[] = [
+const initialListings: ListingEntry[] = [
   {
     id: 1,
-    name: "Michael Brown",
-    phone: "0423 456 789",
-    email: "michael.b@email.com",
-    address: "12 Park Avenue",
-    suburbs: "Bondi",
-    price: "3200000",
+    address: "15 Beach Road",
+    suburb: "Bondi",
+    guide: "3200000",
+    revisedGuide: "3100000",
+    vendorsPrice: "3000000",
+    sellingPrice: "",
+    methodOfSale: "Private Treaty",
     leadSource: "Referral",
     motivation: "Upsizing",
     readiness: "green",
-    estCommissionRate: "2.5",
-    appraised: "Yes",
-    stage: "Hot Stocks",
-    status: "Active"
+    listedDate: "10/10/2025",
+    daysOnMarket: 13,
+    offers: "2",
+    commRate: "2.5",
+    stage: "Pre-market"
   },
   {
     id: 2,
-    name: "Sarah Johnson",
-    phone: "0412 345 678",
-    email: "sarah.j@email.com",
-    address: "45 Beach Road",
-    suburbs: "Manly",
-    price: "2800000",
+    address: "42 Ocean Avenue",
+    suburb: "Manly",
+    guide: "2800000",
+    revisedGuide: "2750000",
+    vendorsPrice: "2700000",
+    sellingPrice: "",
+    methodOfSale: "Auction",
     leadSource: "Website",
     motivation: "Downsizing",
     readiness: "yellow",
-    estCommissionRate: "2.0",
-    appraised: "No",
-    stage: "Pipeline",
-    status: "Active"
+    listedDate: "15/10/2025",
+    daysOnMarket: 8,
+    offers: "1",
+    commRate: "2.0",
+    stage: "Off-Market"
   },
   {
     id: 3,
-    name: "David Lee",
-    phone: "0498 765 432",
-    email: "david.l@email.com",
-    address: "78 Ocean Street",
-    suburbs: "Coogee",
-    price: "4500000",
+    address: "78 Coastal Drive",
+    suburb: "Coogee",
+    guide: "4500000",
+    revisedGuide: "",
+    vendorsPrice: "4400000",
+    sellingPrice: "4450000",
+    methodOfSale: "Auction",
     leadSource: "Cold Call",
     motivation: "Investment",
-    readiness: "red",
-    estCommissionRate: "3.0",
-    appraised: "Pending",
-    stage: "Prospect",
-    status: "Active"
+    readiness: "green",
+    listedDate: "01/10/2025",
+    daysOnMarket: 22,
+    offers: "3",
+    commRate: "3.0",
+    stage: "On Market"
   }
 ];
 
@@ -108,78 +116,84 @@ const TrafficLight = ({ color }: { color: "red" | "yellow" | "green" }) => {
   );
 };
 
-export function Sellers() {
+export function Listings() {
   const { toast } = useToast();
-  const [sellers, setSellers] = useState<SellerEntry[]>(initialSellers);
+  const [listings, setListings] = useState<ListingEntry[]>(initialListings);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [draggedSeller, setDraggedSeller] = useState<number | null>(null);
+  const [draggedListing, setDraggedListing] = useState<number | null>(null);
   
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
     address: "",
-    suburbs: "",
-    price: "",
+    suburb: "",
+    guide: "",
+    revisedGuide: "",
+    vendorsPrice: "",
+    sellingPrice: "",
+    methodOfSale: "",
     leadSource: "",
     motivation: "",
     readiness: "yellow" as "red" | "yellow" | "green",
-    estCommissionRate: "",
-    appraised: "",
-    stage: "Hot Stocks" as "Hot Stocks" | "Pipeline" | "Prospect",
-    status: ""
+    listedDate: "",
+    daysOnMarket: 0,
+    offers: "",
+    commRate: "",
+    stage: "Pre-market" as "Pre-market" | "Off-Market" | "On Market"
   });
 
   const resetForm = () => {
     setFormData({
-      name: "",
-      phone: "",
-      email: "",
       address: "",
-      suburbs: "",
-      price: "",
+      suburb: "",
+      guide: "",
+      revisedGuide: "",
+      vendorsPrice: "",
+      sellingPrice: "",
+      methodOfSale: "",
       leadSource: "",
       motivation: "",
       readiness: "yellow",
-      estCommissionRate: "",
-      appraised: "",
-      stage: "Hot Stocks",
-      status: ""
+      listedDate: "",
+      daysOnMarket: 0,
+      offers: "",
+      commRate: "",
+      stage: "Pre-market"
     });
   };
 
   const handleAdd = () => {
-    const newSeller: SellerEntry = {
-      id: Math.max(...sellers.map(s => s.id), 0) + 1,
+    const newListing: ListingEntry = {
+      id: Math.max(...listings.map(l => l.id), 0) + 1,
       ...formData
     };
-    setSellers([...sellers, newSeller]);
+    setListings([...listings, newListing]);
     setIsAddDialogOpen(false);
     resetForm();
     toast({
-      title: "Seller Added",
-      description: "New seller has been added successfully.",
+      title: "Listing Added",
+      description: "New listing has been added successfully.",
     });
   };
 
   const handleEdit = (id: number) => {
-    const seller = sellers.find(s => s.id === id);
-    if (seller) {
+    const listing = listings.find(l => l.id === id);
+    if (listing) {
       setFormData({
-        name: seller.name,
-        phone: seller.phone,
-        email: seller.email,
-        address: seller.address,
-        suburbs: seller.suburbs,
-        price: seller.price,
-        leadSource: seller.leadSource,
-        motivation: seller.motivation,
-        readiness: seller.readiness,
-        estCommissionRate: seller.estCommissionRate,
-        appraised: seller.appraised,
-        stage: seller.stage,
-        status: seller.status
+        address: listing.address,
+        suburb: listing.suburb,
+        guide: listing.guide,
+        revisedGuide: listing.revisedGuide,
+        vendorsPrice: listing.vendorsPrice,
+        sellingPrice: listing.sellingPrice,
+        methodOfSale: listing.methodOfSale,
+        leadSource: listing.leadSource,
+        motivation: listing.motivation,
+        readiness: listing.readiness,
+        listedDate: listing.listedDate,
+        daysOnMarket: listing.daysOnMarket,
+        offers: listing.offers,
+        commRate: listing.commRate,
+        stage: listing.stage
       });
       setEditingId(id);
       setIsAddDialogOpen(true);
@@ -187,28 +201,28 @@ export function Sellers() {
   };
 
   const handleUpdate = () => {
-    setSellers(sellers.map(seller => 
-      seller.id === editingId ? { ...seller, ...formData } : seller
+    setListings(listings.map(listing => 
+      listing.id === editingId ? { ...listing, ...formData } : listing
     ));
     setIsAddDialogOpen(false);
     setEditingId(null);
     resetForm();
     toast({
-      title: "Seller Updated",
-      description: "Seller has been updated successfully.",
+      title: "Listing Updated",
+      description: "Listing has been updated successfully.",
     });
   };
 
   const handleDelete = (id: number) => {
-    setSellers(sellers.filter(seller => seller.id !== id));
+    setListings(listings.filter(listing => listing.id !== id));
     toast({
-      title: "Seller Deleted",
-      description: "Seller has been removed successfully.",
+      title: "Listing Deleted",
+      description: "Listing has been removed successfully.",
     });
   };
 
-  const handleDragStart = (e: React.DragEvent, sellerId: number) => {
-    setDraggedSeller(sellerId);
+  const handleDragStart = (e: React.DragEvent, listingId: number) => {
+    setDraggedListing(listingId);
     e.dataTransfer.effectAllowed = "move";
   };
 
@@ -217,38 +231,38 @@ export function Sellers() {
     e.dataTransfer.dropEffect = "move";
   };
 
-  const handleDrop = (e: React.DragEvent, newStage: "Hot Stocks" | "Pipeline" | "Prospect") => {
+  const handleDrop = (e: React.DragEvent, newStage: "Pre-market" | "Off-Market" | "On Market") => {
     e.preventDefault();
-    if (draggedSeller !== null) {
-      setSellers(sellers.map(seller => 
-        seller.id === draggedSeller ? { ...seller, stage: newStage } : seller
+    if (draggedListing !== null) {
+      setListings(listings.map(listing => 
+        listing.id === draggedListing ? { ...listing, stage: newStage } : listing
       ));
       toast({
         title: "Stage Updated",
-        description: `Seller moved to ${newStage}`,
+        description: `Listing moved to ${newStage}`,
       });
-      setDraggedSeller(null);
+      setDraggedListing(null);
     }
   };
 
-  const calculateEstGCI = (price: string, rate: string) => {
-    const priceNum = parseFloat(price.replace(/[^0-9.]/g, '')) || 0;
-    const rateNum = parseFloat(rate) || 0;
-    const gci = (priceNum * rateNum) / 100;
+  const calculateForecastGCI = (guide: string, commRate: string) => {
+    const guideNum = parseFloat(guide.replace(/[^0-9.]/g, '')) || 0;
+    const rateNum = parseFloat(commRate) || 0;
+    const gci = (guideNum * rateNum) / 100;
     return gci > 0 ? `$${gci.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : "-";
   };
 
-  const getSellersByStage = (stage: "Hot Stocks" | "Pipeline" | "Prospect") => {
-    return sellers.filter(seller => seller.stage === stage);
+  const getListingsByStage = (stage: "Pre-market" | "Off-Market" | "On Market") => {
+    return listings.filter(listing => listing.stage === stage);
   };
 
-  const renderSellerCard = (seller: SellerEntry) => (
+  const renderListingCard = (listing: ListingEntry) => (
     <Card
-      key={seller.id}
+      key={listing.id}
       className="bg-white border-[#ededed] shadow-sm mb-3 cursor-move hover:shadow-md transition-shadow w-full"
       draggable
-      onDragStart={(e) => handleDragStart(e, seller.id)}
-      data-testid={`seller-card-${seller.id}`}
+      onDragStart={(e) => handleDragStart(e, listing.id)}
+      data-testid={`listing-card-${listing.id}`}
     >
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
@@ -256,78 +270,105 @@ export function Sellers() {
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1">
-                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-1" data-testid={`text-name-${seller.id}`}>
-                  {seller.name}
+                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-1" data-testid={`text-address-${listing.id}`}>
+                  {listing.address}
                 </h3>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs truncate" data-testid={`text-address-${seller.id}`}>
-                  {seller.address}, {seller.suburbs}
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs" data-testid={`text-suburb-${listing.id}`}>
+                  {listing.suburb}
                 </p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button
-                  onClick={() => handleEdit(seller.id)}
+                  onClick={() => handleEdit(listing.id)}
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                  data-testid={`button-edit-${seller.id}`}
+                  data-testid={`button-edit-${listing.id}`}
                 >
                   <Pencil className="w-3 h-3" />
                 </button>
                 <button
-                  onClick={() => handleDelete(seller.id)}
+                  onClick={() => handleDelete(listing.id)}
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                  data-testid={`button-delete-${seller.id}`}
+                  data-testid={`button-delete-${listing.id}`}
                 >
                   <Trash2 className="w-3 h-3" />
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 mb-2">
+            <div className="grid grid-cols-3 gap-2 mb-2">
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Phone</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-phone-${seller.id}`}>
-                  {seller.phone}
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Guide</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-guide-${listing.id}`}>
+                  ${parseFloat(listing.guide).toLocaleString('en-US')}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Email</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs truncate" data-testid={`text-email-${seller.id}`}>
-                  {seller.email}
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Revised Guide</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-revisedguide-${listing.id}`}>
+                  {listing.revisedGuide ? `$${parseFloat(listing.revisedGuide).toLocaleString('en-US')}` : "-"}
+                </p>
+              </div>
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Vendor's Price</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-vendorsprice-${listing.id}`}>
+                  ${parseFloat(listing.vendorsPrice).toLocaleString('en-US')}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-2 mb-2">
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Price</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-price-${seller.id}`}>
-                  ${parseFloat(seller.price).toLocaleString('en-US')}
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Selling Price</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-sellingprice-${listing.id}`}>
+                  {listing.sellingPrice ? `$${parseFloat(listing.sellingPrice).toLocaleString('en-US')}` : "-"}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Est. GCI</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-estgci-${seller.id}`}>
-                  {calculateEstGCI(seller.price, seller.estCommissionRate)}
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Forecast GCI</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-forecastgci-${listing.id}`}>
+                  {calculateForecastGCI(listing.guide, listing.commRate)}
                 </p>
               </div>
               <div>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Readiness</p>
-                <div data-testid={`text-readiness-${seller.id}`}>
-                  <TrafficLight color={seller.readiness} />
+                <div data-testid={`text-readiness-${listing.id}`}>
+                  <TrafficLight color={listing.readiness} />
                 </div>
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Method of Sale</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-methodofsale-${listing.id}`}>
+                  {listing.methodOfSale}
+                </p>
+              </div>
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Lead Source</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-leadsource-${listing.id}`}>
+                  {listing.leadSource}
+                </p>
+              </div>
+            </div>
+
             <div className="flex gap-4 text-[10px]">
-              <div className="flex-1">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Source: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-leadsource-${seller.id}`}>
-                  {seller.leadSource}
+              <div>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Listed: </span>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-listeddate-${listing.id}`}>
+                  {listing.listedDate}
                 </span>
               </div>
-              <div className="flex-1">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Appraised: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-appraised-${seller.id}`}>
-                  {seller.appraised}
+              <div>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Days: </span>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-daysonmarket-${listing.id}`}>
+                  {listing.daysOnMarket}
+                </span>
+              </div>
+              <div>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Offers: </span>
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-offers-${listing.id}`}>
+                  {listing.offers}
                 </span>
               </div>
             </div>
@@ -350,96 +391,96 @@ export function Sellers() {
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-2">
               <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal]">
-                Sellers
+                Listings
               </h1>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-                Drag sellers between stages to update their pipeline status.
+                Drag listings between stages to update their status.
               </p>
             </div>
             <Button
               onClick={() => setIsAddDialogOpen(true)}
               className="[font-family:'Plus_Jakarta_Sans',Helvetica] bg-[#172a41] hover:bg-[#172a41]/90 text-white h-9 px-4 gap-2"
-              data-testid="button-add-seller"
+              data-testid="button-add-listing"
             >
               <Plus className="w-4 h-4" />
-              Add Seller
+              Add Listing
             </Button>
           </div>
         </div>
 
         <div className="px-6 pb-6 bg-[#f5f5f5]">
           <div className="flex flex-col gap-4">
-            {/* Hot Stocks Stage */}
+            {/* Pre-market Stage */}
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
-                  Hot Stocks ({getSellersByStage("Hot Stocks").length})
+                  Pre-market ({getListingsByStage("Pre-market").length})
                 </h2>
               </div>
               <div
                 onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, "Hot Stocks")}
+                onDrop={(e) => handleDrop(e, "Pre-market")}
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
-                data-testid="dropzone-hotstocks"
+                data-testid="dropzone-premarket"
               >
-                {getSellersByStage("Hot Stocks").length === 0 ? (
+                {getListingsByStage("Pre-market").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
-                      Drag sellers here
+                      Drag listings here
                     </p>
                   </div>
                 ) : (
-                  getSellersByStage("Hot Stocks").map(renderSellerCard)
+                  getListingsByStage("Pre-market").map(renderListingCard)
                 )}
               </div>
             </div>
 
-            {/* Pipeline Stage */}
+            {/* Off-Market Stage */}
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
-                  Pipeline ({getSellersByStage("Pipeline").length})
+                  Off-Market ({getListingsByStage("Off-Market").length})
                 </h2>
               </div>
               <div
                 onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, "Pipeline")}
+                onDrop={(e) => handleDrop(e, "Off-Market")}
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
-                data-testid="dropzone-pipeline"
+                data-testid="dropzone-offmarket"
               >
-                {getSellersByStage("Pipeline").length === 0 ? (
+                {getListingsByStage("Off-Market").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
-                      Drag sellers here
+                      Drag listings here
                     </p>
                   </div>
                 ) : (
-                  getSellersByStage("Pipeline").map(renderSellerCard)
+                  getListingsByStage("Off-Market").map(renderListingCard)
                 )}
               </div>
             </div>
 
-            {/* Prospect Stage */}
+            {/* On Market Stage */}
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
-                  Prospect ({getSellersByStage("Prospect").length})
+                  On Market ({getListingsByStage("On Market").length})
                 </h2>
               </div>
               <div
                 onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, "Prospect")}
+                onDrop={(e) => handleDrop(e, "On Market")}
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
-                data-testid="dropzone-prospect"
+                data-testid="dropzone-onmarket"
               >
-                {getSellersByStage("Prospect").length === 0 ? (
+                {getListingsByStage("On Market").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
-                      Drag sellers here
+                      Drag listings here
                     </p>
                   </div>
                 ) : (
-                  getSellersByStage("Prospect").map(renderSellerCard)
+                  getListingsByStage("On Market").map(renderListingCard)
                 )}
               </div>
             </div>
@@ -448,50 +489,13 @@ export function Sellers() {
       </main>
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="sm:max-w-[600px] bg-white max-h-[85vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[700px] bg-white max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-lg">
-              {editingId ? "Edit Seller" : "Add New Seller"}
+              {editingId ? "Edit Listing" : "Add New Listing"}
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Name
-                </label>
-                <Input
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                  data-testid="input-name"
-                />
-              </div>
-              <div className="grid gap-2">
-                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Phone
-                </label>
-                <Input
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                  data-testid="input-phone"
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-2">
-              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                Email
-              </label>
-              <Input
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                data-testid="input-email"
-              />
-            </div>
-
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
@@ -500,51 +504,108 @@ export function Sellers() {
                 <Input
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  placeholder="15 Beach Road"
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
                   data-testid="input-address"
                 />
               </div>
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Suburbs
+                  Suburb
                 </label>
                 <Input
-                  value={formData.suburbs}
-                  onChange={(e) => setFormData({ ...formData, suburbs: e.target.value })}
+                  value={formData.suburb}
+                  onChange={(e) => setFormData({ ...formData, suburb: e.target.value })}
+                  placeholder="Bondi"
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                  data-testid="input-suburbs"
+                  data-testid="input-suburb"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Price
+                  Guide
                 </label>
                 <Input
-                  value={formData.price}
-                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  value={formData.guide}
+                  onChange={(e) => setFormData({ ...formData, guide: e.target.value })}
                   placeholder="3200000"
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                  data-testid="input-price"
+                  data-testid="input-guide"
                 />
               </div>
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Est. Commission Rate (%)
+                  Revised Guide
                 </label>
                 <Input
-                  value={formData.estCommissionRate}
-                  onChange={(e) => setFormData({ ...formData, estCommissionRate: e.target.value })}
-                  placeholder="2.5"
+                  value={formData.revisedGuide}
+                  onChange={(e) => setFormData({ ...formData, revisedGuide: e.target.value })}
+                  placeholder="3100000"
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                  data-testid="input-commissionrate"
+                  data-testid="input-revisedguide"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Vendor's Price
+                </label>
+                <Input
+                  value={formData.vendorsPrice}
+                  onChange={(e) => setFormData({ ...formData, vendorsPrice: e.target.value })}
+                  placeholder="3000000"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-vendorsprice"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Selling Price
+                </label>
+                <Input
+                  value={formData.sellingPrice}
+                  onChange={(e) => setFormData({ ...formData, sellingPrice: e.target.value })}
+                  placeholder="Optional"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-sellingprice"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Comm. Rate (%)
+                </label>
+                <Input
+                  value={formData.commRate}
+                  onChange={(e) => setFormData({ ...formData, commRate: e.target.value })}
+                  placeholder="2.5"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-commrate"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Method of Sale
+                </label>
+                <Select value={formData.methodOfSale} onValueChange={(value) => setFormData({ ...formData, methodOfSale: value })}>
+                  <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-methodofsale">
+                    <SelectValue placeholder="Select method" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Private Treaty">Private Treaty</SelectItem>
+                    <SelectItem value="Auction">Auction</SelectItem>
+                    <SelectItem value="Expression of Interest">Expression of Interest</SelectItem>
+                    <SelectItem value="Tender">Tender</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
                   Lead Source
@@ -563,6 +624,9 @@ export function Sellers() {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
                   Motivation
@@ -581,9 +645,6 @@ export function Sellers() {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
                   Readiness
@@ -614,63 +675,71 @@ export function Sellers() {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
               <div className="grid gap-2">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Appraised
+                  Listed Date
                 </label>
-                <Select value={formData.appraised} onValueChange={(value) => setFormData({ ...formData, appraised: value })}>
-                  <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-appraised">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Yes">Yes</SelectItem>
-                    <SelectItem value="No">No</SelectItem>
-                    <SelectItem value="Pending">Pending</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Input
+                  value={formData.listedDate}
+                  onChange={(e) => setFormData({ ...formData, listedDate: e.target.value })}
+                  placeholder="10/10/2025"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-listeddate"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Days on Market
+                </label>
+                <Input
+                  type="number"
+                  value={formData.daysOnMarket}
+                  onChange={(e) => setFormData({ ...formData, daysOnMarket: parseInt(e.target.value) || 0 })}
+                  placeholder="13"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-daysonmarket"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Offers
+                </label>
+                <Input
+                  value={formData.offers}
+                  onChange={(e) => setFormData({ ...formData, offers: e.target.value })}
+                  placeholder="2"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-offers"
+                />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Stage
-                </label>
-                <Select value={formData.stage} onValueChange={(value: any) => setFormData({ ...formData, stage: value })}>
-                  <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-stage">
-                    <SelectValue placeholder="Select stage" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Hot Stocks">Hot Stocks</SelectItem>
-                    <SelectItem value="Pipeline">Pipeline</SelectItem>
-                    <SelectItem value="Prospect">Prospect</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Status
-                </label>
-                <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value })}>
-                  <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-status">
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Active">Active</SelectItem>
-                    <SelectItem value="Inactive">Inactive</SelectItem>
-                    <SelectItem value="Listed">Listed</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="grid gap-2">
+              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                Stage
+              </label>
+              <Select value={formData.stage} onValueChange={(value: any) => setFormData({ ...formData, stage: value })}>
+                <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-stage">
+                  <SelectValue placeholder="Select stage" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Pre-market">Pre-market</SelectItem>
+                  <SelectItem value="Off-Market">Off-Market</SelectItem>
+                  <SelectItem value="On Market">On Market</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            {formData.price && formData.estCommissionRate && (
+            {formData.guide && formData.commRate && (
               <div className="grid gap-2 p-4 bg-[#f9fafb] rounded-lg border border-[#ededed]">
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                  Estimated GCI
+                  Forecast GCI
                 </label>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#09b600] text-xl" data-testid="text-calculated-gci">
-                  {calculateEstGCI(formData.price, formData.estCommissionRate)}
+                  {calculateForecastGCI(formData.guide, formData.commRate)}
                 </p>
               </div>
             )}
