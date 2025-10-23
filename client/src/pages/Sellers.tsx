@@ -1,11 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SideBarSection } from "./sections/SideBarSection";
 import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Circle } from "lucide-react";
+import { Plus, Pencil, Trash2, Circle, GripVertical } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface SellerEntry {
   id: number;
@@ -34,7 +35,7 @@ interface SellerEntry {
   readiness: "red" | "yellow" | "green";
   estCommissionRate: string;
   appraised: string;
-  stage: string;
+  stage: "Hot Stocks" | "Pipeline" | "Prospect";
   status: string;
 }
 
@@ -53,6 +54,38 @@ const initialSellers: SellerEntry[] = [
     estCommissionRate: "2.5",
     appraised: "Yes",
     stage: "Hot Stocks",
+    status: "Active"
+  },
+  {
+    id: 2,
+    name: "Sarah Johnson",
+    phone: "0412 345 678",
+    email: "sarah.j@email.com",
+    address: "45 Beach Road",
+    suburbs: "Manly",
+    price: "2800000",
+    leadSource: "Website",
+    motivation: "Downsizing",
+    readiness: "yellow",
+    estCommissionRate: "2.0",
+    appraised: "No",
+    stage: "Pipeline",
+    status: "Active"
+  },
+  {
+    id: 3,
+    name: "David Lee",
+    phone: "0498 765 432",
+    email: "david.l@email.com",
+    address: "78 Ocean Street",
+    suburbs: "Coogee",
+    price: "4500000",
+    leadSource: "Cold Call",
+    motivation: "Investment",
+    readiness: "red",
+    estCommissionRate: "3.0",
+    appraised: "Pending",
+    stage: "Prospect",
     status: "Active"
   }
 ];
@@ -81,6 +114,8 @@ export function Sellers() {
   const [sellers, setSellers] = useState<SellerEntry[]>(initialSellers);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [draggedSeller, setDraggedSeller] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState<"Hot Stocks" | "Pipeline" | "Prospect">("Hot Stocks");
   
   const [formData, setFormData] = useState({
     name: "",
@@ -94,7 +129,7 @@ export function Sellers() {
     readiness: "yellow" as "red" | "yellow" | "green",
     estCommissionRate: "",
     appraised: "",
-    stage: "",
+    stage: "Hot Stocks" as "Hot Stocks" | "Pipeline" | "Prospect",
     status: ""
   });
 
@@ -111,14 +146,14 @@ export function Sellers() {
       readiness: "yellow",
       estCommissionRate: "",
       appraised: "",
-      stage: "",
+      stage: "Hot Stocks",
       status: ""
     });
   };
 
   const handleAdd = () => {
     const newSeller: SellerEntry = {
-      id: sellers.length + 1,
+      id: Math.max(...sellers.map(s => s.id), 0) + 1,
       ...formData
     };
     setSellers([...sellers, newSeller]);
@@ -174,12 +209,141 @@ export function Sellers() {
     });
   };
 
+  const handleDragStart = (e: React.DragEvent, sellerId: number) => {
+    setDraggedSeller(sellerId);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+  };
+
+  const handleDrop = (e: React.DragEvent, newStage: "Hot Stocks" | "Pipeline" | "Prospect") => {
+    e.preventDefault();
+    if (draggedSeller !== null) {
+      setSellers(sellers.map(seller => 
+        seller.id === draggedSeller ? { ...seller, stage: newStage } : seller
+      ));
+      toast({
+        title: "Stage Updated",
+        description: `Seller moved to ${newStage}`,
+      });
+      setDraggedSeller(null);
+    }
+  };
+
   const calculateEstGCI = (price: string, rate: string) => {
     const priceNum = parseFloat(price.replace(/[^0-9.]/g, '')) || 0;
     const rateNum = parseFloat(rate) || 0;
     const gci = (priceNum * rateNum) / 100;
     return gci > 0 ? `$${gci.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : "-";
   };
+
+  const getSellersByStage = (stage: "Hot Stocks" | "Pipeline" | "Prospect") => {
+    return sellers.filter(seller => seller.stage === stage);
+  };
+
+  const renderSellerCard = (seller: SellerEntry) => (
+    <Card
+      key={seller.id}
+      className="bg-white border-[#ededed] shadow-sm mb-3 cursor-move hover:shadow-md transition-shadow"
+      draggable
+      onDragStart={(e) => handleDragStart(e, seller.id)}
+      data-testid={`seller-card-${seller.id}`}
+    >
+      <CardContent className="p-4">
+        <div className="flex items-start gap-3">
+          <GripVertical className="w-5 h-5 text-gray-400 mt-1 flex-shrink-0" />
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex-1">
+                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base mb-1" data-testid={`text-name-${seller.id}`}>
+                  {seller.name}
+                </h3>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm" data-testid={`text-address-${seller.id}`}>
+                  {seller.address}, {seller.suburbs}
+                </p>
+              </div>
+              <div className="flex gap-2 flex-shrink-0">
+                <button
+                  onClick={() => handleEdit(seller.id)}
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
+                  data-testid={`button-edit-${seller.id}`}
+                >
+                  <Pencil className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleDelete(seller.id)}
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
+                  data-testid={`button-delete-${seller.id}`}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 mb-3">
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Phone</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-phone-${seller.id}`}>
+                  {seller.phone}
+                </p>
+              </div>
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Email</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm truncate" data-testid={`text-email-${seller.id}`}>
+                  {seller.email}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mb-3">
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Price</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`text-price-${seller.id}`}>
+                  ${parseFloat(seller.price).toLocaleString('en-US')}
+                </p>
+              </div>
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Est. GCI</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-sm" data-testid={`text-estgci-${seller.id}`}>
+                  {calculateEstGCI(seller.price, seller.estCommissionRate)}
+                </p>
+              </div>
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Readiness</p>
+                <div data-testid={`text-readiness-${seller.id}`}>
+                  <TrafficLight color={seller.readiness} />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Lead Source</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-leadsource-${seller.id}`}>
+                  {seller.leadSource}
+                </p>
+              </div>
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Motivation</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-motivation-${seller.id}`}>
+                  {seller.motivation}
+                </p>
+              </div>
+              <div>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs mb-1">Appraised</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-appraised-${seller.id}`}>
+                  {seller.appraised}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
 
   return (
     <div className="bg-[#f5f5f5] w-full min-h-screen flex">
@@ -197,7 +361,7 @@ export function Sellers() {
                 Sellers
               </h1>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-                Manage your seller database.
+                Drag sellers between stages to update their pipeline status.
               </p>
             </div>
             <Button
@@ -212,129 +376,82 @@ export function Sellers() {
         </div>
 
         <div className="px-6 pb-6 bg-[#f5f5f5]">
-          <Card className="bg-white border-[#ededed] shadow-sm">
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-[#f9fafb] border-b border-[#ededed]">
-                    <tr>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Name
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Phone
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Email
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Address
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Suburbs
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Price
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Lead Source
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Motivation
-                      </th>
-                      <th className="px-4 py-3 text-center [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Readiness
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Est. Com. Rate
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Est. GCI
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Appraised
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Stage
-                      </th>
-                      <th className="px-4 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Status
-                      </th>
-                      <th className="px-4 py-3 text-right [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#ededed]">
-                    {sellers.map((seller) => (
-                      <tr key={seller.id} className="hover:bg-[#f9fafb] transition-colors">
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-name-${seller.id}`}>
-                          {seller.name}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-phone-${seller.id}`}>
-                          {seller.phone}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-email-${seller.id}`}>
-                          {seller.email}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-address-${seller.id}`}>
-                          {seller.address}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-suburbs-${seller.id}`}>
-                          {seller.suburbs}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`text-price-${seller.id}`}>
-                          ${parseFloat(seller.price).toLocaleString('en-US')}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-leadsource-${seller.id}`}>
-                          {seller.leadSource}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-motivation-${seller.id}`}>
-                          {seller.motivation}
-                        </td>
-                        <td className="px-4 py-4" data-testid={`text-readiness-${seller.id}`}>
-                          <TrafficLight color={seller.readiness} />
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-commissionrate-${seller.id}`}>
-                          {seller.estCommissionRate}%
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-sm" data-testid={`text-estgci-${seller.id}`}>
-                          {calculateEstGCI(seller.price, seller.estCommissionRate)}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-appraised-${seller.id}`}>
-                          {seller.appraised}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`text-stage-${seller.id}`}>
-                          {seller.stage}
-                        </td>
-                        <td className="px-4 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-status-${seller.id}`}>
-                          {seller.status}
-                        </td>
-                        <td className="px-4 py-4">
-                          <div className="flex gap-2 justify-end">
-                            <button
-                              onClick={() => handleEdit(seller.id)}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                              data-testid={`button-edit-${seller.id}`}
-                            >
-                              <Pencil className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => handleDelete(seller.id)}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                              data-testid={`button-delete-${seller.id}`}
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-full">
+            <TabsList className="bg-white border border-[#ededed] p-1 mb-4">
+              <TabsTrigger value="Hot Stocks" className="flex-1 data-[state=active]:bg-[#172a41] data-[state=active]:text-white" data-testid="tab-hotstocks">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">
+                  Hot Stocks ({getSellersByStage("Hot Stocks").length})
+                </span>
+              </TabsTrigger>
+              <TabsTrigger value="Pipeline" className="flex-1 data-[state=active]:bg-[#172a41] data-[state=active]:text-white" data-testid="tab-pipeline">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">
+                  Pipeline ({getSellersByStage("Pipeline").length})
+                </span>
+              </TabsTrigger>
+              <TabsTrigger value="Prospect" className="flex-1 data-[state=active]:bg-[#172a41] data-[state=active]:text-white" data-testid="tab-prospect">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">
+                  Prospect ({getSellersByStage("Prospect").length})
+                </span>
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="Hot Stocks" className="mt-0">
+              <div
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, "Hot Stocks")}
+                className="min-h-[400px] p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+                data-testid="dropzone-hotstocks"
+              >
+                {getSellersByStage("Hot Stocks").length === 0 ? (
+                  <div className="flex items-center justify-center h-[200px]">
+                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm">
+                      No sellers in Hot Stocks. Drag sellers here or add a new one.
+                    </p>
+                  </div>
+                ) : (
+                  getSellersByStage("Hot Stocks").map(renderSellerCard)
+                )}
               </div>
-            </CardContent>
-          </Card>
+            </TabsContent>
+
+            <TabsContent value="Pipeline" className="mt-0">
+              <div
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, "Pipeline")}
+                className="min-h-[400px] p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+                data-testid="dropzone-pipeline"
+              >
+                {getSellersByStage("Pipeline").length === 0 ? (
+                  <div className="flex items-center justify-center h-[200px]">
+                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm">
+                      No sellers in Pipeline. Drag sellers here or add a new one.
+                    </p>
+                  </div>
+                ) : (
+                  getSellersByStage("Pipeline").map(renderSellerCard)
+                )}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="Prospect" className="mt-0">
+              <div
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, "Prospect")}
+                className="min-h-[400px] p-4 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+                data-testid="dropzone-prospect"
+              >
+                {getSellersByStage("Prospect").length === 0 ? (
+                  <div className="flex items-center justify-center h-[200px]">
+                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-sm">
+                      No sellers in Prospect. Drag sellers here or add a new one.
+                    </p>
+                  </div>
+                ) : (
+                  getSellersByStage("Prospect").map(renderSellerCard)
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
 
@@ -527,7 +644,7 @@ export function Sellers() {
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
                   Stage
                 </label>
-                <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value })}>
+                <Select value={formData.stage} onValueChange={(value: any) => setFormData({ ...formData, stage: value })}>
                   <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-stage">
                     <SelectValue placeholder="Select stage" />
                   </SelectTrigger>
