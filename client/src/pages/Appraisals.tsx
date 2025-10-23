@@ -25,8 +25,12 @@ interface AppraisalEntry {
   id: number;
   date: string;
   address: string;
+  suburb: string;
   owner: string;
   price: string;
+  bookedDate: string;
+  wonLost: string;
+  appointedAgent: string;
   status: string;
   notes: string;
 }
@@ -35,9 +39,13 @@ const initialAppraisals: AppraisalEntry[] = [
   {
     id: 1,
     date: "15/10/2025",
-    address: "5 Ocean Street, Bondi",
+    address: "5 Ocean Street",
+    suburb: "Bondi",
     owner: "John Smith",
     price: "$2,500,000",
+    bookedDate: "10/10/2025",
+    wonLost: "Won",
+    appointedAgent: "Sarah Johnson",
     status: "Scheduled",
     notes: "Follow up next week"
   }
@@ -52,8 +60,12 @@ export function Appraisals() {
   const [formData, setFormData] = useState({
     date: "",
     address: "",
+    suburb: "",
     owner: "",
     price: "",
+    bookedDate: "",
+    wonLost: "",
+    appointedAgent: "",
     status: "",
     notes: ""
   });
@@ -62,8 +74,12 @@ export function Appraisals() {
     setFormData({
       date: "",
       address: "",
+      suburb: "",
       owner: "",
       price: "",
+      bookedDate: "",
+      wonLost: "",
+      appointedAgent: "",
       status: "",
       notes: ""
     });
@@ -71,7 +87,7 @@ export function Appraisals() {
 
   const handleAdd = () => {
     const newAppraisal: AppraisalEntry = {
-      id: appraisals.length + 1,
+      id: Math.max(...appraisals.map(a => a.id), 0) + 1,
       ...formData
     };
     setAppraisals([...appraisals, newAppraisal]);
@@ -89,8 +105,12 @@ export function Appraisals() {
       setFormData({
         date: appraisal.date,
         address: appraisal.address,
+        suburb: appraisal.suburb,
         owner: appraisal.owner,
         price: appraisal.price,
+        bookedDate: appraisal.bookedDate,
+        wonLost: appraisal.wonLost,
+        appointedAgent: appraisal.appointedAgent,
         status: appraisal.status,
         notes: appraisal.notes
       });
@@ -164,10 +184,22 @@ export function Appraisals() {
                         Address
                       </th>
                       <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Suburb
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
                         Owner
                       </th>
                       <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
                         Price
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Booked Date
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Won/Lost
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Appointed Agent
                       </th>
                       <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
                         Status
@@ -189,11 +221,31 @@ export function Appraisals() {
                         <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-address-${appraisal.id}`}>
                           {appraisal.address}
                         </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-suburb-${appraisal.id}`}>
+                          {appraisal.suburb}
+                        </td>
                         <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-owner-${appraisal.id}`}>
                           {appraisal.owner}
                         </td>
                         <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`text-price-${appraisal.id}`}>
                           {appraisal.price}
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-bookeddate-${appraisal.id}`}>
+                          {appraisal.bookedDate}
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-wonlost-${appraisal.id}`}>
+                          <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium ${
+                            appraisal.wonLost === 'Won' 
+                              ? 'bg-green-100 text-green-800' 
+                              : appraisal.wonLost === 'Lost'
+                              ? 'bg-red-100 text-red-800'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {appraisal.wonLost}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-appointedagent-${appraisal.id}`}>
+                          {appraisal.appointedAgent}
                         </td>
                         <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-status-${appraisal.id}`}>
                           {appraisal.status}
@@ -230,64 +282,131 @@ export function Appraisals() {
       </main>
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-        <DialogContent className="sm:max-w-[500px] bg-white">
+        <DialogContent className="sm:max-w-[600px] bg-white max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-lg">
               {editingId ? "Edit Appraisal" : "Add New Appraisal"}
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                Date
-              </label>
-              <Input
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                data-testid="input-date"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Date
+                </label>
+                <Input
+                  value={formData.date}
+                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                  placeholder="15/10/2025"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-date"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Booked Date
+                </label>
+                <Input
+                  value={formData.bookedDate}
+                  onChange={(e) => setFormData({ ...formData, bookedDate: e.target.value })}
+                  placeholder="10/10/2025"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-bookeddate"
+                />
+              </div>
             </div>
-            <div className="grid gap-2">
-              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                Address
-              </label>
-              <Input
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                data-testid="input-address"
-              />
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Address
+                </label>
+                <Input
+                  value={formData.address}
+                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  placeholder="5 Ocean Street"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-address"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Suburb
+                </label>
+                <Input
+                  value={formData.suburb}
+                  onChange={(e) => setFormData({ ...formData, suburb: e.target.value })}
+                  placeholder="Bondi"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-suburb"
+                />
+              </div>
             </div>
-            <div className="grid gap-2">
-              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                Owner
-              </label>
-              <Input
-                value={formData.owner}
-                onChange={(e) => setFormData({ ...formData, owner: e.target.value })}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                data-testid="input-owner"
-              />
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Owner
+                </label>
+                <Input
+                  value={formData.owner}
+                  onChange={(e) => setFormData({ ...formData, owner: e.target.value })}
+                  placeholder="John Smith"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-owner"
+                />
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Price
+                </label>
+                <Input
+                  value={formData.price}
+                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  placeholder="$2,500,000"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-price"
+                />
+              </div>
             </div>
-            <div className="grid gap-2">
-              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
-                Price
-              </label>
-              <Input
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
-                data-testid="input-price"
-              />
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Won/Lost
+                </label>
+                <Select value={formData.wonLost} onValueChange={(value) => setFormData({ ...formData, wonLost: value })}>
+                  <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-wonlost">
+                    <SelectValue placeholder="Select outcome" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Won">Won</SelectItem>
+                    <SelectItem value="Lost">Lost</SelectItem>
+                    <SelectItem value="Pending">Pending</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                  Appointed Agent
+                </label>
+                <Input
+                  value={formData.appointedAgent}
+                  onChange={(e) => setFormData({ ...formData, appointedAgent: e.target.value })}
+                  placeholder="Sarah Johnson"
+                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                  data-testid="input-appointedagent"
+                />
+              </div>
             </div>
+
             <div className="grid gap-2">
               <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
                 Status
               </label>
               <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value })}>
                 <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-status">
-                  <SelectValue />
+                  <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Scheduled">Scheduled</SelectItem>
@@ -296,6 +415,7 @@ export function Appraisals() {
                 </SelectContent>
               </Select>
             </div>
+
             <div className="grid gap-2">
               <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
                 Notes
@@ -303,6 +423,7 @@ export function Appraisals() {
               <Input
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                placeholder="Follow up next week"
                 className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
                 data-testid="input-notes"
               />
