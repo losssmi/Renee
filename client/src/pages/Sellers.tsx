@@ -245,91 +245,75 @@ export function Sellers() {
   const renderSellerCard = (seller: SellerEntry) => (
     <Card
       key={seller.id}
-      className="bg-white border-[#ededed] shadow-sm mb-2 cursor-move hover:shadow-md transition-shadow w-full"
+      className="bg-white border-[#ededed] shadow-sm mb-1 cursor-move hover:shadow-md transition-shadow w-full"
       draggable
       onDragStart={(e) => handleDragStart(e, seller.id)}
       data-testid={`seller-card-${seller.id}`}
     >
-      <CardContent className="p-2">
-        <div className="flex items-start gap-2">
-          <GripVertical className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between mb-1">
-              <div className="flex-1">
-                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-0.5" data-testid={`text-name-${seller.id}`}>
-                  {seller.name}
-                </h3>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs truncate" data-testid={`text-address-${seller.id}`}>
-                  {seller.address}, {seller.suburbs}
-                </p>
-              </div>
-              <div className="flex gap-1.5 flex-shrink-0">
-                <button
-                  onClick={() => handleEdit(seller.id)}
-                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                  data-testid={`button-edit-${seller.id}`}
-                >
-                  <Pencil className="w-3 h-3" />
-                </button>
-                <button
-                  onClick={() => handleDelete(seller.id)}
-                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                  data-testid={`button-delete-${seller.id}`}
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
+      <CardContent className="px-3 py-2">
+        <div className="flex items-center gap-2">
+          <GripVertical className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+          <div className="flex items-center flex-1 min-w-0 gap-3">
+            <div className="flex-1 min-w-[160px]">
+              <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm leading-tight" data-testid={`text-name-${seller.id}`}>
+                {seller.name}
+              </h3>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[11px] leading-tight truncate" data-testid={`text-address-${seller.id}`}>
+                {seller.address}, {seller.suburbs}
+              </p>
+            </div>
+            
+            <div className="flex-1 min-w-[100px]">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-phone-${seller.id}`}>
+                {seller.phone}
+              </p>
+            </div>
+
+            <div className="flex-1 min-w-[120px]">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px] truncate" data-testid={`text-email-${seller.id}`}>
+                {seller.email}
+              </p>
+            </div>
+
+            <div className="w-[90px] text-right">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-price-${seller.id}`}>
+                ${parseFloat(seller.price).toLocaleString('en-US')}
+              </p>
+            </div>
+
+            <div className="w-[70px] text-right">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-estgci-${seller.id}`}>
+                {calculateEstGCI(seller.price, seller.estCommissionRate)}
+              </p>
+            </div>
+
+            <div className="w-[60px] text-center">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-leadsource-${seller.id}`}>
+                {seller.leadSource}
+              </p>
+            </div>
+
+            <div className="w-[50px] flex items-center justify-center">
+              <div data-testid={`text-readiness-${seller.id}`}>
+                <TrafficLight color={seller.readiness} />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-1.5 mb-1">
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Phone</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-phone-${seller.id}`}>
-                  {seller.phone}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Email</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs truncate" data-testid={`text-email-${seller.id}`}>
-                  {seller.email}
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-1.5 mb-1">
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Price</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-price-${seller.id}`}>
-                  ${parseFloat(seller.price).toLocaleString('en-US')}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Est. GCI</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-estgci-${seller.id}`}>
-                  {calculateEstGCI(seller.price, seller.estCommissionRate)}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Readiness</p>
-                <div data-testid={`text-readiness-${seller.id}`}>
-                  <TrafficLight color={seller.readiness} />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-3 text-[10px]">
-              <div className="flex-1">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Source: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-leadsource-${seller.id}`}>
-                  {seller.leadSource}
-                </span>
-              </div>
-              <div className="flex-1">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Appraised: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-appraised-${seller.id}`}>
-                  {seller.appraised}
-                </span>
-              </div>
+            <div className="flex gap-1 flex-shrink-0">
+              <button
+                onClick={() => handleEdit(seller.id)}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
+                data-testid={`button-edit-${seller.id}`}
+              >
+                <Pencil className="w-3 h-3" />
+              </button>
+              <button
+                onClick={() => handleDelete(seller.id)}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
+                data-testid={`button-delete-${seller.id}`}
+              >
+                <Trash2 className="w-3 h-3" />
+              </button>
             </div>
           </div>
         </div>
