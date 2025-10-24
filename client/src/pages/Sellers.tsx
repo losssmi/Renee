@@ -245,25 +245,25 @@ export function Sellers() {
   const renderSellerCard = (seller: SellerEntry) => (
     <Card
       key={seller.id}
-      className="bg-white border-[#ededed] shadow-sm mb-3 cursor-move hover:shadow-md transition-shadow w-full"
+      className="bg-white border-[#ededed] shadow-sm mb-2 cursor-move hover:shadow-md transition-shadow w-full"
       draggable
       onDragStart={(e) => handleDragStart(e, seller.id)}
       data-testid={`seller-card-${seller.id}`}
     >
-      <CardContent className="p-4">
-        <div className="flex items-start gap-3">
-          <GripVertical className="w-5 h-5 text-gray-400 mt-1 flex-shrink-0" />
+      <CardContent className="p-2">
+        <div className="flex items-start gap-2">
+          <GripVertical className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between mb-2">
+            <div className="flex items-start justify-between mb-1">
               <div className="flex-1">
-                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-1" data-testid={`text-name-${seller.id}`}>
+                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-0.5" data-testid={`text-name-${seller.id}`}>
                   {seller.name}
                 </h3>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs truncate" data-testid={`text-address-${seller.id}`}>
                   {seller.address}, {seller.suburbs}
                 </p>
               </div>
-              <div className="flex gap-2 flex-shrink-0">
+              <div className="flex gap-1.5 flex-shrink-0">
                 <button
                   onClick={() => handleEdit(seller.id)}
                   className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
@@ -281,43 +281,43 @@ export function Sellers() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 mb-2">
+            <div className="grid grid-cols-2 gap-1.5 mb-1">
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Phone</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Phone</p>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-phone-${seller.id}`}>
                   {seller.phone}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Email</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Email</p>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs truncate" data-testid={`text-email-${seller.id}`}>
                   {seller.email}
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 mb-2">
+            <div className="grid grid-cols-3 gap-1.5 mb-1">
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Price</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Price</p>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-price-${seller.id}`}>
                   ${parseFloat(seller.price).toLocaleString('en-US')}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Est. GCI</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Est. GCI</p>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-estgci-${seller.id}`}>
                   {calculateEstGCI(seller.price, seller.estCommissionRate)}
                 </p>
               </div>
               <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Readiness</p>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0">Readiness</p>
                 <div data-testid={`text-readiness-${seller.id}`}>
                   <TrafficLight color={seller.readiness} />
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-4 text-[10px]">
+            <div className="flex gap-3 text-[10px]">
               <div className="flex-1">
                 <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Source: </span>
                 <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-leadsource-${seller.id}`}>
