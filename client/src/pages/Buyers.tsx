@@ -5,7 +5,7 @@ import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, GripVertical } from "lucide-react";
+import { Plus, Pencil, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -120,79 +120,6 @@ export function Buyers() {
     });
   };
 
-  const renderBuyerCard = (buyer: BuyerEntry) => (
-    <Card
-      key={buyer.id}
-      className="bg-white border-[#ededed] shadow-sm mb-1 hover:shadow-md transition-shadow w-full"
-      data-testid={`buyer-card-${buyer.id}`}
-    >
-      <CardContent className="px-3 py-2">
-        <div className="flex items-center gap-2">
-          <GripVertical className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
-          <div className="flex items-center flex-1 min-w-0 gap-3 overflow-x-auto">
-            <div className="min-w-[140px] flex-shrink-0">
-              <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm leading-tight" data-testid={`text-name-${buyer.id}`}>
-                {buyer.name}
-              </h3>
-            </div>
-
-            <div className="min-w-[110px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Phone</p>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-phone-${buyer.id}`}>
-                {buyer.phone}
-              </p>
-            </div>
-
-            <div className="min-w-[160px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Email</p>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px] truncate" data-testid={`text-email-${buyer.id}`}>
-                {buyer.email}
-              </p>
-            </div>
-
-            <div className="min-w-[140px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Budget</p>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-budget-${buyer.id}`}>
-                {buyer.budget}
-              </p>
-            </div>
-
-            <div className="min-w-[120px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Location</p>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-location-${buyer.id}`}>
-                {buyer.location}
-              </p>
-            </div>
-
-            <div className="min-w-[80px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Status</p>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-status-${buyer.id}`}>
-                {buyer.status}
-              </p>
-            </div>
-
-            <div className="flex gap-1 flex-shrink-0 pl-2">
-              <button
-                onClick={() => handleEdit(buyer.id)}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
-                data-testid={`button-edit-${buyer.id}`}
-              >
-                <Pencil className="w-3 h-3" />
-              </button>
-              <button
-                onClick={() => handleDelete(buyer.id)}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
-                data-testid={`button-delete-${buyer.id}`}
-              >
-                <Trash2 className="w-3 h-3" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-
   return (
     <div className="bg-[#f5f5f5] w-full min-h-screen flex">
       <aside className="w-[263px] flex-shrink-0">
@@ -224,9 +151,81 @@ export function Buyers() {
         </div>
 
         <div className="px-6 pb-6 bg-[#f5f5f5]">
-          <div className="flex flex-col gap-1">
-            {buyers.map(renderBuyerCard)}
-          </div>
+          <Card className="bg-white border-[#ededed] shadow-sm">
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-[#f9fafb] border-b border-[#ededed]">
+                    <tr>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Name
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Phone
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Email
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Budget
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Location
+                      </th>
+                      <th className="px-6 py-3 text-left [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Status
+                      </th>
+                      <th className="px-6 py-3 text-right [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#6b7280] text-xs tracking-[0] leading-[18px] uppercase">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#ededed]">
+                    {buyers.map((buyer) => (
+                      <tr key={buyer.id} className="hover:bg-[#f9fafb] transition-colors">
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-name-${buyer.id}`}>
+                          {buyer.name}
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-phone-${buyer.id}`}>
+                          {buyer.phone}
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-email-${buyer.id}`}>
+                          {buyer.email}
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm" data-testid={`text-budget-${buyer.id}`}>
+                          {buyer.budget}
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-location-${buyer.id}`}>
+                          {buyer.location}
+                        </td>
+                        <td className="px-6 py-4 [font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm" data-testid={`text-status-${buyer.id}`}>
+                          {buyer.status}
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex gap-2 justify-end">
+                            <button
+                              onClick={() => handleEdit(buyer.id)}
+                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
+                              data-testid={`button-edit-${buyer.id}`}
+                            >
+                              <Pencil className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(buyer.id)}
+                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
+                              data-testid={`button-delete-${buyer.id}`}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
 
