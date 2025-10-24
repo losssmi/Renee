@@ -217,124 +217,123 @@ export function Sales() {
   const renderSaleCard = (sale: SaleEntry) => (
     <Card
       key={sale.id}
-      className="bg-white border-[#ededed] shadow-sm mb-3 cursor-move hover:shadow-md transition-shadow w-full"
+      className="bg-white border-[#ededed] shadow-sm mb-1 cursor-move hover:shadow-md transition-shadow w-full"
       draggable
       onDragStart={(e) => handleDragStart(e, sale.id)}
       data-testid={`sale-card-${sale.id}`}
     >
-      <CardContent className="p-4">
-        <div className="flex items-start gap-3">
-          <GripVertical className="w-5 h-5 text-gray-400 mt-1 flex-shrink-0" />
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between mb-2">
-              <div className="flex-1">
-                <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-1" data-testid={`text-address-${sale.id}`}>
-                  {sale.address}
-                </h3>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs" data-testid={`text-suburb-${sale.id}`}>
-                  {sale.suburb}
-                </p>
-              </div>
-              <div className="flex gap-2 flex-shrink-0">
-                <button
-                  onClick={() => handleEdit(sale.id)}
-                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                  data-testid={`button-edit-${sale.id}`}
-                >
-                  <Pencil className="w-3 h-3" />
-                </button>
-                <button
-                  onClick={() => handleDelete(sale.id)}
-                  className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors"
-                  data-testid={`button-delete-${sale.id}`}
-                >
-                  <Trash2 className="w-3 h-3" />
-                </button>
-              </div>
+      <CardContent className="px-3 py-2">
+        <div className="flex items-center gap-2">
+          <GripVertical className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+          <div className="flex items-center flex-1 min-w-0 gap-3 overflow-x-auto">
+            <div className="min-w-[160px] flex-shrink-0">
+              <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm leading-tight" data-testid={`text-address-${sale.id}`}>
+                {sale.address}
+              </h3>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[11px] leading-tight truncate" data-testid={`text-suburb-${sale.id}`}>
+                {sale.suburb}
+              </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 mb-2">
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Sold Price</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-soldprice-${sale.id}`}>
-                  ${parseFloat(sale.soldPrice).toLocaleString('en-US')}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Comm. Rate</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-commrate-${sale.id}`}>
-                  {sale.commRate}%
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Actual GCI</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-actualgci-${sale.id}`}>
-                  {calculateActualGCI(sale.soldPrice, sale.commRate, sale.split)}
-                </p>
-              </div>
+            <div className="min-w-[100px] flex-shrink-0 text-right">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Sold Price</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-soldprice-${sale.id}`}>
+                ${parseFloat(sale.soldPrice).toLocaleString('en-US')}
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 mb-2">
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Method of Sale</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-methodofsale-${sale.id}`}>
-                  {sale.methodOfSale}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Listing Agent</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-listingagent-${sale.id}`}>
-                  {sale.listingAgent}
-                </p>
-              </div>
+            <div className="min-w-[80px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Comm. Rate</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-commrate-${sale.id}`}>
+                {sale.commRate}%
+              </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 mb-2">
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Conjunction</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-conjunction-${sale.id}`}>
-                  {sale.conjunction}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Lead Source</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-leadsource-${sale.id}`}>
-                  {sale.leadSource}
-                </p>
-              </div>
-              <div>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px] mb-0.5">Split</p>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-split-${sale.id}`}>
-                  {sale.split}%
-                </p>
-              </div>
+            <div className="min-w-[80px] flex-shrink-0 text-right">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Actual GCI</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-actualgci-${sale.id}`}>
+                {calculateActualGCI(sale.soldPrice, sale.commRate, sale.split)}
+              </p>
             </div>
 
-            <div className="flex gap-4 text-[10px]">
-              <div>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Listed: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-listeddate-${sale.id}`}>
-                  {sale.listedDate}
-                </span>
-              </div>
-              <div>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Days: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-daysonmarket-${sale.id}`}>
-                  {sale.daysOnMarket}
-                </span>
-              </div>
-              <div>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Exchanged: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-exchangeddate-${sale.id}`}>
-                  {sale.exchangedDate}
-                </span>
-              </div>
-              <div>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280]">Settlement: </span>
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41]" data-testid={`text-settlementdate-${sale.id}`}>
-                  {sale.settlementDate}
-                </span>
-              </div>
+            <div className="min-w-[110px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Method of Sale</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-methodofsale-${sale.id}`}>
+                {sale.methodOfSale}
+              </p>
+            </div>
+
+            <div className="min-w-[100px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Listing Agent</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-listingagent-${sale.id}`}>
+                {sale.listingAgent}
+              </p>
+            </div>
+
+            <div className="min-w-[80px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Conjunction</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-conjunction-${sale.id}`}>
+                {sale.conjunction}
+              </p>
+            </div>
+
+            <div className="min-w-[90px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Lead Source</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-leadsource-${sale.id}`}>
+                {sale.leadSource}
+              </p>
+            </div>
+
+            <div className="min-w-[60px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Split</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-split-${sale.id}`}>
+                {sale.split}%
+              </p>
+            </div>
+
+            <div className="min-w-[80px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Listed Date</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-listeddate-${sale.id}`}>
+                {sale.listedDate}
+              </p>
+            </div>
+
+            <div className="min-w-[70px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Days on Market</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-daysonmarket-${sale.id}`}>
+                {sale.daysOnMarket}
+              </p>
+            </div>
+
+            <div className="min-w-[90px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Exchanged Date</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-exchangeddate-${sale.id}`}>
+                {sale.exchangedDate}
+              </p>
+            </div>
+
+            <div className="min-w-[100px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Settlement Date</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-settlementdate-${sale.id}`}>
+                {sale.settlementDate}
+              </p>
+            </div>
+
+            <div className="flex gap-1 flex-shrink-0 pl-2">
+              <button
+                onClick={() => handleEdit(sale.id)}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
+                data-testid={`button-edit-${sale.id}`}
+              >
+                <Pencil className="w-3 h-3" />
+              </button>
+              <button
+                onClick={() => handleDelete(sale.id)}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
+                data-testid={`button-delete-${sale.id}`}
+              >
+                <Trash2 className="w-3 h-3" />
+              </button>
             </div>
           </div>
         </div>
