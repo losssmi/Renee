@@ -41,13 +41,7 @@ const structureItems = [
   {
     icon: "/figmaAssets/carbon-ibm-event-automation-5.svg",
     label: "Prospecting",
-    path: null,
-    subItems: [
-      { label: "Appraisals", path: "/appraisals" },
-      { label: "Buyers", path: "/buyers" },
-      { label: "Sellers", path: "/sellers" },
-      { label: "Listings", path: "/listings" },
-    ]
+    path: "/prospecting"
   },
   { icon: "/figmaAssets/carbon-ibm-event-automation.svg", label: "Sales", path: "/sales" },
 ];

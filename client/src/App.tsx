@@ -12,6 +12,7 @@ import { VisionGoals } from "@/pages/VisionGoals";
 import { KPIs } from "@/pages/KPIs";
 import { Sales } from "@/pages/Sales";
 import { MarketAnalysis } from "@/pages/MarketAnalysis";
+import { Prospecting } from "@/pages/Prospecting";
 import { Appraisals } from "@/pages/Appraisals";
 import { Buyers } from "@/pages/Buyers";
 import { Sellers } from "@/pages/Sellers";
@@ -53,6 +54,7 @@ function Router() {
       <Route path="/kpis" component={KPIs} />
       <Route path="/sales" component={Sales} />
       <Route path="/market-analysis" component={MarketAnalysis} />
+      <Route path="/prospecting" component={Prospecting} />
       <Route path="/appraisals" component={Appraisals} />
       <Route path="/buyers" component={Buyers} />
       <Route path="/sellers" component={Sellers} />
