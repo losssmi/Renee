@@ -397,8 +397,8 @@ export function Sellers() {
                 <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal]">
                   Sellers
                 </h1>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#d32f2f] text-sm">
-                  The total Est. GCI of this page = Forecast {calculateTotalForecast()}
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                  Total Est. GCI: {calculateTotalForecast()}
                 </p>
               </div>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
@@ -424,7 +424,7 @@ export function Sellers() {
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
                   Hot Stock ({getSellersByStage("Hot Stocks").length})
                 </h2>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#d32f2f] text-xs">
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
                   Total Est. GCI: {calculateStageTotal("Hot Stocks")}
                 </p>
               </div>
@@ -452,7 +452,7 @@ export function Sellers() {
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
                   Pipeline ({getSellersByStage("Pipeline").length})
                 </h2>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#d32f2f] text-xs">
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
                   Total Est. GCI: {calculateStageTotal("Pipeline")}
                 </p>
               </div>
@@ -480,7 +480,7 @@ export function Sellers() {
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
                   Prospects ({getSellersByStage("Prospect").length})
                 </h2>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#d32f2f] text-xs">
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
                   Total Est. GCI: {calculateStageTotal("Prospect")}
                 </p>
               </div>
