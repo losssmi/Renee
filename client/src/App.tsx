@@ -14,7 +14,7 @@ import { Sales } from "@/pages/Sales";
 import { MarketAnalysis } from "@/pages/MarketAnalysis";
 import { Prospecting } from "@/pages/Prospecting";
 import { Appraisals } from "@/pages/Appraisals";
-import { Buyers } from "@/pages/Buyers";
+import BuyersPage from "@/pages/Buyers";
 import SellersPage from "@/pages/Sellers";
 import ListingsPage from "@/pages/Listings";
 import { BusinessAudit } from "@/pages/BusinessAudit";
@@ -56,7 +56,7 @@ function Router() {
       <Route path="/market-analysis" component={MarketAnalysis} />
       <Route path="/prospecting" component={Prospecting} />
       <Route path="/appraisals" component={Appraisals} />
-      <Route path="/buyers" component={Buyers} />
+      <Route path="/buyers" component={BuyersPage} />
       <Route path="/sellers" component={SellersPage} />
       <Route path="/listings" component={ListingsPage} />
       <Route path="/business-audit" component={BusinessAudit} />
