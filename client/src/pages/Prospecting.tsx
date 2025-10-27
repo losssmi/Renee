@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DashboardPageLayout } from "@/components/DashboardPageLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sellers } from "./Sellers";
+import { SellersContent } from "./Sellers";
 import { Listings } from "./Listings";
 import { Appraisals } from "./Appraisals";
 import { Buyers } from "./Buyers";
@@ -55,9 +55,7 @@ export function Prospecting() {
             </TabsList>
 
             <TabsContent value="sellers" className="mt-0">
-              <div className="[&>div]:bg-transparent [&>div]:min-h-0 [&>div>aside]:hidden [&>div>main]:flex-none [&>div>main>div:first-child]:hidden">
-                <Sellers />
-              </div>
+              <SellersContent />
             </TabsContent>
 
             <TabsContent value="listings" className="mt-0">

@@ -426,16 +426,9 @@ export function Sellers() {
     </Card>
   );
 
-  return (
-    <div className="bg-[#f5f5f5] w-full min-h-screen flex">
-      <aside className="w-[263px] flex-shrink-0">
-        <SideBarSection />
-      </aside>
-
-      <main className="flex-1 flex flex-col bg-[#f5f5f5]">
-        <DashboardHeaderSection />
-        
-        <div className="px-6 py-5 bg-[#f5f5f5]">
+  const content = (
+    <>
+      <div className="px-6 py-5 bg-[#f5f5f5]">
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-4">
@@ -548,7 +541,6 @@ export function Sellers() {
             </div>
           </div>
         </div>
-      </main>
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[600px] bg-white max-h-[85vh] overflow-y-auto">
@@ -803,6 +795,27 @@ export function Sellers() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </>
+  );
+
+  return content;
+}
+
+export function SellersContent() {
+  return <Sellers />;
+}
+
+export default function SellersPage() {
+  return (
+    <div className="bg-[#f5f5f5] w-full min-h-screen flex">
+      <aside className="w-[263px] flex-shrink-0">
+        <SideBarSection />
+      </aside>
+
+      <main className="flex-1 flex flex-col bg-[#f5f5f5]">
+        <DashboardHeaderSection />
+        <Sellers />
+      </main>
     </div>
   );
 }
