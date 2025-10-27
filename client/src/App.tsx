@@ -13,7 +13,7 @@ import { KPIs } from "@/pages/KPIs";
 import { Sales } from "@/pages/Sales";
 import { MarketAnalysis } from "@/pages/MarketAnalysis";
 import { Prospecting } from "@/pages/Prospecting";
-import { Appraisals } from "@/pages/Appraisals";
+import AppraisalsPage from "@/pages/Appraisals";
 import BuyersPage from "@/pages/Buyers";
 import SellersPage from "@/pages/Sellers";
 import ListingsPage from "@/pages/Listings";
@@ -55,7 +55,7 @@ function Router() {
       <Route path="/sales" component={Sales} />
       <Route path="/market-analysis" component={MarketAnalysis} />
       <Route path="/prospecting" component={Prospecting} />
-      <Route path="/appraisals" component={Appraisals} />
+      <Route path="/appraisals" component={AppraisalsPage} />
       <Route path="/buyers" component={BuyersPage} />
       <Route path="/sellers" component={SellersPage} />
       <Route path="/listings" component={ListingsPage} />
