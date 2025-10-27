@@ -2,9 +2,9 @@ import { useState } from "react";
 import { DashboardPageLayout } from "@/components/DashboardPageLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SellersContent } from "./Sellers";
-import { Listings } from "./Listings";
-import { Appraisals } from "./Appraisals";
-import { Buyers } from "./Buyers";
+import { ListingsContent } from "./Listings";
+import { AppraisalsContent } from "./Appraisals";
+import { BuyersContent } from "./Buyers";
 
 export function Prospecting() {
   const [activeTab, setActiveTab] = useState("sellers");
@@ -59,21 +59,15 @@ export function Prospecting() {
             </TabsContent>
 
             <TabsContent value="listings" className="mt-0">
-              <div className="[&>div]:bg-transparent [&>div]:min-h-0 [&>div>aside]:hidden [&>div>main]:flex-none [&>div>main>div:first-child]:hidden">
-                <Listings />
-              </div>
+              <ListingsContent />
             </TabsContent>
 
             <TabsContent value="appraisals" className="mt-0">
-              <div className="[&>div]:bg-transparent [&>div]:min-h-0 [&>div>aside]:hidden [&>div>main]:flex-none [&>div>main>div:first-child]:hidden">
-                <Appraisals />
-              </div>
+              <AppraisalsContent />
             </TabsContent>
 
             <TabsContent value="buyers" className="mt-0">
-              <div className="[&>div]:bg-transparent [&>div]:min-h-0 [&>div>aside]:hidden [&>div>main]:flex-none [&>div>main>div:first-child]:hidden">
-                <Buyers />
-              </div>
+              <BuyersContent />
             </TabsContent>
           </Tabs>
         </div>
