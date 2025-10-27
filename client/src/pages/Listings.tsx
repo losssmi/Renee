@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SideBarSection } from "./sections/SideBarSection";
 import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Circle, GripVertical } from "lucide-react";
+import { Plus, Pencil, Trash2, Circle, GripVertical, ArrowRight } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -123,6 +123,22 @@ export function Listings() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [draggedListing, setDraggedListing] = useState<number | null>(null);
   
+  // Check for pending listings from Sellers page
+  useEffect(() => {
+    const pendingListings = localStorage.getItem('pendingListings');
+    if (pendingListings) {
+      const parsed = JSON.parse(pendingListings);
+      if (parsed.length > 0) {
+        setListings(prev => [...prev, ...parsed]);
+        localStorage.removeItem('pendingListings');
+        toast({
+          title: "Listings Added",
+          description: `${parsed.length} seller(s) converted to listings.`,
+        });
+      }
+    }
+  }, []);
+
   const [formData, setFormData] = useState({
     address: "",
     suburb: "",
@@ -219,6 +235,42 @@ export function Listings() {
       title: "Listing Deleted",
       description: "Listing has been removed successfully.",
     });
+  };
+
+  const handleMoveToSales = (id: number) => {
+    const listing = listings.find(l => l.id === id);
+    if (listing) {
+      // Convert listing to sale format
+      const newSale = {
+        id: Date.now(),
+        address: listing.address,
+        suburb: listing.suburb,
+        soldPrice: listing.sellingPrice || listing.guide,
+        commRate: listing.commRate,
+        methodOfSale: listing.methodOfSale,
+        listingAgent: "TBD",
+        conjunction: "No",
+        leadSource: listing.leadSource,
+        split: "100",
+        listedDate: listing.listedDate,
+        daysOnMarket: listing.daysOnMarket.toString(),
+        exchangedDate: new Date().toLocaleDateString('en-GB'),
+        settlementDate: "",
+        stage: "Exchanged"
+      };
+      
+      // Store in localStorage to be picked up by Sales page
+      const existingSales = JSON.parse(localStorage.getItem('pendingSales') || '[]');
+      localStorage.setItem('pendingSales', JSON.stringify([...existingSales, newSale]));
+      
+      // Remove from listings
+      setListings(listings.filter(l => l.id !== id));
+      
+      toast({
+        title: "Moved to Sales",
+        description: "Listing has been converted to a sale. Check the Sales page.",
+      });
+    }
   };
 
   const handleDragStart = (e: React.DragEvent, listingId: number) => {
@@ -369,6 +421,14 @@ export function Listings() {
             </div>
 
             <div className="flex gap-1 flex-shrink-0 pl-2">
+              <button
+                onClick={() => handleMoveToSales(listing.id)}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#09b600] hover:text-[#09b600]/80 transition-colors p-1"
+                title="Move to Sales"
+                data-testid={`button-movetosales-${listing.id}`}
+              >
+                <ArrowRight className="w-3 h-3" />
+              </button>
               <button
                 onClick={() => handleEdit(listing.id)}
                 className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"

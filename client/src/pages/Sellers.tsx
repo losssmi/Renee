@@ -5,7 +5,7 @@ import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Circle, GripVertical } from "lucide-react";
+import { Plus, Pencil, Trash2, Circle, GripVertical, ArrowRight } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -207,6 +207,43 @@ export function Sellers() {
     });
   };
 
+  const handleMoveToListings = (id: number) => {
+    const seller = sellers.find(s => s.id === id);
+    if (seller) {
+      // Convert seller to listing format
+      const newListing = {
+        id: Date.now(),
+        address: seller.address,
+        suburb: seller.suburbs,
+        guide: seller.price,
+        revisedGuide: "",
+        vendorsPrice: seller.price,
+        sellingPrice: "",
+        methodOfSale: "Private Treaty",
+        leadSource: seller.leadSource,
+        motivation: seller.motivation,
+        readiness: seller.readiness,
+        listedDate: new Date().toLocaleDateString('en-GB'),
+        daysOnMarket: "0",
+        offers: "0",
+        commRate: seller.estCommissionRate,
+        stage: "Pre-market"
+      };
+      
+      // Store in localStorage to be picked up by Listings page
+      const existingListings = JSON.parse(localStorage.getItem('pendingListings') || '[]');
+      localStorage.setItem('pendingListings', JSON.stringify([...existingListings, newListing]));
+      
+      // Remove from sellers
+      setSellers(sellers.filter(s => s.id !== id));
+      
+      toast({
+        title: "Moved to Listings",
+        description: "Seller has been converted to a listing. Check the Listings page.",
+      });
+    }
+  };
+
   const handleDragStart = (e: React.DragEvent, sellerId: number) => {
     setDraggedSeller(sellerId);
     e.dataTransfer.effectAllowed = "move";
@@ -361,6 +398,14 @@ export function Sellers() {
 
             <div className="flex gap-1 flex-shrink-0 pl-2">
               <button
+                onClick={() => handleMoveToListings(seller.id)}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#09b600] hover:text-[#09b600]/80 transition-colors p-1"
+                title="Move to Listings"
+                data-testid={`button-movetolisting-${seller.id}`}
+              >
+                <ArrowRight className="w-3 h-3" />
+              </button>
+              <button
                 onClick={() => handleEdit(seller.id)}
                 className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
                 data-testid={`button-edit-${seller.id}`}
@@ -398,7 +443,7 @@ export function Sellers() {
                   Sellers
                 </h1>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  Total Est. GCI: {calculateTotalForecast()}
+                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateTotalForecast()}</span>
                 </p>
               </div>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
@@ -425,7 +470,7 @@ export function Sellers() {
                   Hot Stock ({getSellersByStage("Hot Stocks").length})
                 </h2>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: {calculateStageTotal("Hot Stocks")}
+                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Hot Stocks")}</span>
                 </p>
               </div>
               <div
@@ -453,7 +498,7 @@ export function Sellers() {
                   Pipeline ({getSellersByStage("Pipeline").length})
                 </h2>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: {calculateStageTotal("Pipeline")}
+                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Pipeline")}</span>
                 </p>
               </div>
               <div
@@ -481,7 +526,7 @@ export function Sellers() {
                   Prospects ({getSellersByStage("Prospect").length})
                 </h2>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: {calculateStageTotal("Prospect")}
+                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Prospect")}</span>
                 </p>
               </div>
               <div

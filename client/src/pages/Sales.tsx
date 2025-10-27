@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SideBarSection } from "./sections/SideBarSection";
 import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
@@ -83,6 +83,22 @@ export function Sales() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [draggedSale, setDraggedSale] = useState<number | null>(null);
   
+  // Check for pending sales from Listings page
+  useEffect(() => {
+    const pendingSales = localStorage.getItem('pendingSales');
+    if (pendingSales) {
+      const parsed = JSON.parse(pendingSales);
+      if (parsed.length > 0) {
+        setSales(prev => [...prev, ...parsed]);
+        localStorage.removeItem('pendingSales');
+        toast({
+          title: "Sales Added",
+          description: `${parsed.length} listing(s) converted to sales.`,
+        });
+      }
+    }
+  }, []);
+
   const [formData, setFormData] = useState({
     address: "",
     suburb: "",
