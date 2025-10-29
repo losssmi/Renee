@@ -21,36 +21,36 @@ export function Prospecting() {
       </div>
 
       <div className="pb-6 bg-[#f5f5f5]">
-        <div className="px-6 mb-4">
+        <div className="px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="bg-white border border-[#ededed] p-1 rounded-lg">
+            <TabsList className="bg-transparent border-b border-gray-200 rounded-none p-0 h-auto mb-4">
               <TabsTrigger 
                 value="sellers" 
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] data-[state=active]:bg-[#172a41] data-[state=active]:text-white"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
                 data-testid="tab-sellers"
               >
-                Sellers
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Sellers</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="listings" 
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] data-[state=active]:bg-[#172a41] data-[state=active]:text-white"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
                 data-testid="tab-listings"
               >
-                Listings
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Listings</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="appraisals" 
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] data-[state=active]:bg-[#172a41] data-[state=active]:text-white"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
                 data-testid="tab-appraisals"
               >
-                Appraisals
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Appraisals</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="buyers" 
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] data-[state=active]:bg-[#172a41] data-[state=active]:text-white"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
                 data-testid="tab-buyers"
               >
-                Buyers
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Buyers</span>
               </TabsTrigger>
             </TabsList>
 
