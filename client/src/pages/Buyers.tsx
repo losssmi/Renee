@@ -29,6 +29,7 @@ interface BuyerEntry {
   budget: string;
   location: string;
   status: string;
+  stage: "Leads" | "Active" | "Hot Buyers";
 }
 
 const initialBuyers: BuyerEntry[] = [
@@ -39,7 +40,8 @@ const initialBuyers: BuyerEntry[] = [
     email: "sarah.j@email.com",
     budget: "$2,000,000 - $2,500,000",
     location: "Bondi, Bronte",
-    status: "Active"
+    status: "Active",
+    stage: "Active"
   }
 ];
 
@@ -48,6 +50,7 @@ export function Buyers() {
   const [buyers, setBuyers] = useState<BuyerEntry[]>(initialBuyers);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [draggedBuyer, setDraggedBuyer] = useState<number | null>(null);
   
   const [formData, setFormData] = useState({
     name: "",
@@ -55,7 +58,8 @@ export function Buyers() {
     email: "",
     budget: "",
     location: "",
-    status: ""
+    status: "",
+    stage: "Leads" as "Leads" | "Active" | "Hot Buyers"
   });
 
   const resetForm = () => {
@@ -65,7 +69,8 @@ export function Buyers() {
       email: "",
       budget: "",
       location: "",
-      status: ""
+      status: "",
+      stage: "Leads"
     });
   };
 
@@ -92,7 +97,8 @@ export function Buyers() {
         email: buyer.email,
         budget: buyer.budget,
         location: buyer.location,
-        status: buyer.status
+        status: buyer.status,
+        stage: buyer.stage
       });
       setEditingId(id);
       setIsAddDialogOpen(true);
@@ -120,10 +126,40 @@ export function Buyers() {
     });
   };
 
+  const handleDragStart = (e: React.DragEvent, buyerId: number) => {
+    setDraggedBuyer(buyerId);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+  };
+
+  const handleDrop = (e: React.DragEvent, newStage: "Leads" | "Active" | "Hot Buyers") => {
+    e.preventDefault();
+    if (draggedBuyer !== null) {
+      setBuyers(buyers.map(buyer => 
+        buyer.id === draggedBuyer ? { ...buyer, stage: newStage } : buyer
+      ));
+      toast({
+        title: "Stage Updated",
+        description: `Buyer moved to ${newStage}`,
+      });
+      setDraggedBuyer(null);
+    }
+  };
+
+  const getBuyersByStage = (stage: "Leads" | "Active" | "Hot Buyers") => {
+    return buyers.filter(buyer => buyer.stage === stage);
+  };
+
   const renderBuyerCard = (buyer: BuyerEntry) => (
     <Card
       key={buyer.id}
-      className="bg-white border-[#ededed] shadow-sm mb-1 hover:shadow-md transition-shadow w-full"
+      className="bg-white border-[#ededed] shadow-sm mb-1 cursor-move hover:shadow-md transition-shadow w-full"
+      draggable
+      onDragStart={(e) => handleDragStart(e, buyer.id)}
       data-testid={`buyer-card-${buyer.id}`}
     >
       <CardContent className="px-3 py-2">
@@ -214,21 +250,77 @@ export function Buyers() {
 
       <div className="px-6 pb-6 bg-[#f5f5f5]">
         <div className="flex flex-col gap-4">
+          {/* Leads Stage */}
           <div className="flex flex-col w-full">
             <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
               <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                All Buyers ({buyers.length})
+                Leads ({getBuyersByStage("Leads").length})
               </h2>
             </div>
-            <div className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300">
-              {buyers.length === 0 ? (
+            <div
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, "Leads")}
+              className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
+              data-testid="dropzone-leads"
+            >
+              {getBuyersByStage("Leads").length === 0 ? (
                 <div className="flex items-center justify-center h-[100px]">
                   <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
-                    No buyers yet. Click "Add Buyer" to get started.
+                    Drag buyers here
                   </p>
                 </div>
               ) : (
-                buyers.map(renderBuyerCard)
+                getBuyersByStage("Leads").map(renderBuyerCard)
+              )}
+            </div>
+          </div>
+
+          {/* Active Stage */}
+          <div className="flex flex-col w-full">
+            <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
+              <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                Active ({getBuyersByStage("Active").length})
+              </h2>
+            </div>
+            <div
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, "Active")}
+              className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
+              data-testid="dropzone-active"
+            >
+              {getBuyersByStage("Active").length === 0 ? (
+                <div className="flex items-center justify-center h-[100px]">
+                  <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
+                    Drag buyers here
+                  </p>
+                </div>
+              ) : (
+                getBuyersByStage("Active").map(renderBuyerCard)
+              )}
+            </div>
+          </div>
+
+          {/* Hot Buyers Stage */}
+          <div className="flex flex-col w-full">
+            <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
+              <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                Hot Buyers ({getBuyersByStage("Hot Buyers").length})
+              </h2>
+            </div>
+            <div
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, "Hot Buyers")}
+              className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
+              data-testid="dropzone-hotbuyers"
+            >
+              {getBuyersByStage("Hot Buyers").length === 0 ? (
+                <div className="flex items-center justify-center h-[100px]">
+                  <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
+                    Drag buyers here
+                  </p>
+                </div>
+              ) : (
+                getBuyersByStage("Hot Buyers").map(renderBuyerCard)
               )}
             </div>
           </div>
@@ -310,6 +402,21 @@ export function Buyers() {
                   <SelectItem value="Active">Active</SelectItem>
                   <SelectItem value="Inactive">Inactive</SelectItem>
                   <SelectItem value="Converted">Converted</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                Stage
+              </label>
+              <Select value={formData.stage} onValueChange={(value) => setFormData({ ...formData, stage: value as "Leads" | "Active" | "Hot Buyers" })}>
+                <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-stage">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Leads">Leads</SelectItem>
+                  <SelectItem value="Active">Active</SelectItem>
+                  <SelectItem value="Hot Buyers">Hot Buyers</SelectItem>
                 </SelectContent>
               </Select>
             </div>
