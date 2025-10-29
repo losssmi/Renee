@@ -37,7 +37,7 @@ interface ListingEntry {
   daysOnMarket: number;
   offers: string;
   commRate: string;
-  stage: "Pre-market" | "Off-Market" | "On Market";
+  stage: "Preparing" | "On Market" | "Off Market";
 }
 
 const initialListings: ListingEntry[] = [
@@ -57,7 +57,7 @@ const initialListings: ListingEntry[] = [
     daysOnMarket: 13,
     offers: "2",
     commRate: "2.5",
-    stage: "Pre-market"
+    stage: "Preparing"
   },
   {
     id: 2,
@@ -75,7 +75,7 @@ const initialListings: ListingEntry[] = [
     daysOnMarket: 8,
     offers: "1",
     commRate: "2.0",
-    stage: "Off-Market"
+    stage: "Off Market"
   },
   {
     id: 3,
@@ -154,7 +154,7 @@ export function Listings() {
     daysOnMarket: 0,
     offers: "",
     commRate: "",
-    stage: "Pre-market" as "Pre-market" | "Off-Market" | "On Market"
+    stage: "Preparing" as "Preparing" | "Off Market" | "On Market"
   });
 
   const resetForm = () => {
@@ -173,7 +173,7 @@ export function Listings() {
       daysOnMarket: 0,
       offers: "",
       commRate: "",
-      stage: "Pre-market"
+      stage: "Preparing"
     });
   };
 
@@ -283,7 +283,7 @@ export function Listings() {
     e.dataTransfer.dropEffect = "move";
   };
 
-  const handleDrop = (e: React.DragEvent, newStage: "Pre-market" | "Off-Market" | "On Market") => {
+  const handleDrop = (e: React.DragEvent, newStage: "Preparing" | "Off Market" | "On Market") => {
     e.preventDefault();
     if (draggedListing !== null) {
       setListings(listings.map(listing => 
@@ -304,11 +304,11 @@ export function Listings() {
     return gci > 0 ? `$${gci.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : "-";
   };
 
-  const getListingsByStage = (stage: "Pre-market" | "Off-Market" | "On Market") => {
+  const getListingsByStage = (stage: "Preparing" | "Off Market" | "On Market") => {
     return listings.filter(listing => listing.stage === stage);
   };
 
-  const calculateStageTotal = (stage: "Pre-market" | "Off-Market" | "On Market") => {
+  const calculateStageTotal = (stage: "Preparing" | "Off Market" | "On Market") => {
     const stageListings = getListingsByStage(stage);
     const total = stageListings.reduce((sum, listing) => {
       const guideNum = parseFloat(listing.guide.replace(/[^0-9.]/g, '')) || 0;
@@ -485,58 +485,58 @@ export function Listings() {
 
         <div className="px-6 pb-6 bg-[#f5f5f5]">
           <div className="flex flex-col gap-4">
-            {/* Pre-market Stage */}
+            {/* Preparing Stage */}
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  Pre-market ({getListingsByStage("Pre-market").length})
+                  Preparing ({getListingsByStage("Preparing").length})
                 </h2>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Pre-market")}</span>
+                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Preparing")}</span>
                 </p>
               </div>
               <div
                 onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, "Pre-market")}
+                onDrop={(e) => handleDrop(e, "Preparing")}
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
-                data-testid="dropzone-premarket"
+                data-testid="dropzone-preparing"
               >
-                {getListingsByStage("Pre-market").length === 0 ? (
+                {getListingsByStage("Preparing").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
                       Drag listings here
                     </p>
                   </div>
                 ) : (
-                  getListingsByStage("Pre-market").map(renderListingCard)
+                  getListingsByStage("Preparing").map(renderListingCard)
                 )}
               </div>
             </div>
 
-            {/* Off-Market Stage */}
+            {/* Off Market Stage */}
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  Off-Market ({getListingsByStage("Off-Market").length})
+                  Off Market ({getListingsByStage("Off Market").length})
                 </h2>
                 <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Off-Market")}</span>
+                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Off Market")}</span>
                 </p>
               </div>
               <div
                 onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, "Off-Market")}
+                onDrop={(e) => handleDrop(e, "Off Market")}
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
                 data-testid="dropzone-offmarket"
               >
-                {getListingsByStage("Off-Market").length === 0 ? (
+                {getListingsByStage("Off Market").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
                       Drag listings here
                     </p>
                   </div>
                 ) : (
-                  getListingsByStage("Off-Market").map(renderListingCard)
+                  getListingsByStage("Off Market").map(renderListingCard)
                 )}
               </div>
             </div>
@@ -809,8 +809,8 @@ export function Listings() {
                   <SelectValue placeholder="Select stage" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Pre-market">Pre-market</SelectItem>
-                  <SelectItem value="Off-Market">Off-Market</SelectItem>
+                  <SelectItem value="Preparing">Preparing</SelectItem>
+                  <SelectItem value="Off Market">Off Market</SelectItem>
                   <SelectItem value="On Market">On Market</SelectItem>
                 </SelectContent>
               </Select>
