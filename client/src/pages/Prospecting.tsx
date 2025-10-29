@@ -39,18 +39,18 @@ export function Prospecting() {
                 <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Listings</span>
               </TabsTrigger>
               <TabsTrigger 
-                value="appraisals" 
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
-                data-testid="tab-appraisals"
-              >
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Appraisals</span>
-              </TabsTrigger>
-              <TabsTrigger 
                 value="buyers" 
                 className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
                 data-testid="tab-buyers"
               >
                 <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Buyers</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="appraisals" 
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
+                data-testid="tab-appraisals"
+              >
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Appraisals</span>
               </TabsTrigger>
             </TabsList>
 
@@ -62,12 +62,12 @@ export function Prospecting() {
               <ListingsContent />
             </TabsContent>
 
-            <TabsContent value="appraisals" className="mt-0">
-              <AppraisalsContent />
-            </TabsContent>
-
             <TabsContent value="buyers" className="mt-0">
               <BuyersContent />
+            </TabsContent>
+
+            <TabsContent value="appraisals" className="mt-0">
+              <AppraisalsContent />
             </TabsContent>
           </Tabs>
         </div>
