@@ -814,7 +814,7 @@ export function Listings() {
                 <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
                   Forecast GCI
                 </label>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#09b600] text-xl" data-testid="text-calculated-gci">
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xl" data-testid="text-calculated-gci">
                   {calculateForecastGCI(formData.guide, formData.commRate)}
                 </p>
               </div>
