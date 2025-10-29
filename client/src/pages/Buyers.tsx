@@ -5,7 +5,7 @@ import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, GripVertical } from "lucide-react";
+import { Plus, Pencil, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -164,7 +164,6 @@ export function Buyers() {
     >
       <CardContent className="px-3 py-2">
         <div className="flex items-center gap-2">
-          <GripVertical className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
           <div className="flex items-center flex-1 min-w-0 gap-3 overflow-x-auto">
             <div className="min-w-[160px] flex-shrink-0">
               <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm leading-tight" data-testid={`text-name-${buyer.id}`}>
@@ -176,28 +175,28 @@ export function Buyers() {
             </div>
 
             <div className="min-w-[180px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Email</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Email</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs truncate" data-testid={`text-email-${buyer.id}`}>
                 {buyer.email}
               </p>
             </div>
 
             <div className="min-w-[140px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Budget</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Budget</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-budget-${buyer.id}`}>
                 {buyer.budget}
               </p>
             </div>
 
             <div className="min-w-[120px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Location</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Location</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-location-${buyer.id}`}>
                 {buyer.location}
               </p>
             </div>
 
             <div className="min-w-[80px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Status</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Status</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs" data-testid={`text-status-${buyer.id}`}>
                 {buyer.status}
               </p>
@@ -229,13 +228,7 @@ export function Buyers() {
     <>
       <div className="px-6 py-5 bg-[#f5f5f5]">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-2">
-            <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal]">
-              Buyers
-            </h1>
-            <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-              Manage your buyer database.
-            </p>
+          <div className="flex items-center gap-4">
           </div>
           <Button
             onClick={() => setIsAddDialogOpen(true)}
