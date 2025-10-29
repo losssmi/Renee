@@ -5,7 +5,7 @@ import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Circle, GripVertical, ArrowRight } from "lucide-react";
+import { Plus, Pencil, Trash2, Circle, ArrowRight } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -328,7 +328,6 @@ export function Listings() {
     >
       <CardContent className="px-3 py-2">
         <div className="flex items-center gap-2">
-          <GripVertical className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
           <div className="flex items-center flex-1 min-w-0 gap-3 overflow-x-auto">
             <div className="min-w-[160px] flex-shrink-0">
               <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm leading-tight" data-testid={`text-address-${listing.id}`}>
@@ -340,92 +339,92 @@ export function Listings() {
             </div>
 
             <div className="min-w-[100px] flex-shrink-0 text-right">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Guide</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Guide</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-guide-${listing.id}`}>
                 ${parseFloat(listing.guide).toLocaleString('en-US')}
               </p>
             </div>
 
             <div className="min-w-[100px] flex-shrink-0 text-right">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Revised Guide</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Revised Guide</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-revisedguide-${listing.id}`}>
                 {listing.revisedGuide ? `$${parseFloat(listing.revisedGuide).toLocaleString('en-US')}` : "-"}
               </p>
             </div>
 
             <div className="min-w-[110px] flex-shrink-0 text-right">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Vendor's Price</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Vendor's Price</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-vendorsprice-${listing.id}`}>
                 ${parseFloat(listing.vendorsPrice).toLocaleString('en-US')}
               </p>
             </div>
 
             <div className="min-w-[100px] flex-shrink-0 text-right">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Selling Price</p>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-sellingprice-${listing.id}`}>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Selling Price</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs" data-testid={`text-sellingprice-${listing.id}`}>
                 {listing.sellingPrice ? `$${parseFloat(listing.sellingPrice).toLocaleString('en-US')}` : "-"}
               </p>
             </div>
 
             <div className="min-w-[110px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Method of Sale</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Method of Sale</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-methodofsale-${listing.id}`}>
                 {listing.methodOfSale}
               </p>
             </div>
 
             <div className="min-w-[90px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Lead Source</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Lead Source</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-leadsource-${listing.id}`}>
                 {listing.leadSource}
               </p>
             </div>
 
             <div className="min-w-[90px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Motivation</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Motivation</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-motivation-${listing.id}`}>
                 {listing.motivation}
               </p>
             </div>
 
             <div className="min-w-[70px] flex-shrink-0 text-center">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Readiness</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Readiness</p>
               <div className="flex justify-center" data-testid={`text-readiness-${listing.id}`}>
                 <TrafficLight color={listing.readiness} />
               </div>
             </div>
 
             <div className="min-w-[80px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Listed Date</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Listed Date</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-listeddate-${listing.id}`}>
                 {listing.listedDate}
               </p>
             </div>
 
             <div className="min-w-[70px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Days on Market</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Days on Market</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-daysonmarket-${listing.id}`}>
                 {listing.daysOnMarket}
               </p>
             </div>
 
             <div className="min-w-[60px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Offers</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Offers</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-offers-${listing.id}`}>
                 {listing.offers}
               </p>
             </div>
 
             <div className="min-w-[80px] flex-shrink-0">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Comm. Rate</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Comm. Rate</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-commrate-${listing.id}`}>
                 {listing.commRate}%
               </p>
             </div>
 
             <div className="min-w-[80px] flex-shrink-0 text-right">
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-[10px]">Forecast GCI</p>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#09b600] text-xs" data-testid={`text-forecastgci-${listing.id}`}>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Forecast GCI</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-forecastgci-${listing.id}`}>
                 {calculateForecastGCI(listing.guide, listing.commRate)}
               </p>
             </div>
@@ -464,13 +463,7 @@ export function Listings() {
     <>
       <div className="px-6 py-5 bg-[#f5f5f5]">
           <div className="flex items-center justify-between">
-            <div className="flex flex-col gap-2">
-              <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal]">
-                Listings
-              </h1>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-                Drag listings between stages to update their status.
-              </p>
+            <div className="flex items-center gap-4">
             </div>
             <Button
               onClick={() => setIsAddDialogOpen(true)}
