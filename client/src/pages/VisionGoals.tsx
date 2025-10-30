@@ -259,7 +259,10 @@ export function VisionGoals() {
               <div className="flex items-center justify-between -mt-4 mb-2">
                 <div className="flex flex-col gap-2">
                   <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-                    Define your direction, clarify your purpose, and align your growth.
+                    Define the destination before you start the journey.
+                  </p>
+                  <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
+                    Every high-performing business begins with a clear vision. It gives direction to daily effort and keeps every decision aligned to a shared future.
                   </p>
                 </div>
                 <button 
