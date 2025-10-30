@@ -40,7 +40,11 @@ const supportsItems = [
   { label: "Help", path: null },
 ];
 
-export const SideBarSection = (): JSX.Element => {
+interface SideBarSectionProps {
+  onNavigate?: () => void;
+}
+
+export const SideBarSection = ({ onNavigate }: SideBarSectionProps = {}): JSX.Element => {
   const { data: user } = useQuery<{ id: number; email: string; username?: string }>({
     queryKey: ['/api/auth/user'],
   });
@@ -105,7 +109,7 @@ export const SideBarSection = (): JSX.Element => {
             {homeItems.map((item, index) => {
               const isActive = location === item.path;
               return (
-                <Link key={index} href={item.path}>
+                <Link key={index} href={item.path} onClick={onNavigate}>
                   <Button
                     variant={isActive ? "secondary" : "ghost"}
                     className={`w-full justify-start gap-2 h-auto ${
@@ -164,7 +168,7 @@ export const SideBarSection = (): JSX.Element => {
               );
               
               return item.path ? (
-                <Link key={index} href={item.path}>
+                <Link key={index} href={item.path} onClick={onNavigate}>
                   {content}
                 </Link>
               ) : (
@@ -207,7 +211,7 @@ export const SideBarSection = (): JSX.Element => {
               );
               
               return item.path ? (
-                <Link key={index} href={item.path}>
+                <Link key={index} href={item.path} onClick={onNavigate}>
                   {content}
                 </Link>
               ) : (
@@ -250,7 +254,7 @@ export const SideBarSection = (): JSX.Element => {
               );
               
               return item.path ? (
-                <Link key={index} href={item.path}>
+                <Link key={index} href={item.path} onClick={onNavigate}>
                   {content}
                 </Link>
               ) : (
@@ -266,7 +270,7 @@ export const SideBarSection = (): JSX.Element => {
               BUSINESS AUDIT
             </span>
           </div>
-          <Link href="/business-audit">
+          <Link href="/business-audit" onClick={onNavigate}>
             <Button
               variant={location === "/business-audit" ? "secondary" : "ghost"}
               className={`w-full justify-start gap-2 h-auto ${
@@ -322,7 +326,7 @@ export const SideBarSection = (): JSX.Element => {
               );
               
               return item.path ? (
-                <Link key={index} href={item.path}>
+                <Link key={index} href={item.path} onClick={onNavigate}>
                   {content}
                 </Link>
               ) : (
