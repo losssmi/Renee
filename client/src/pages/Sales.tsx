@@ -5,7 +5,7 @@ import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, GripVertical } from "lucide-react";
+import { Plus, Pencil, Trash2, GripVertical, MenuIcon, XIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -78,6 +78,7 @@ const initialSales: SaleEntry[] = [
 
 export function Sales() {
   const { toast } = useToast();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sales, setSales] = useState<SaleEntry[]>(initialSales);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -359,11 +360,34 @@ export function Sales() {
 
   return (
     <div className="bg-[#f5f5f5] w-full min-h-screen flex">
-      <aside className="w-[263px] flex-shrink-0">
-        <SideBarSection />
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-md"
+        data-testid="button-mobile-menu"
+      >
+        {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+      </button>
+
+      {/* Sidebar - hidden on mobile, shown on desktop */}
+      <aside className={`
+        fixed lg:static inset-y-0 left-0 z-40
+        w-[263px] flex-shrink-0
+        transform transition-transform duration-300 ease-in-out
+        ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+        <SideBarSection onNavigate={() => setMobileMenuOpen(false)} />
       </aside>
 
-      <main className="flex-1 flex flex-col bg-[#f5f5f5]">
+      {/* Overlay for mobile menu */}
+      {mobileMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      <main className="flex-1 flex flex-col bg-[#f5f5f5] w-full lg:w-auto">
         <DashboardHeaderSection />
         
         <div className="px-6 py-5 bg-[#f5f5f5]">
