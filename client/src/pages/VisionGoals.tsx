@@ -7,10 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-interface VisionMetric {
-  label: string;
-  value: string;
-}
+ 
 
 interface Value {
   name: string;
@@ -44,22 +41,8 @@ interface QuarterTarget {
 export function VisionGoals() {
   const { toast } = useToast();
   
-  const [visionMetrics, setVisionMetrics] = useState<VisionMetric[]>([
-    { label: "Total GCI", value: "" },
-    { label: "Number of Sales", value: "" },
-    { label: "Av. Sale Price", value: "" },
-    { label: "Av. Comm Rate", value: "" },
-    { label: "Comm. Split", value: "" },
-    { label: "Av. GCI", value: "" },
-    { label: "Gross Income", value: "" },
-    { label: "Hourly rate", value: "" },
-    { label: "Team Size", value: "" },
-  ]);
-
   const [vision, setVision] = useState("");
-  const [mission, setMission] = useState("");
   const [coreFocus, setCoreFocus] = useState("");
-  const [usp, setUSP] = useState("");
   
   const [values, setValues] = useState<Value[]>([
     { name: "Value 1", description: "" },
@@ -177,11 +160,7 @@ export function VisionGoals() {
     });
   };
 
-  const updateVisionMetric = (index: number, value: string) => {
-    const updated = [...visionMetrics];
-    updated[index] = { ...updated[index], value };
-    setVisionMetrics(updated);
-  };
+ 
 
   const updateValue = (index: number, field: 'name' | 'description', value: string) => {
     const updated = [...values];
@@ -284,7 +263,7 @@ export function VisionGoals() {
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-6">
                     <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
-                      Core Focus
+                      Vision
                     </h2>
                   </div>
                   
@@ -293,9 +272,6 @@ export function VisionGoals() {
                       <div className="mb-2">
                         <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm tracking-[-0.14px] leading-[1.3]">
                           Vision
-                        </span>
-                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-xs tracking-[-0.14px] leading-[1.3] ml-2">
-                          Your Ultimate Destination
                         </span>
                       </div>
                       <Textarea
@@ -307,41 +283,6 @@ export function VisionGoals() {
                         data-testid="input-vision"
                       />
                       
-                      <div className="grid grid-cols-3 gap-4 mt-4">
-                        {visionMetrics.map((metric, index) => (
-                          <div key={index}>
-                            <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-xs mb-1 block">
-                              {metric.label}
-                            </label>
-                            <Input
-                              value={metric.value}
-                              onChange={(e) => updateVisionMetric(index, e.target.value)}
-                              disabled={!isEditingVision}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm h-8"
-                              data-testid={`input-vision-metric-${index}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="mb-2">
-                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm tracking-[-0.14px] leading-[1.3]">
-                          Mission
-                        </span>
-                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-xs tracking-[-0.14px] leading-[1.3] ml-2">
-                          Your Core Purpose
-                        </span>
-                      </div>
-                      <Textarea
-                        value={mission}
-                        onChange={(e) => setMission(e.target.value)}
-                        placeholder="Define your core purpose..."
-                        disabled={!isEditingVision}
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[60px] p-3 bg-gray-50 rounded border border-gray-200"
-                        data-testid="input-mission"
-                      />
                     </div>
 
                     <div>
@@ -349,36 +290,17 @@ export function VisionGoals() {
                         <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm tracking-[-0.14px] leading-[1.3]">
                           Core Focus
                         </span>
-                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-xs tracking-[-0.14px] leading-[1.3] ml-2">
-                          Your Niche & Expertise
-                        </span>
                       </div>
+                      <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px] mb-2">
+                        Clarify what you’re building, why it matters, and where it’s going.
+                      </p>
                       <Input
                         value={coreFocus}
                         onChange={(e) => setCoreFocus(e.target.value)}
-                        placeholder="Define your niche and expertise..."
+                        placeholder="Enter your core focus..."
                         disabled={!isEditingVision}
                         className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm p-2 bg-gray-50 rounded border border-gray-200"
                         data-testid="input-core-focus"
-                      />
-                    </div>
-
-                    <div>
-                      <div className="mb-2">
-                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm tracking-[-0.14px] leading-[1.3]">
-                          USP
-                        </span>
-                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-xs tracking-[-0.14px] leading-[1.3] ml-2">
-                          What Makes You Different?
-                        </span>
-                      </div>
-                      <Input
-                        value={usp}
-                        onChange={(e) => setUSP(e.target.value)}
-                        placeholder="What makes you different..."
-                        disabled={!isEditingVision}
-                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm p-2 bg-gray-50 rounded border border-gray-200"
-                        data-testid="input-usp"
                       />
                     </div>
                   </div>
