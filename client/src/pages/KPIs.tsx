@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { MenuIcon, XIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SideBarSection } from "./sections/SideBarSection";
 import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
@@ -25,6 +26,7 @@ const assessmentQuestions = [
 
 export function KPIs() {
   const { toast } = useToast();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [responses, setResponses] = useState<Record<number, 'yes' | 'no' | null>>({});
 
@@ -45,11 +47,34 @@ export function KPIs() {
 
   return (
     <div className="bg-[#f5f5f5] w-full min-h-screen flex">
-      <aside className="w-[263px] flex-shrink-0">
-        <SideBarSection />
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-lg shadow-md"
+        data-testid="button-mobile-menu"
+      >
+        {mobileMenuOpen ? <XIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+      </button>
+
+      {/* Sidebar - hidden on mobile, shown on desktop */}
+      <aside className={`
+        fixed lg:static inset-y-0 left-0 z-40
+        w-[263px] flex-shrink-0
+        transform transition-transform duration-300 ease-in-out
+        ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
+        <SideBarSection onNavigate={() => setMobileMenuOpen(false)} />
       </aside>
 
-      <main className="flex-1 flex flex-col bg-[#f5f5f5]">
+      {/* Overlay for mobile menu */}
+      {mobileMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      <main className="flex-1 flex flex-col bg-[#f5f5f5] w-full lg:w-auto">
         <DashboardHeaderSection />
         
         <div className="px-6 py-5 bg-[#f5f5f5]">
