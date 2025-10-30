@@ -54,10 +54,10 @@ export function VisionGoals() {
 
   const [tenYearPlan, setTenYearPlan] = useState("");
   
-  const [strengths, setStrengths] = useState<string[]>(["", "", ""]);
-  const [weaknesses, setWeaknesses] = useState<string[]>(["", "", ""]);
-  const [opportunities, setOpportunities] = useState<string[]>(["", "", ""]);
-  const [threats, setThreats] = useState<string[]>(["", "", ""]);
+  const [strengthsText, setStrengthsText] = useState("");
+  const [weaknessesText, setWeaknessesText] = useState("");
+  const [opportunitiesText, setOpportunitiesText] = useState("");
+  const [threatsText, setThreatsText] = useState("");
   
   const [threeYearTargets, setThreeYearTargets] = useState<YearTarget[]>([
     {
@@ -180,29 +180,7 @@ export function VisionGoals() {
     setNinetyDayTargets(updated);
   };
 
-  const updateStrength = (index: number, value: string) => {
-    const updated = [...strengths];
-    updated[index] = value;
-    setStrengths(updated);
-  };
-
-  const updateWeakness = (index: number, value: string) => {
-    const updated = [...weaknesses];
-    updated[index] = value;
-    setWeaknesses(updated);
-  };
-
-  const updateOpportunity = (index: number, value: string) => {
-    const updated = [...opportunities];
-    updated[index] = value;
-    setOpportunities(updated);
-  };
-
-  const updateThreat = (index: number, value: string) => {
-    const updated = [...threats];
-    updated[index] = value;
-    setThreats(updated);
-  };
+ 
 
   return (
     <div className="bg-[#f5f5f5] w-full min-h-screen flex">
@@ -358,98 +336,65 @@ export function VisionGoals() {
                       SWOT
                     </h2>
                   </div>
+                  <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px] mb-4">
+                    See your position clearly — where you excel, what holds you back, and where to play next.
+                  </p>
                   
                   <div className="grid grid-cols-2 gap-6">
                     <div>
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
                         Strengths
                       </h3>
-                      <div className="space-y-2">
-                        {strengths.map((strength, index) => (
-                          <div key={index} className="flex items-start gap-2">
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
-                              {index + 1}
-                            </span>
-                            <Input
-                              value={strength}
-                              onChange={(e) => updateStrength(index, e.target.value)}
-                              placeholder={`Strength ${index + 1}`}
-                              disabled={!isEditingVision}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
-                              data-testid={`input-strength-${index}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
+                      <Textarea
+                        value={strengthsText}
+                        onChange={(e) => setStrengthsText(e.target.value)}
+                        placeholder="List your strengths..."
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[100px] p-3 bg-gray-50 rounded border border-gray-200"
+                        data-testid="textarea-strengths"
+                      />
                     </div>
 
                     <div>
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
                         Weaknesses
                       </h3>
-                      <div className="space-y-2">
-                        {weaknesses.map((weakness, index) => (
-                          <div key={index} className="flex items-start gap-2">
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
-                              {index + 1}
-                            </span>
-                            <Input
-                              value={weakness}
-                              onChange={(e) => updateWeakness(index, e.target.value)}
-                              placeholder={`Weakness ${index + 1}`}
-                              disabled={!isEditingVision}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
-                              data-testid={`input-weakness-${index}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
+                      <Textarea
+                        value={weaknessesText}
+                        onChange={(e) => setWeaknessesText(e.target.value)}
+                        placeholder="List your weaknesses..."
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[100px] p-3 bg-gray-50 rounded border border-gray-200"
+                        data-testid="textarea-weaknesses"
+                      />
                     </div>
 
                     <div>
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
                         Opportunities
                       </h3>
-                      <div className="space-y-2">
-                        {opportunities.map((opportunity, index) => (
-                          <div key={index} className="flex items-start gap-2">
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
-                              {index + 1}
-                            </span>
-                            <Input
-                              value={opportunity}
-                              onChange={(e) => updateOpportunity(index, e.target.value)}
-                              placeholder={`Opportunity ${index + 1}`}
-                              disabled={!isEditingVision}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
-                              data-testid={`input-opportunity-${index}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
+                      <Textarea
+                        value={opportunitiesText}
+                        onChange={(e) => setOpportunitiesText(e.target.value)}
+                        placeholder="List your opportunities..."
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[100px] p-3 bg-gray-50 rounded border border-gray-200"
+                        data-testid="textarea-opportunities"
+                      />
                     </div>
 
                     <div>
                       <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-3">
                         Threats
                       </h3>
-                      <div className="space-y-2">
-                        {threats.map((threat, index) => (
-                          <div key={index} className="flex items-start gap-2">
-                            <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#4e657f] text-sm mt-2">
-                              {index + 1}
-                            </span>
-                            <Input
-                              value={threat}
-                              onChange={(e) => updateThreat(index, e.target.value)}
-                              placeholder={`Threat ${index + 1}`}
-                              disabled={!isEditingVision}
-                              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm flex-1"
-                              data-testid={`input-threat-${index}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
+                      <Textarea
+                        value={threatsText}
+                        onChange={(e) => setThreatsText(e.target.value)}
+                        placeholder="List your threats..."
+                        disabled={!isEditingVision}
+                        className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm min-h-[100px] p-3 bg-gray-50 rounded border border-gray-200"
+                        data-testid="textarea-threats"
+                      />
                     </div>
                   </div>
                 </CardContent>
@@ -462,6 +407,12 @@ export function VisionGoals() {
                       10 Year Plan
                     </h2>
                   </div>
+                  <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px] mb-1">
+                    Write the story of your future. Think big, then reverse-engineer it.
+                  </p>
+                  <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px] mb-4">
+                    Where do you want your business, team, and life to be in 10 years? What impact will you have? What will success look and feel like?
+                  </p>
                   
                   <Textarea
                     value={tenYearPlan}
