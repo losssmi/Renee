@@ -15,8 +15,8 @@ export function Prospecting() {
         <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal] mb-2">
           Prospecting
         </h1>
-        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-          Manage your appraisals, buyers, sellers, and listings.
+        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm tracking-[0] leading-[21px]">
+          Turn prospecting into predictable pipeline growth. Build relationships, track opportunities and measure progress - all in one place.
         </p>
       </div>
 
@@ -55,6 +55,11 @@ export function Prospecting() {
             </TabsList>
 
             <TabsContent value="sellers" className="mt-0">
+              <div className="px-6 pb-2">
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
+                  Organise and prioritise your sellers based on readiness and opportunity so you know exactly where to focus next.
+                </p>
+              </div>
               <SellersContent />
             </TabsContent>
 

@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, Circle, ArrowRight } from "lucide-react";
+import { ToastAction } from "@/components/ui/toast";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
@@ -29,6 +31,7 @@ interface SellerEntry {
   address: string;
   suburbs: string;
   price: string;
+  propertyType?: string;
   leadSource: string;
   motivation: string;
   readiness: "red" | "yellow" | "green";
@@ -36,6 +39,7 @@ interface SellerEntry {
   appraised: string;
   stage: "Hot Stocks" | "Pipeline" | "Prospect";
   status: string;
+  nextFollowUpDate?: string;
 }
 
 const initialSellers: SellerEntry[] = [
@@ -50,10 +54,12 @@ const initialSellers: SellerEntry[] = [
     leadSource: "Referral",
     motivation: "Upsizing",
     readiness: "green",
+    propertyType: "House",
     estCommissionRate: "2.5",
     appraised: "Yes",
     stage: "Hot Stocks",
-    status: "Active"
+    status: "Active",
+    nextFollowUpDate: ""
   },
   {
     id: 2,
@@ -66,10 +72,12 @@ const initialSellers: SellerEntry[] = [
     leadSource: "Website",
     motivation: "Downsizing",
     readiness: "yellow",
+    propertyType: "Apartment",
     estCommissionRate: "2.0",
     appraised: "No",
     stage: "Pipeline",
-    status: "Active"
+    status: "Active",
+    nextFollowUpDate: ""
   },
   {
     id: 3,
@@ -82,10 +90,12 @@ const initialSellers: SellerEntry[] = [
     leadSource: "Cold Call",
     motivation: "Investment",
     readiness: "red",
+    propertyType: "House",
     estCommissionRate: "3.0",
     appraised: "Pending",
     stage: "Prospect",
-    status: "Active"
+    status: "Active",
+    nextFollowUpDate: ""
   }
 ];
 
@@ -122,13 +132,15 @@ export function Sellers() {
     address: "",
     suburbs: "",
     price: "",
+    propertyType: "",
     leadSource: "",
     motivation: "",
     readiness: "yellow" as "red" | "yellow" | "green",
     estCommissionRate: "",
     appraised: "",
     stage: "Hot Stocks" as "Hot Stocks" | "Pipeline" | "Prospect",
-    status: ""
+    status: "",
+    nextFollowUpDate: ""
   });
 
   const resetForm = () => {
@@ -139,13 +151,15 @@ export function Sellers() {
       address: "",
       suburbs: "",
       price: "",
+      propertyType: "",
       leadSource: "",
       motivation: "",
       readiness: "yellow",
       estCommissionRate: "",
       appraised: "",
       stage: "Hot Stocks",
-      status: ""
+      status: "",
+      nextFollowUpDate: ""
     });
   };
 
@@ -173,13 +187,15 @@ export function Sellers() {
         address: seller.address,
         suburbs: seller.suburbs,
         price: seller.price,
+        propertyType: seller.propertyType || "",
         leadSource: seller.leadSource,
         motivation: seller.motivation,
         readiness: seller.readiness,
         estCommissionRate: seller.estCommissionRate,
         appraised: seller.appraised,
         stage: seller.stage,
-        status: seller.status
+        status: seller.status,
+        nextFollowUpDate: seller.nextFollowUpDate || ""
       });
       setEditingId(id);
       setIsAddDialogOpen(true);
@@ -239,7 +255,22 @@ export function Sellers() {
       
       toast({
         title: "Moved to Listings",
-        description: "Seller has been converted to a listing. Check the Listings page.",
+        description: "Seller converted to a listing.",
+        action: (
+          <ToastAction
+            altText="Undo"
+            onClick={() => {
+              // Remove the pending listing we just added
+              const pending = JSON.parse(localStorage.getItem('pendingListings') || '[]');
+              const filtered = pending.filter((l: any) => l.address !== seller.address || l.listedDate !== newListing.listedDate);
+              localStorage.setItem('pendingListings', JSON.stringify(filtered));
+              // Add the seller back
+              setSellers((prev) => [...prev, seller]);
+            }}
+          >
+            Undo
+          </ToastAction>
+        ),
       });
     }
   };
@@ -276,7 +307,7 @@ export function Sellers() {
   };
 
   const calculateStageTotal = (stage: "Hot Stocks" | "Pipeline" | "Prospect") => {
-    const stageSellers = sellers.filter(seller => seller.stage === stage);
+    const stageSellers = filteredSellers.filter(seller => seller.stage === stage);
     const total = stageSellers.reduce((sum, seller) => {
       const priceNum = parseFloat(seller.price.replace(/[^0-9.]/g, '')) || 0;
       const rateNum = parseFloat(seller.estCommissionRate) || 0;
@@ -286,7 +317,7 @@ export function Sellers() {
   };
 
   const calculateTotalForecast = () => {
-    const total = sellers.reduce((sum, seller) => {
+    const total = filteredSellers.reduce((sum, seller) => {
       const priceNum = parseFloat(seller.price.replace(/[^0-9.]/g, '')) || 0;
       const rateNum = parseFloat(seller.estCommissionRate) || 0;
       return sum + (priceNum * rateNum) / 100;
@@ -295,7 +326,7 @@ export function Sellers() {
   };
 
   const getSellersByStage = (stage: "Hot Stocks" | "Pipeline" | "Prospect") => {
-    return sellers.filter(seller => seller.stage === stage);
+    return filteredSellers.filter(seller => seller.stage === stage);
   };
 
   const renderSellerCard = (seller: SellerEntry) => (
@@ -325,7 +356,7 @@ export function Sellers() {
               </p>
             </div>
 
-            <div className="min-w-[90px] flex-shrink-0">
+            <div className="min-w-[110px] flex-shrink-0">
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Lead Source</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-leadsource-${seller.id}`}>
                 {seller.leadSource}
@@ -339,24 +370,48 @@ export function Sellers() {
               </p>
             </div>
 
-            <div className="min-w-[70px] flex-shrink-0">
+            <div className="min-w-[90px] flex-shrink-0">
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Readiness</p>
               <div className="flex" data-testid={`text-readiness-${seller.id}`}>
-                <TrafficLight color={seller.readiness} />
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div>
+                        <TrafficLight color={seller.readiness} />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-xs">{seller.readiness === 'green' ? 'Ready to list' : seller.readiness === 'yellow' ? 'Nurture opportunity' : 'Low priority'}</span>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
 
-            <div className="min-w-[90px] flex-shrink-0">
+            <div className="min-w-[110px] flex-shrink-0">
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Est. Comm Rate</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-commrate-${seller.id}`}>
                 {seller.estCommissionRate}%
               </p>
             </div>
 
-            <div className="min-w-[80px] flex-shrink-0">
+            <div className="min-w-[110px] flex-shrink-0">
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Est. GCI</p>
               <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]" data-testid={`text-estgci-${seller.id}`}>
                 {calculateEstGCI(seller.price, seller.estCommissionRate)}
+              </p>
+            </div>
+            <div className="min-w-[120px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Property Type</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]">
+                {seller.propertyType || '-'}
+              </p>
+            </div>
+
+            <div className="min-w-[140px] flex-shrink-0">
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-[10px]">Next Follow-Up</p>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-[11px]">
+                {seller.nextFollowUpDate || '-'}
               </p>
             </div>
 
@@ -398,7 +453,7 @@ export function Sellers() {
             <div className="flex gap-1 flex-shrink-0 pl-2">
               <button
                 onClick={() => handleMoveToListings(seller.id)}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#09b600] hover:text-[#09b600]/80 transition-colors p-1"
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] text-[#172a41] hover:text-[#172a41]/80 transition-colors p-1"
                 title="Move to Listings"
                 data-testid={`button-movetolisting-${seller.id}`}
               >
@@ -425,6 +480,17 @@ export function Sellers() {
     </Card>
   );
 
+  const [search, setSearch] = useState("");
+
+  const filteredSellers = sellers.filter((s) => {
+    const q = search.trim().toLowerCase();
+    if (!q) return true;
+    return (
+      s.address.toLowerCase().includes(q) ||
+      s.name.toLowerCase().includes(q)
+    );
+  });
+
   const content = (
     <>
       <div className="px-6 py-5 bg-[#f5f5f5]">
@@ -434,14 +500,22 @@ export function Sellers() {
                 Total Est. GCI: <span className="font-semibold">{calculateTotalForecast()}</span>
               </p>
             </div>
+            <div className="flex items-center gap-3">
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search by address or name"
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] h-9 w-[280px] border-[#ededed]"
+                data-testid="input-search-sellers"
+              />
             <Button
               onClick={() => setIsAddDialogOpen(true)}
               className="[font-family:'Plus_Jakarta_Sans',Helvetica] bg-[#172a41] hover:bg-[#172a41]/90 text-white h-9 px-4 gap-2"
               data-testid="button-add-seller"
             >
-              <Plus className="w-4 h-4" />
               Add Seller
             </Button>
+            </div>
           </div>
         </div>
 
@@ -451,11 +525,8 @@ export function Sellers() {
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  Hot Stock ({getSellersByStage("Hot Stocks").length})
+                  {`${filteredSellers.filter(s=>s.stage==="Hot Stocks").length} Sellers | Total Est. GCI: ${calculateStageTotal("Hot Stocks")}`}
                 </h2>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Hot Stocks")}</span>
-                </p>
               </div>
               <div
                 onDragOver={handleDragOver}
@@ -463,14 +534,14 @@ export function Sellers() {
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
                 data-testid="dropzone-hotstocks"
               >
-                {getSellersByStage("Hot Stocks").length === 0 ? (
+                {filteredSellers.filter(s=>s.stage==="Hot Stocks").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
                       Drag sellers here
                     </p>
                   </div>
                 ) : (
-                  getSellersByStage("Hot Stocks").map(renderSellerCard)
+                  filteredSellers.filter(s=>s.stage==="Hot Stocks").map(renderSellerCard)
                 )}
               </div>
             </div>
@@ -479,11 +550,8 @@ export function Sellers() {
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  Pipeline ({getSellersByStage("Pipeline").length})
+                  {`${filteredSellers.filter(s=>s.stage==="Pipeline").length} Sellers | Total Est. GCI: ${calculateStageTotal("Pipeline")}`}
                 </h2>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Pipeline")}</span>
-                </p>
               </div>
               <div
                 onDragOver={handleDragOver}
@@ -491,14 +559,14 @@ export function Sellers() {
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
                 data-testid="dropzone-pipeline"
               >
-                {getSellersByStage("Pipeline").length === 0 ? (
+                {filteredSellers.filter(s=>s.stage==="Pipeline").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
                       Drag sellers here
                     </p>
                   </div>
                 ) : (
-                  getSellersByStage("Pipeline").map(renderSellerCard)
+                  filteredSellers.filter(s=>s.stage==="Pipeline").map(renderSellerCard)
                 )}
               </div>
             </div>
@@ -507,11 +575,8 @@ export function Sellers() {
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  Prospects ({getSellersByStage("Prospect").length})
+                  {`${filteredSellers.filter(s=>s.stage==="Prospect").length} Sellers | Total Est. GCI: ${calculateStageTotal("Prospect")}`}
                 </h2>
-                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
-                  Total Est. GCI: <span className="text-[#09b600] font-semibold">{calculateStageTotal("Prospect")}</span>
-                </p>
               </div>
               <div
                 onDragOver={handleDragOver}
@@ -519,14 +584,14 @@ export function Sellers() {
                 className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border border-t-0 border-gray-300"
                 data-testid="dropzone-prospect"
               >
-                {getSellersByStage("Prospect").length === 0 ? (
+                {filteredSellers.filter(s=>s.stage==="Prospect").length === 0 ? (
                   <div className="flex items-center justify-center h-[100px]">
                     <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
                       Drag sellers here
                     </p>
                   </div>
                 ) : (
-                  getSellersByStage("Prospect").map(renderSellerCard)
+                  filteredSellers.filter(s=>s.stage==="Prospect").map(renderSellerCard)
                 )}
               </div>
             </div>
@@ -602,6 +667,38 @@ export function Sellers() {
                 />
               </div>
             </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                Property Type
+              </label>
+              <Select value={formData.propertyType} onValueChange={(value) => setFormData({ ...formData, propertyType: value })}>
+                <SelectTrigger className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]" data-testid="select-property-type">
+                  <SelectValue placeholder="Select property type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="House">House</SelectItem>
+                  <SelectItem value="Apartment">Apartment</SelectItem>
+                  <SelectItem value="Duplex">Duplex</SelectItem>
+                  <SelectItem value="Land">Land</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <label className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-medium text-[#172a41] text-sm">
+                Next Follow-Up Date
+              </label>
+              <Input
+                type="date"
+                value={formData.nextFollowUpDate}
+                onChange={(e) => setFormData({ ...formData, nextFollowUpDate: e.target.value })}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] border-[#ededed]"
+                data-testid="input-next-followup"
+              />
+            </div>
+          </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
