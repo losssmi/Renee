@@ -71,7 +71,7 @@ export const Dashboard = (): JSX.Element => {
         transform transition-transform duration-300 ease-in-out
         ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-        <SideBarSection />
+        <SideBarSection onNavigate={() => setMobileMenuOpen(false)} />
       </aside>
 
       {/* Overlay for mobile menu */}
