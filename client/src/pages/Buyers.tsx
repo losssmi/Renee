@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SideBarSection } from "./sections/SideBarSection";
 import { DashboardHeaderSection } from "./sections/DashboardHeaderSection";
+import { DashboardPageLayout } from "@/components/DashboardPageLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -449,15 +450,8 @@ export function BuyersContent() {
 
 export default function BuyersPage() {
   return (
-    <div className="bg-[#f5f5f5] w-full min-h-screen flex">
-      <aside className="w-[263px] flex-shrink-0">
-        <SideBarSection />
-      </aside>
-
-      <main className="flex-1 flex flex-col bg-[#f5f5f5]">
-        <DashboardHeaderSection />
-        <Buyers />
-      </main>
-    </div>
+    <DashboardPageLayout>
+      <Buyers />
+    </DashboardPageLayout>
   );
 }
