@@ -283,7 +283,6 @@ export function VisionGoals() {
               <Card className="bg-white border-[#ededed] shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-6">
-                    <img className="w-6 h-6" alt="Core Focus" src="/figmaAssets/lsicon-sales-return-outline.svg" />
                     <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
                       Core Focus
                     </h2>
@@ -389,7 +388,6 @@ export function VisionGoals() {
               <Card className="bg-white border-[#ededed] shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-6">
-                    <img className="w-6 h-6" alt="Values" src="/figmaAssets/lsicon-sales-return-outline.svg" />
                     <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
                       Values
                     </h2>
@@ -423,7 +421,6 @@ export function VisionGoals() {
               <Card className="bg-white border-[#ededed] shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-6">
-                    <img className="w-6 h-6" alt="SWOT" src="/figmaAssets/lsicon-sales-return-outline.svg" />
                     <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
                       SWOT
                     </h2>
@@ -528,7 +525,6 @@ export function VisionGoals() {
               <Card className="bg-white border-[#ededed] shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <img className="w-6 h-6" alt="10 Year Plan" src="/figmaAssets/lsicon-sales-return-outline.svg" />
                     <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
                       10 Year Plan
                     </h2>
@@ -573,7 +569,6 @@ export function VisionGoals() {
               <Card className="bg-white border-[#ededed] shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <img className="w-6 h-6" alt="3 Year Plan" src="/figmaAssets/lsicon-sales-return-outline.svg" />
                     <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
                       3 Year Plan
                     </h2>
@@ -729,7 +724,6 @@ export function VisionGoals() {
               <Card className="bg-white border-[#ededed] shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <img className="w-6 h-6" alt="90 Day Plan" src="/figmaAssets/lsicon-sales-return-outline.svg" />
                     <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
                       90 Day Plan
                     </h2>
