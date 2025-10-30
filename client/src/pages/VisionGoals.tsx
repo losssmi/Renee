@@ -261,11 +261,6 @@ export function VisionGoals() {
 
               <Card className="bg-white border-[#ededed] shadow-sm">
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-6">
-                    <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
-                      Vision
-                    </h2>
-                  </div>
                   
                   <div className="space-y-6">
                     <div>
@@ -314,10 +309,26 @@ export function VisionGoals() {
                       Values
                     </h2>
                   </div>
+                  <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px] mb-4">
+                    Define the standards you live and lead by. These become the cultural foundation for your hiring, performance, and client experience.
+                  </p>
                   
                   <div className="space-y-4">
                     {values.map((value, index) => (
-                      <div key={index} className="grid grid-cols-4 gap-4 items-start">
+                      <div key={index} className="grid grid-cols-5 gap-4 items-start">
+                        <select
+                          onChange={(e) => updateValue(index, 'name', e.target.value)}
+                          className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm p-2 bg-gray-50 rounded border border-gray-200"
+                          data-testid={`select-value-sample-${index}`}
+                          defaultValue=""
+                        >
+                          <option value="" disabled>Sample</option>
+                          <option value="Honesty">Honesty</option>
+                          <option value="Excellence">Excellence</option>
+                          <option value="Accountability">Accountability</option>
+                          <option value="Service">Service</option>
+                          <option value="Innovation">Innovation</option>
+                        </select>
                         <Input
                           value={value.name}
                           onChange={(e) => updateValue(index, 'name', e.target.value)}
