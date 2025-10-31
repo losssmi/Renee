@@ -526,8 +526,11 @@ export function Sellers() {
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  {`${filteredSellers.filter(s=>s.stage==="Hot Stocks").length} Sellers | Total Est. GCI: ${calculateStageTotal("Hot Stocks")}`}
+                  Hot Stocks ({filteredSellers.filter(s=>s.stage==="Hot Stocks").length})
                 </h2>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
+                  Total Est. GCI: <span className="font-semibold">{calculateStageTotal("Hot Stocks")}</span>
+                </p>
               </div>
               <div
                 onDragOver={handleDragOver}
@@ -551,8 +554,11 @@ export function Sellers() {
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  {`${filteredSellers.filter(s=>s.stage==="Pipeline").length} Sellers | Total Est. GCI: ${calculateStageTotal("Pipeline")}`}
+                  Pipeline ({filteredSellers.filter(s=>s.stage==="Pipeline").length})
                 </h2>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
+                  Total Est. GCI: <span className="font-semibold">{calculateStageTotal("Pipeline")}</span>
+                </p>
               </div>
               <div
                 onDragOver={handleDragOver}
@@ -576,8 +582,11 @@ export function Sellers() {
             <div className="flex flex-col w-full">
               <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3 flex items-center justify-between">
                 <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
-                  {`${filteredSellers.filter(s=>s.stage==="Prospect").length} Sellers | Total Est. GCI: ${calculateStageTotal("Prospect")}`}
+                  Prospects ({filteredSellers.filter(s=>s.stage==="Prospect").length})
                 </h2>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-xs">
+                  Total Est. GCI: <span className="font-semibold">{calculateStageTotal("Prospect")}</span>
+                </p>
               </div>
               <div
                 onDragOver={handleDragOver}
