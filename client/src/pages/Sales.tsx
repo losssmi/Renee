@@ -20,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ListingsContent } from "./Listings";
 
 interface SaleEntry {
   id: number;
@@ -389,81 +391,106 @@ export function Sales() {
 
       <main className="flex-1 flex flex-col bg-[#f5f5f5] w-full lg:w-auto">
         <DashboardHeaderSection />
-        
-        <div className="px-6 py-5 bg-[#f5f5f5]">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col gap-2">
-              <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal]">
-                Sales
-              </h1>
-              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
-                Drag sales between stages to update their status.
-              </p>
-            </div>
-            <Button
-              onClick={() => setIsAddDialogOpen(true)}
-              className="[font-family:'Plus_Jakarta_Sans',Helvetica] bg-[#172a41] hover:bg-[#172a41]/90 text-white h-9 px-4 gap-2"
-              data-testid="button-add-sale"
-            >
-              <Plus className="w-4 h-4" />
-              Add Sale
-            </Button>
-          </div>
-        </div>
 
-        <div className="px-6 pb-6 bg-[#f5f5f5]">
-          <div className="flex flex-col gap-4">
-            {/* Exchanged Stage */}
-            <div className="flex flex-col w-full">
-              <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
-                <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
-                  Exchanged ({getSalesByStage("Exchanged").length})
-                </h2>
+        <Tabs defaultValue="listings" className="flex-1 flex flex-col">
+          <div className="px-6 py-5 bg-[#f5f5f5]">
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-2">
+                <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-bold text-[#101010] text-lg tracking-[0] leading-[normal]">
+                  Sales
+                </h1>
+                <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
+                  Manage listings, exchanges and settlements.
+                </p>
               </div>
-              <div
-                onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, "Exchanged")}
-                className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
-                data-testid="dropzone-exchanged"
+              <Button
+                onClick={() => setIsAddDialogOpen(true)}
+                className="[font-family:'Plus_Jakarta_Sans',Helvetica] bg-[#172a41] hover:bg-[#172a41]/90 text-white h-9 px-4 gap-2"
+                data-testid="button-add-sale"
               >
-                {getSalesByStage("Exchanged").length === 0 ? (
-                  <div className="flex items-center justify-center h-[100px]">
-                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
-                      Drag sales here
-                    </p>
-                  </div>
-                ) : (
-                  getSalesByStage("Exchanged").map(renderSaleCard)
-                )}
-              </div>
+                <Plus className="w-4 h-4" />
+                Add Sale
+              </Button>
             </div>
-
-            {/* Settled Stage */}
-            <div className="flex flex-col w-full">
-              <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
-                <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
-                  Settled ({getSalesByStage("Settled").length})
-                </h2>
-              </div>
-              <div
-                onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, "Settled")}
-                className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
-                data-testid="dropzone-settled"
-              >
-                {getSalesByStage("Settled").length === 0 ? (
-                  <div className="flex items-center justify-center h-[100px]">
-                    <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
-                      Drag sales here
-                    </p>
-                  </div>
-                ) : (
-                  getSalesByStage("Settled").map(renderSaleCard)
-                )}
-              </div>
-            </div>
+            <TabsList className="bg-transparent border-b border-gray-200 rounded-none p-0 h-auto mt-4">
+              <TabsTrigger value="listings" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-listings">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Listings</span>
+              </TabsTrigger>
+              <TabsTrigger value="exchanges" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-exchanges">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Exchanges</span>
+              </TabsTrigger>
+              <TabsTrigger value="settlements" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-settlements">
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Settlements</span>
+              </TabsTrigger>
+            </TabsList>
           </div>
-        </div>
+
+          <TabsContent value="listings" className="flex-1 mt-0">
+            <div className="bg-[#f5f5f5]">
+              <ListingsContent />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="exchanges" className="flex-1 mt-0">
+            <div className="px-6 pb-6 bg-[#f5f5f5]">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col w-full">
+                  <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
+                    <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
+                      Exchanged ({getSalesByStage("Exchanged").length})
+                    </h2>
+                  </div>
+                  <div
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, "Exchanged")}
+                    className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
+                    data-testid="dropzone-exchanged"
+                  >
+                    {getSalesByStage("Exchanged").length === 0 ? (
+                      <div className="flex items-center justify-center h-[100px]">
+                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
+                          Drag sales here
+                        </p>
+                      </div>
+                    ) : (
+                      getSalesByStage("Exchanged").map(renderSaleCard)
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="settlements" className="flex-1 mt-0">
+            <div className="px-6 pb-6 bg-[#f5f5f5]">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col w-full">
+                  <div className="bg-white border border-[#ededed] rounded-t-lg px-4 py-3">
+                    <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm">
+                      Settled ({getSalesByStage("Settled").length})
+                    </h2>
+                  </div>
+                  <div
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, "Settled")}
+                    className="min-h-[200px] p-3 bg-gray-50 rounded-b-lg border-2 border-t-0 border-dashed border-gray-300"
+                    data-testid="dropzone-settled"
+                  >
+                    {getSalesByStage("Settled").length === 0 ? (
+                      <div className="flex items-center justify-center h-[100px]">
+                        <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#6b7280] text-xs text-center px-4">
+                          Drag sales here
+                        </p>
+                      </div>
+                    ) : (
+                      getSalesByStage("Settled").map(renderSaleCard)
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </main>
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>

@@ -18,9 +18,9 @@ const homeItems = [
 ];
 
 const strategyItems = [
-  { label: "Vision & Goals", path: "/vision-goals" },
+  { label: "Vision", path: "/vision" },
+  { label: "Goals", path: "/goals" },
   { label: "Market Analysis", path: "/market-analysis" },
-  { label: "Quarterly Priorities", path: "/quarterly-priorities" },
 ];
 
 const structureItems = [
@@ -30,9 +30,8 @@ const structureItems = [
 
 const accountabilityItems = [
   { label: "Scorecard", path: "/scorecard" },
-  { label: "KPIs", path: "/kpis" },
   { label: "Meetings", path: "/meetings" },
-  { label: "Reports", path: "/reports" },
+  { label: "Quarterly Priorities", path: "/quarterly-priorities" },
 ];
 
 const supportsItems = [

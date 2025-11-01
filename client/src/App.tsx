@@ -7,7 +7,8 @@ import NotFound from "@/pages/not-found";
 import { Landing } from "@/pages/Landing";
 import { Dashboard } from "@/pages/Dashboard";
 import { MyRenegade } from "@/pages/MyRenegade";
-import { VisionGoals } from "@/pages/VisionGoals";
+import { Vision } from "@/pages/Vision";
+import { Goals } from "@/pages/Goals";
 import { KPIs } from "@/pages/KPIs";
 import { Sales } from "@/pages/Sales";
 import { MarketAnalysis } from "@/pages/MarketAnalysis";
@@ -16,12 +17,12 @@ import AppraisalsPage from "@/pages/Appraisals";
 import BuyersPage from "@/pages/Buyers";
 import SellersPage from "@/pages/Sellers";
 import ListingsPage from "@/pages/Listings";
-import { BusinessAudit } from "@/pages/BusinessAudit";
+// import { BusinessAudit } from "@/pages/BusinessAudit";
 import { QuarterlyPriorities } from "@/pages/QuarterlyPriorities";
 import { Settings } from "@/pages/Settings";
 import { Scorecard } from "@/pages/Scorecard";
 import { Meetings } from "@/pages/Meetings";
-import { Reports } from "@/pages/Reports";
+// import { Reports } from "@/pages/Reports";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -49,8 +50,8 @@ function Router() {
       <Route path="/assessment-intro" component={AssessmentIntro} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/my-renegade" component={MyRenegade} />
-      <Route path="/vision-goals" component={VisionGoals} />
-      <Route path="/kpis" component={KPIs} />
+      <Route path="/vision" component={Vision} />
+      <Route path="/goals" component={Goals} />
       <Route path="/sales" component={Sales} />
       <Route path="/market-analysis" component={MarketAnalysis} />
       <Route path="/prospecting" component={Prospecting} />
@@ -58,12 +59,12 @@ function Router() {
       <Route path="/buyers" component={BuyersPage} />
       <Route path="/sellers" component={SellersPage} />
       <Route path="/listings" component={ListingsPage} />
-      <Route path="/business-audit" component={BusinessAudit} />
+      {/* Temporarily show KPIs content under Business Audit */}
+      <Route path="/business-audit" component={KPIs} />
       <Route path="/quarterly-priorities" component={QuarterlyPriorities} />
       <Route path="/settings" component={Settings} />
       <Route path="/scorecard" component={Scorecard} />
       <Route path="/meetings" component={Meetings} />
-      <Route path="/reports" component={Reports} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
