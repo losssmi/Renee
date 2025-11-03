@@ -2,7 +2,6 @@ import { useState } from "react";
 import { DashboardPageLayout } from "@/components/DashboardPageLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SellersContent } from "./Sellers";
-import { ListingsContent } from "./Listings";
 import { AppraisalsContent } from "./Appraisals";
 import { BuyersContent } from "./Buyers";
 
@@ -32,13 +31,6 @@ export function Prospecting() {
                 <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Sellers</span>
               </TabsTrigger>
               <TabsTrigger 
-                value="listings" 
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
-                data-testid="tab-listings"
-              >
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Listings</span>
-              </TabsTrigger>
-              <TabsTrigger 
                 value="buyers" 
                 className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2"
                 data-testid="tab-buyers"
@@ -61,10 +53,6 @@ export function Prospecting() {
                 </p>
               </div>
               <SellersContent />
-            </TabsContent>
-
-            <TabsContent value="listings" className="mt-0">
-              <ListingsContent />
             </TabsContent>
 
             <TabsContent value="buyers" className="mt-0">
