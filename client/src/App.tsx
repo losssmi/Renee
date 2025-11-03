@@ -9,7 +9,6 @@ import { Dashboard } from "@/pages/Dashboard";
 import { MyRenegade } from "@/pages/MyRenegade";
 import { Vision } from "@/pages/Vision";
 import { Goals } from "@/pages/Goals";
-import { KPIs } from "@/pages/KPIs";
 import { Sales } from "@/pages/Sales";
 import { MarketAnalysis } from "@/pages/MarketAnalysis";
 import { Prospecting } from "@/pages/Prospecting";
@@ -22,7 +21,6 @@ import { QuarterlyPriorities } from "@/pages/QuarterlyPriorities";
 import { Settings } from "@/pages/Settings";
 import { Scorecard } from "@/pages/Scorecard";
 import { Meetings } from "@/pages/Meetings";
-import { Reports } from "@/pages/Reports";
 import { Login } from "@/pages/Login";
 import { ChooseUsername } from "@/pages/ChooseUsername";
 import { WorkLocation } from "@/pages/WorkLocation";
@@ -53,7 +51,6 @@ function Router() {
       <Route path="/my-renegade" component={MyRenegade} />
       <Route path="/vision" component={Vision} />
       <Route path="/goals" component={Goals} />
-      <Route path="/kpis" component={KPIs} />
       <Route path="/sales" component={Sales} />
       <Route path="/market-analysis" component={MarketAnalysis} />
       <Route path="/prospecting" component={Prospecting} />
@@ -66,7 +63,6 @@ function Router() {
       <Route path="/settings" component={Settings} />
       <Route path="/scorecard" component={Scorecard} />
       <Route path="/meetings" component={Meetings} />
-      <Route path="/reports" component={Reports} />
       <Route path="/to-dos" component={ToDos} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
