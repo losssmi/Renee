@@ -32,6 +32,7 @@ import { Step2Strategy } from "@/pages/Step2Strategy";
 import { Step3Structure } from "@/pages/Step3Structure";
 import { Step4Accountability } from "@/pages/Step4Accountability";
 import { AssessmentIntro } from "@/pages/AssessmentIntro";
+import { ToDos } from "@/pages/ToDos";
 
 function Router() {
   return (
@@ -66,6 +67,7 @@ function Router() {
       <Route path="/scorecard" component={Scorecard} />
       <Route path="/meetings" component={Meetings} />
       <Route path="/reports" component={Reports} />
+      <Route path="/to-dos" component={ToDos} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
