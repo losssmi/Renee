@@ -31,7 +31,7 @@ const structureItems = [
 const accountabilityItems = [
   { label: "Scorecard", path: "/scorecard" },
   { label: "Quarterly Priorities", path: "/quarterly-priorities" },
-  { label: "To-Dos", path: "/todos" },
+  { label: "To-Dos", path: "/to-dos" },
   { label: "Meetings", path: "/meetings" },
 ];
 
