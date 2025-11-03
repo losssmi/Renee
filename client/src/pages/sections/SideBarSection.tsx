@@ -18,7 +18,8 @@ const homeItems = [
 ];
 
 const strategyItems = [
-  { label: "Vision & Goals", path: "/vision-goals" },
+  { label: "Vision", path: "/vision" },
+  { label: "Goals", path: "/goals" },
   { label: "Market Analysis", path: "/market-analysis" },
   { label: "Quarterly Priorities", path: "/quarterly-priorities" },
 ];

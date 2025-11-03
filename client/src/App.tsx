@@ -7,7 +7,8 @@ import NotFound from "@/pages/not-found";
 import { Landing } from "@/pages/Landing";
 import { Dashboard } from "@/pages/Dashboard";
 import { MyRenegade } from "@/pages/MyRenegade";
-import { VisionGoals } from "@/pages/VisionGoals";
+import { Vision } from "@/pages/Vision";
+import { Goals } from "@/pages/Goals";
 import { KPIs } from "@/pages/KPIs";
 import { Sales } from "@/pages/Sales";
 import { MarketAnalysis } from "@/pages/MarketAnalysis";
@@ -49,7 +50,8 @@ function Router() {
       <Route path="/assessment-intro" component={AssessmentIntro} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/my-renegade" component={MyRenegade} />
-      <Route path="/vision-goals" component={VisionGoals} />
+      <Route path="/vision" component={Vision} />
+      <Route path="/goals" component={Goals} />
       <Route path="/kpis" component={KPIs} />
       <Route path="/sales" component={Sales} />
       <Route path="/market-analysis" component={MarketAnalysis} />
