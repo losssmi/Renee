@@ -24,6 +24,34 @@ export function BusinessAudit() {
   const { toast } = useToast();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [activeMainTab, setActiveMainTab] = useState("business-audit");
+
+  const assessmentQuestions = [
+    "Are you focusing on building your client base and learning the basics of prospecting?",
+    "Is your growth currently slow, with modest sales volume?",
+    "Have you implemented a daily prospecting schedule for lead generation?",
+    "Have you established mentorship relationships with at least two experienced agents?",
+    "Have you set up and maintained a CRM system?",
+    "Are you focusing on basic marketing and learning tools and techniques?",
+    "Are you concentrating on learning and small transactions, with heavy reliance on mentors and guidance?",
+    "Do you have an administrative assistant or 1 junior agent on your team?",
+    "Are you focusing on building systems and expanding prospecting efforts to strengthen client relationships?",
+    "Is your sales volume increasing, with a broader market reach?",
+    "Have you standardised pipeline stages and implemented CRM tools for sales?",
+    "Are you building strong relationships to secure repeat business?",
+    "Have you automated routine marketing tasks to save time?",
+    "Are you utilising social media, basic digital marketing, and local networking for client acquisition?",
+    "Is your prospecting more consistent, targeting higher-value clients, and refining your sales pitch?",
+  ];
+
+  const [kpiResponses, setKpiResponses] = useState<Record<number, 'yes' | 'no' | null>>({});
+
+  const setKpiResponse = (index: number, value: 'yes' | 'no') => {
+    setKpiResponses({ 
+      ...kpiResponses, 
+      [index]: kpiResponses[index] === value ? null : value 
+    });
+  };
 
   const [marketingPlan, setMarketingPlan] = useState<MarketingActivity[]>([
     { activity: "CRM", frequency: "Monthly", budgetPerMonth: "", totalBudget: "" },
@@ -159,42 +187,70 @@ export function BusinessAudit() {
       <main className="flex-1 flex flex-col bg-[#f5f5f5] w-full lg:w-auto">
         <DashboardHeaderSection />
         
-        <Tabs defaultValue="marketing" className="flex-1 flex flex-col">
-          <div className="px-6 py-5 bg-[#f5f5f5]">
-            <div className="flex items-center justify-between mb-4">
+        <div className="px-6 py-5 bg-[#f5f5f5]">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col gap-2">
               <h1 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-snug">
-                Business Plan
+                Business Audit
               </h1>
-              <button
-                onClick={() => {
-                  if (isEditing) {
-                    handleSave();
-                  } else {
-                    setIsEditing(true);
-                  }
-                }}
-                className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-[10px] tracking-[-0.1px] leading-7 px-3 py-1 border border-[#ededed] rounded-lg bg-white hover:bg-gray-50 transition-colors"
-                data-testid="button-edit-business-plan"
-              >
-                {isEditing ? "Save" : "Edit"}
-              </button>
+              <p className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#394e66] text-sm tracking-[0] leading-[21px]">
+                Assess your business health across marketing, sales, and operations.
+              </p>
             </div>
+            <button
+              onClick={() => {
+                if (isEditing) {
+                  handleSave();
+                } else {
+                  setIsEditing(true);
+                }
+              }}
+              className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-[10px] tracking-[-0.1px] leading-7 px-3 py-1 border border-[#ededed] rounded-lg bg-white hover:bg-gray-50 transition-colors"
+              data-testid="button-edit-business-audit"
+            >
+              {isEditing ? "Save" : "Edit"}
+            </button>
+          </div>
+        </div>
 
-            <TabsList className="bg-transparent border-b border-gray-200 rounded-none p-0 h-auto">
-              <TabsTrigger value="marketing" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-marketing">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Marketing</span>
+        <Tabs value={activeMainTab} onValueChange={setActiveMainTab} className="flex-1 flex flex-col">
+          <div className="px-6 bg-[#f5f5f5]">
+            <TabsList className="bg-transparent border-b border-gray-200 rounded-none p-0 h-auto mb-4">
+              <TabsTrigger 
+                value="business-audit" 
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" 
+                data-testid="tab-business-audit"
+              >
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Business Audit</span>
               </TabsTrigger>
-              <TabsTrigger value="prospecting" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-prospecting">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Prospecting</span>
-              </TabsTrigger>
-              <TabsTrigger value="sales" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-sales">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Sales</span>
-              </TabsTrigger>
-              <TabsTrigger value="operations" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-operations">
-                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Operations & Team</span>
+              <TabsTrigger 
+                value="kpis" 
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" 
+                data-testid="tab-kpis"
+              >
+                <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">KPIs</span>
               </TabsTrigger>
             </TabsList>
           </div>
+
+          <TabsContent value="business-audit" className="flex-1 mt-0">
+            <Tabs defaultValue="marketing" className="flex-1 flex flex-col">
+              <div className="px-6 bg-[#f5f5f5]">
+                <TabsList className="bg-transparent border-b border-gray-200 rounded-none p-0 h-auto mb-4">
+                  <TabsTrigger value="marketing" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-marketing">
+                    <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Marketing</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="prospecting" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-prospecting">
+                    <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Prospecting</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="sales" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-sales">
+                    <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Sales</span>
+                  </TabsTrigger>
+                  <TabsTrigger value="operations" className="rounded-none border-b-2 border-transparent data-[state=active]:border-[#172a41] data-[state=active]:bg-transparent pb-2" data-testid="tab-operations">
+                    <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-sm">Operations & Team</span>
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
           <TabsContent value="marketing" className="flex-1 mt-0">
             <div className="px-6 pb-6 flex flex-col gap-4 bg-[#f5f5f5]">
@@ -649,6 +705,72 @@ export function BusinessAudit() {
                       </li>
                     ))}
                   </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+            </Tabs>
+          </TabsContent>
+
+          <TabsContent value="kpis" className="flex-1 mt-0">
+            <div className="px-6 pb-6 bg-[#f5f5f5]">
+              <Card className="bg-white border-[#ededed] shadow-sm">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-6">
+                    <img className="w-6 h-6" alt="KPIs" src="/figmaAssets/lsicon-sales-return-outline.svg" />
+                    <h2 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-base tracking-[-0.16px] leading-7">
+                      Stage of Business Growth Assessments
+                    </h2>
+                  </div>
+
+                  <h3 className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-sm mb-4">
+                    Lead Overview
+                  </h3>
+                  
+                  <div className="space-y-4">
+                    {/* Header Row */}
+                    <div className="grid grid-cols-[1fr_50px_50px] gap-4 pb-2 border-b-2 border-gray-200">
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs">
+                        Assessment Question
+                      </span>
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs text-center">
+                        Y
+                      </span>
+                      <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-semibold text-[#172a41] text-xs text-center">
+                        N
+                      </span>
+                    </div>
+
+                    {/* Question Rows */}
+                    {assessmentQuestions.map((question, index) => (
+                      <div 
+                        key={index} 
+                        className="grid grid-cols-[1fr_50px_50px] gap-4 items-center py-2 border-b border-gray-100"
+                      >
+                        <span className="[font-family:'Plus_Jakarta_Sans',Helvetica] font-normal text-[#172a41] text-sm">
+                          {question}
+                        </span>
+                        <div className="flex justify-center">
+                          <Checkbox
+                            checked={kpiResponses[index] === 'yes'}
+                            onCheckedChange={() => setKpiResponse(index, 'yes')}
+                            disabled={!isEditing}
+                            className="w-5 h-5 data-[state=checked]:bg-[#09b600] data-[state=checked]:border-[#09b600]"
+                            data-testid={`checkbox-yes-${index}`}
+                          />
+                        </div>
+                        <div className="flex justify-center">
+                          <Checkbox
+                            checked={kpiResponses[index] === 'no'}
+                            onCheckedChange={() => setKpiResponse(index, 'no')}
+                            disabled={!isEditing}
+                            className="w-5 h-5 data-[state=checked]:bg-red-500 data-[state=checked]:border-red-500"
+                            data-testid={`checkbox-no-${index}`}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>
